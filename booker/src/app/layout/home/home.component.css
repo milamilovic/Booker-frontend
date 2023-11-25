@@ -1,9 +1,8 @@
 .background {
   background-image: url("../../../assets/backgound_image.png");
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-size: contain;
   background-position: center;
-  height: 100%;
+  height: fit-content;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -52,27 +51,34 @@ form {
   background-color: #90A28880;
   padding: 10px;
   border-radius: 10px;
-}
-ul {
-  width: 100%;
-  overflow-x: scroll;
-  list-style: none;
-  scroll-behavior: smooth;
-}
-li {
-  width: fit-content;
-  display: inline;
+  white-space: nowrap;
 }
 .card {
-  height: 30%;
-  min-height: 150px;
-  max-width: 300px;
-  background-color: #3c3c3c60;
+  height: 230px;
+  width: 300px;
+  background-color: #90A288;
   border-radius: 10px;
+}
+ul {
+  width: 150%;
+  height: 260px;
+  display: inline-block;
+  white-space: nowrap;
+  padding-right: 15px;
+  padding-left: 15px;
+  overflow-x: scroll;
+}
+li {
+  width: 300px;
+  height: 200px;
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
 }
 img {
   border-radius: 10px;
-  width: 90%;
+  width: 280px;
+  height: 180px;
   margin: 10px;
 }
 .name {
