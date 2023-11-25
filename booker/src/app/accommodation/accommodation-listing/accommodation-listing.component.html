@@ -33,7 +33,9 @@
     </form>
     <br>
     <div class="placeholder">
-
+      <div *ngFor="let accommodation of accommodations">
+        <app-accommodation-card [accommodation]="accommodation"></app-accommodation-card>
+      </div>
     </div>
   </div>
 </div>
