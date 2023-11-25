@@ -1,0 +1,54 @@
+.log-in-button,
+.sign-up-button,
+.search-button {
+  float: right;
+  margin-right: 10px;
+  border-radius: 15px;
+  background-color: #90A288;
+  width: 10%;
+  height: 70%;
+  margin-top: 10px;
+  text-align: center;
+}
+.log-in,
+.sign-up,
+.vector-icon4 {
+  margin-top: 10px;
+}
+.search-button {
+  top: 10%;
+  border-radius: 15px;
+  background-color: #90A288;
+  width: 5%;
+  height: 70%;
+}
+.big-logo-icon1 {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  width: 200px;
+  height: 50px;
+  object-fit: fill;
+}
+.vector-icon4 {
+  position: relative;
+  height: 60%;
+  width: 60%;
+  align-self: center;
+  overflow: hidden;
+}
+.property-1default {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: #90A28860;
+  width: 100%;
+  height: 80px;
+  overflow: hidden;
+  font-family: Roboto;
+}
+mat-toolbar {
+  background-color: #90A28860;
+  width: 100%;
+  height: 80px;
+}
