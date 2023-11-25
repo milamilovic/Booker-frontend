@@ -1,0 +1,39 @@
+<div class="background">
+  <div class="container">
+    <form>
+      <div>
+        <input type="text" id="where_input" name="where_input" placeholder="Where to?">
+        <input type="date" id="from_date" name="from_date" placeholder="When?">
+        <input type="date" id="to_date" name="to_date" placeholder="When?">
+        <input type="number" id="people_input" name="people_input" placeholder="How many people?">
+        <button id="search_button" class="search-button">Search!</button>
+      </div>
+      <div class="filters">
+        <div class="left_part_accommodations">
+          <mat-checkbox class="amenities"><p class="filter-text">Wi-fi</p></mat-checkbox>
+          <mat-checkbox class="amenities"><p class="filter-text">AC</p></mat-checkbox>
+          <mat-checkbox class="amenities"><p class="filter-text">Kitchen</p></mat-checkbox>
+          <mat-checkbox class="amenities"><p class="filter-text">Free parking</p></mat-checkbox>
+        </div>
+        <div class="right_part">
+          <mat-radio-group aria-label="Select an accommodation type: " class="right_part_acc_type">
+            <mat-radio-button value="1"><p class="filter-text">all</p></mat-radio-button>
+            <mat-radio-button value="2"><p class="filter-text">studio</p></mat-radio-button>
+            <mat-radio-button value="3"><p class="filter-text">hotel</p></mat-radio-button>
+            <mat-radio-button value="4"><p class="filter-text">villa</p></mat-radio-button>
+            <mat-radio-button value="5"><p class="filter-text">room</p></mat-radio-button>
+            <mat-radio-button value="6"><p class="filter-text">resort</p></mat-radio-button>
+          </mat-radio-group>
+          <div class="right_part_price">
+            <input type="number" id="min_price" name="min_price" placeholder="minimum">
+            <input type="number" id="max_price" name="max_price" placeholder="maximum">
+          </div>
+        </div>
+      </div>
+    </form>
+    <br>
+    <div class="placeholder">
+
+    </div>
+  </div>
+</div>
