@@ -13,7 +13,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     HomeComponent
   ],
   exports: [
-    NavBarComponent
+    NavBarComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
