@@ -9,6 +9,7 @@ import { RegisterComponent } from './layout/register/register.component';
 import {MaterialModule} from "./infrastructure/material/material.module";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatSelectModule} from "@angular/material/select";
+import {AccommodationModule} from "./accommodation/accommodation.module";
 
 @NgModule({
   declarations: [
@@ -18,11 +19,13 @@ import {MatSelectModule} from "@angular/material/select";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     LayoutModule,
     BrowserAnimationsModule,
     MaterialModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
+    AccommodationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
