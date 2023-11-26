@@ -1,22 +1,27 @@
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.background {
+  background-image: url("../../../assets/images/pozadina.png");
   height: 100vh;
+  background-position: center;
   margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content both horizontally and vertically */
 }
 
 .login-container {
   width: 573px;
   height: 567px;
   border-radius: 30px;
-  background-color: rgba(144, 162, 136, 60%);
+  background-color: rgba(144, 162, 136, 0.6);
   text-align: center;
   padding: 20px;
-  position: relative;
-  left: 434px;
-  top: 221px
 }
+
+/* ... (rest of your CSS remains unchanged) */
+
 
 .logo {
   width: 375px;
