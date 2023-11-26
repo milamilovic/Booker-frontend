@@ -1,1 +1,167 @@
-<p>accommodation component works!</p>
+<div class="desktop-11">
+
+  <div class="dialog1">
+
+    <div class="photo-box">
+
+      <img
+        alt=""
+        src="../../../assets/images/apartment_image.jpg"
+      />
+
+      <img
+        alt=""
+        src="../../../assets/images/kitchen-2165756_640.jpg"
+      />
+
+      <img
+        alt=""
+        src="../../../assets/images/living-room.jpg"
+      />
+      <img
+        alt=""
+        src="../../../assets/images/apartment_image.jpg"
+      />
+
+      <img
+        alt=""
+        src="../../../assets/images/kitchen-2165756_640.jpg"
+      />
+
+      <img
+        alt=""
+        src="../../../assets/images/living-room.jpg"
+      />
+    </div>
+
+    <div class="description_box">
+      <div class="title"><b>Industrial design apartment</b></div>
+      <br>
+      <br>
+      <p class="description">
+        The units come with parquet floors and feature a fully equipped
+        kitchen with a microwave, a dining area, a flat-screen TV with
+        streaming services, and a private bathroom with walk-in shower and a
+        hair dryer. A toaster, a fridge and stovetop are also available, as
+        well as a coffee machine and a kettle.
+        The units come with parquet floors and feature a fully equipped
+        kitchen with a microwave, a dining area, a flat-screen TV with
+        streaming services, and a private bathroom with walk-in shower and a
+        hair dryer. A toaster, a fridge and stovetop are also available, as
+        well as a coffee machine and a kettle.
+        <br><br>
+        Eventim Apollo is 2.4 km from the apartment, while South Kensington
+        Underground Station is 3 km from the property. The nearest airport
+        is London Heathrow Airport, 21 km from Central London Luxury Studios
+        Fulham Close to Underground Newly Refurbished.
+        The units come with parquet floors and feature a fully equipped
+        kitchen with a microwave, a dining area, a flat-screen TV with
+        streaming services, and a private bathroom with walk-in shower and a
+        hair dryer. A toaster, a fridge and stovetop are also available, as
+        well as a coffee machine and a kettle.The units come with parquet floors and feature a fully equipped
+        kitchen with a microwave, a dining area, a flat-screen TV with
+        streaming services, and a private bathroom with walk-in shower and a
+        hair dryer. A toaster, a fridge and stovetop are also available, as
+        well as a coffee machine and a kettle.
+      </p>
+    </div>
+
+    <div class="container">
+      <b class="title">Amenities: </b>
+      <br>
+      <br>
+      <div class="amenity_container">
+        <div class="amenity">
+          <img class="amenity_image" src="../../../assets/images/icons8-wifi-30.png">
+          <p>free wi-fi</p>
+        </div>
+        <div class="amenity">
+          <img class="amenity_image" src="../../../assets/images/icons8-ac-30.png">
+          <p>ac</p>
+        </div>
+        <div class="amenity">
+          <img class="amenity_image" src="../../../assets/images/icons8-location-32.png">
+          <p>good location</p>
+        </div>
+        <div class="amenity">
+          <img class="amenity_image" src="../../../assets/images/icons8-calendar-32.png">
+          <p>free cancelation</p>
+        </div>
+        <div class="amenity">
+          <img class="amenity_image" src="../../../assets/images/icons8-location-32.png">
+          <p>good location</p>
+        </div>
+        <div class="amenity">
+          <img class="amenity_image" src="../../../assets/images/icons8-calendar-32.png">
+          <p>free cancelation</p>
+        </div>
+        <div class="amenity">
+          <img class="amenity_image" src="../../../assets/images/icons8-location-32.png">
+          <p>good location</p>
+        </div>
+        <div class="amenity">
+          <img class="amenity_image" src="../../../assets/images/icons8-calendar-32.png">
+          <p>free cancelation</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="description_box">
+      <b class="title">Comments:</b><br><br><br>
+      <div class="rating_container">
+        <p><b>Rating: </b></p><p class="rating">4.8</p><p>/5.0</p>
+      </div>
+      <div class="comment">
+        <img class="profile" src="../../../assets/images/profile_image.jpg">
+        <div class="right_part">
+          <p class="commenter_name">Annie Smith</p>
+          <br><br>
+          <p class="comment_text">This is a very lovely apartment and I enjoyed my stay very much!</p>
+        </div>
+      </div>
+      <div class="comment">
+        <img class="profile" src="../../../assets/images/profile_image.jpg">
+        <div class="right_part">
+          <p class="commenter_name">Annie Smith</p>
+          <br><br>
+          <p class="comment_text">This is a very lovely apartment and I enjoyed my stay very much!</p>
+        </div>
+      </div>
+      <div class="comment">
+        <img class="profile" src="../../../assets/images/profile_image.jpg">
+        <div class="right_part">
+          <p class="commenter_name">Annie Smith</p>
+          <br><br>
+          <p class="comment_text">This is a very lovely apartment and I enjoyed my stay very much!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="description_box">
+      <b class="title">Address:</b><br>
+      <i class="address">Example address 12b</i>
+      <button class="map_button">Show on map</button>
+    </div>
+
+    <div class="reservation">
+      <b class="title">Make a reservation request: </b><br><br>
+      <div class="left_part_reservation">
+        <mat-form-field>
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate placeholder="Start date">
+            <input matEndDate placeholder="End date">
+          </mat-date-range-input>
+          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+      <form>
+        <input type="number" id="people_input" name="people_input" placeholder="How many people?">
+        <button class="reservation_btn">Make a request!</button>
+      </form>
+    </div>
+
+  </div>
+</div>
