@@ -18,6 +18,7 @@ import {MaterialModule} from "../infrastructure/material/material.module";
   exports: [
     NavBarComponent,
     LoginComponent
+    HomeComponent
   ],
   imports: [
     CommonModule,
