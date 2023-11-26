@@ -1,6 +1,6 @@
 
 .desktop-11 {
-  background-image: url("../../../assets/background_image.png");
+  background-image: url("../../../assets/images/background_image.png");
   background-size: contain;
   background-position: center;
   height: fit-content;
@@ -17,8 +17,8 @@
   position: relative;
   top: 50px;
   left: 50px;
-  border-radius: 5px;
-  background-color: #90A288;
+  border-radius: 10px;
+  background-color: #90A28880;
   width: 93%;
   height: fit-content;
   min-height: 1700px;
@@ -41,4 +41,53 @@ img {
   border-radius: 10px;
   float: left;
   margin-right: 10px;
+}
+.description_box {
+  padding: 1%;
+  margin-left: 1.5%;
+  width: 95%;
+  background-color: #90A288;
+  border-radius: 10px;
+  float: left;
+  margin-bottom: 10px;
+}
+.title {
+  font-size: 20px;
+  float: left;
+  height: 100%;
+  display: inline;
+  margin-bottom: 10px;
+}
+.description {
+  text-align: justify;
+  font-size: 13px;
+}
+.container {
+  padding: 1%;
+  margin-left: 1.5%;
+  width: 95%;
+  height: fit-content;
+  background-color: #90A288;
+  border-radius: 10px;
+  float: left;
+  margin-bottom: 10px;
+}
+.amenity_container {
+  float: left;
+  display: flex;
+  flex-wrap: wrap;
+}
+.amenity {
+  position: relative;
+  display: flex;
+  float: initial;
+  width: 180px;
+  height: 60px;
+}
+.amenity_image {
+  position: relative;
+  left: 5px;
+  display: inline;
+  height: 30px;
+  width: 30px;
 }
