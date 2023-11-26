@@ -6,6 +6,7 @@ import {MatRadioModule} from "@angular/material/radio";
 import { AccommodationComponent } from './accommodation/accommodation.component';
 import {AccommodationCardComponent} from "./accommodation-card/accommodation-card.component";
 import {MatCardModule} from "@angular/material/card";
+import {RouterLink} from "@angular/router";
 
 
 
@@ -20,7 +21,8 @@ import {MatCardModule} from "@angular/material/card";
     CommonModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatCardModule
+    MatCardModule,
+    RouterLink
   ]
 })
 export class AccommodationModule { }

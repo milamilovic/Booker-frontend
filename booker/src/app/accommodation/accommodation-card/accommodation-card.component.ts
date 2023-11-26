@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AccommodationListingDto} from "../accommodation/model/accommodation.model";
 
 @Component({
@@ -9,6 +9,13 @@ import {AccommodationListingDto} from "../accommodation/model/accommodation.mode
 export class AccommodationCardComponent {
   @Input()
   accommodation: AccommodationListingDto;
+
+  @Output()
+  clicked: EventEmitter<AccommodationListingDto> = new EventEmitter<AccommodationListingDto>();
+
+  onAccommodationClick(): void {
+    this.clicked.emit(this.accommodation);
+  }
 
   constructor() {
     this.accommodation = {

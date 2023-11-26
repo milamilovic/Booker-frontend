@@ -39,4 +39,7 @@ export class AccommodationListingComponent {
   clickedAcc: string = ''
 
 
+  onAccommodationClick(accommodation: AccommodationListingDto) {
+    this.clickedAcc = accommodation.name + " " + accommodation.id;
+  }
 }
