@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .background {
   background-image: url("../../../assets/images/pozadina.png");
   height: 100vh;
@@ -8,37 +12,47 @@
   background-size: cover;
   display: flex;
   align-items: center;
-  justify-content: center; /* Center content both horizontally and vertically */
+  justify-content: center;
 }
 
-.login-container {
-  width: 573px;
-  height: 567px;
+.register-container {
+  width: 1002px;
+  height: 758px;
   border-radius: 30px;
   background-color: rgba(144, 162, 136, 0.6);
   text-align: center;
   padding: 20px;
+  margin: 50px;
+
 }
 
-
 .logo {
-  width: 375px;
-  height: 105px;
-  left: 533px;
-  top: 288px;
+  width: 355px;
+  height: 85px;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  margin: 50px;
+  margin: 20px;
+  align-items: flex-start;
+}
+
+.left-column {
+  display: block;
+  flex-direction: column;
+}
+
+mat-form-field {
+  margin: 10px;
+  width: 400px;
 }
 
 #buttons {
   margin-left: 50px;
 }
 
-#btnLogin {
+#btnRegister {
   position: relative;
   color: #E5E5E5;
   background-color: #3C3C3C;
@@ -72,22 +86,5 @@ form {
   display: inline-flex;
   margin-left: 50px;
   align-content: flex-end;
-}
-
-.example-container mat-form-field + mat-form-field {
-  margin-left: 8px;
-}
-
-.example-right-align {
-  text-align: right;
-}
-
-input.example-right-align::-webkit-outer-spin-button,
-input.example-right-align::-webkit-inner-spin-button {
-  display: none;
-}
-
-input.example-right-align {
-  -moz-appearance: textfield;
 }
 

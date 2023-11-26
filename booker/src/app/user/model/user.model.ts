@@ -1,3 +1,5 @@
+import {UserType} from "../../enums/user-type.enum";
+
 export interface User {
   _id: number;
   name: string;
@@ -6,4 +8,5 @@ export interface User {
   address: string;
   phone: string;
   password: string;
+  type: UserType;
 }

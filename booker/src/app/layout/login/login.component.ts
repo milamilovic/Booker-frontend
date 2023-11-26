@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {LoginService} from "./login.service";
+import {UserService} from "../../user.service";
 
 
 @Component({
@@ -11,12 +11,13 @@ import {LoginService} from "./login.service";
 export class LoginComponent {
   hide = true;
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required])
   });
 
-  constructor(private loginService: LoginService) {
+  constructor(private userService : UserService) {
   }
+
 
   ngOnInit(): void {}
 
