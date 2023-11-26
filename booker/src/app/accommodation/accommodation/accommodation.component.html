@@ -67,7 +67,7 @@
     </div>
 
     <div class="container">
-      <b class="title">Amenities:</b>
+      <b class="title">Amenities: </b>
       <br>
       <br>
       <div class="amenity_container">
@@ -141,6 +141,26 @@
       <b class="title">Address:</b><br>
       <i class="address">Example address 12b</i>
       <button class="map_button">Show on map</button>
+    </div>
+
+    <div class="reservation">
+      <b class="title">Make a reservation request: </b><br><br>
+      <div class="left_part_reservation">
+        <mat-form-field>
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate placeholder="Start date">
+            <input matEndDate placeholder="End date">
+          </mat-date-range-input>
+          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+      <form>
+        <input type="number" id="people_input" name="people_input" placeholder="How many people?">
+        <button class="reservation_btn">Make a request!</button>
+      </form>
     </div>
 
   </div>

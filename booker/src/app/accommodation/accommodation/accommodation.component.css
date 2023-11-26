@@ -4,7 +4,7 @@
   background-size: contain;
   background-position: center;
   height: fit-content;
-  min-height: 1800px;
+  min-height: 1500px;
   max-height: max-content;
   width: 100%;
   overflow: hidden;
@@ -21,7 +21,7 @@
   background-color: #90A28880;
   width: 93%;
   height: fit-content;
-  min-height: 1700px;
+  min-height: 1400px;
   overflow: hidden;
 }
 .photo-box {
@@ -48,19 +48,21 @@ img {
   width: 95%;
   background-color: #90A288;
   border-radius: 10px;
-  float: left;
+  text-align: left;
   margin-bottom: 10px;
   overflow: hidden;
 }
 .title {
   font-size: 20px;
-  float: left;
+  justify-content: left;
   height: 100%;
   display: inline;
   margin-bottom: 10px;
+  width: 100%;
+  text-align: left;
 }
 .description {
-  text-align: justify;
+  text-align: left;
   font-size: 13px;
 }
 .container {
@@ -72,7 +74,10 @@ img {
   border-radius: 10px;
   float: left;
   margin-bottom: 10px;
+  align-content: flex-start;
+  text-align: left;
 }
+
 .amenity_container {
   float: left;
   display: flex;
@@ -151,4 +156,40 @@ img {
 }
 .rating {
   margin-left: 20px;
+}
+
+.left_part_reservation {
+  float: left;
+}
+.reservation {
+  padding: 1%;
+  margin-left: 1.5%;
+  width: 95%;
+  height: fit-content;
+  background-color: #90A288;
+  border-radius: 10px;
+  float: left;
+  margin-bottom: 10px;
+  text-align: left;
+}
+.left_part_reservation {
+  margin-left: 50px;
+}
+.reservation_btn {
+  background-color: #3c3c3c;
+  color: #e5e5e5;
+  border-radius: 10px;
+  border: #00000000;
+  min-height: 50px;
+  width: 16%;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+#people_input {
+  border-radius: 10px;
+  border-color: #00000000;
+  background-color: #e5e5e580;
+  height: 50px;
+  width: 20%;
+  margin-left: 50px;
 }

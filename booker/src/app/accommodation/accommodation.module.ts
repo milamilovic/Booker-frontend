@@ -7,13 +7,14 @@ import { AccommodationComponent } from './accommodation/accommodation.component'
 import {AccommodationCardComponent} from "./accommodation-card/accommodation-card.component";
 import {MatCardModule} from "@angular/material/card";
 import {RouterLink} from "@angular/router";
+import {MatInputModule} from "@angular/material/input";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 
 
 @NgModule({
   declarations: [
     AccommodationListingComponent,
-    AccommodationComponent,
     AccommodationCardComponent,
     AccommodationCardComponent
   ],
@@ -22,7 +23,13 @@ import {RouterLink} from "@angular/router";
     MatCheckboxModule,
     MatRadioModule,
     MatCardModule,
-    RouterLink
+    RouterLink,
+    MatInputModule,
+    MatDatepickerModule,
+    AccommodationComponent
+  ],
+  exports: [
+    AccommodationComponent
   ]
 })
 export class AccommodationModule { }
