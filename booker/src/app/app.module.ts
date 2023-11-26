@@ -5,17 +5,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {LayoutModule} from "./layout/layout.module";
+import { RegisterComponent } from './layout/register/register.component';
+import {MaterialModule} from "./infrastructure/material/material.module";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatSelectModule} from "@angular/material/select";
 import {AccommodationModule} from "./accommodation/accommodation.module";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    MatRadioModule,
+    MatSelectModule,
     AccommodationModule
   ],
   providers: [],
