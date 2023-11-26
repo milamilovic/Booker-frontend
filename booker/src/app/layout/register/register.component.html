@@ -1,0 +1,55 @@
+<div class="background">
+  <div class="register-container">
+    <img src="../../../assets/images/big-logo.png" alt="logo" class="logo">
+    <form [formGroup]="registerForm" class="row">
+      <div class="left-column">
+        <mat-form-field>
+          <mat-label>Enter your name</mat-label>
+          <input matInput required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Enter your surname</mat-label>
+          <input matInput required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Enter your address</mat-label>
+          <input matInput required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Enter your phone number</mat-label>
+          <input matInput required>
+        </mat-form-field>
+      </div>
+      <div class="right-column">
+        <mat-form-field>
+          <mat-label>Enter your email</mat-label>
+          <input matInput placeholder="pat@example.com" [formControl]="email" required>
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'"required>
+        </mat-form-field>
+        <mat-form-field>
+        <mat-label>Confirm your password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'"required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Select</mat-label>
+          <mat-select>
+            <mat-option value=UserType.Guest>Guest</mat-option>
+            <mat-option value="two">Owner</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+    <div id="buttons">
+      <button type="submit" mat-raised-button id="btnRegister" [routerLink]="['/home']" (click)="register()">Register</button>
+      <button type="reset" mat-raised-button id="btnCancel">Cancel</button>
+    </div>
+    <div id="sign-up">
+      <span id="account">Already have an account?<button mat-button id="btnSignUp" [routerLink]="['/login']">Log in</button></span>
+
+    </div>
+  </div>
+</div>
