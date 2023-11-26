@@ -18,6 +18,7 @@ export class AccommodationCardComponent {
       totalPrice: 0,
       pricePerDay: 0,
       rating: 0,
+      image: ''
     }
   }
 }

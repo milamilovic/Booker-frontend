@@ -104,3 +104,12 @@ form {
   white-space: nowrap;
   overflow: hidden;
 }
+app-accommodation-card {
+  margin: 2px;
+  height: fit-content;
+}
+card_div {
+  height: fit-content;
+  max-height: min-content;
+  margin: 2px;
+}

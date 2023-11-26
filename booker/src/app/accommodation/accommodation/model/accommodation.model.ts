@@ -5,4 +5,5 @@ export interface AccommodationListingDto {
   totalPrice: number;
   pricePerDay: number;
   rating: number;
+  image: string;
 }

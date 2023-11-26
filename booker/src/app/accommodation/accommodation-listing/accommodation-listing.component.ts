@@ -14,7 +14,8 @@ export class AccommodationListingComponent {
       "shortDescription": "A charming cottage in the countryside",
       "totalPrice": 150,
       "pricePerDay": 50,
-      "rating": 4.5
+      "rating": 4.5,
+      "image": "../../assets/kitchen-2165756_640.jpg"
     },
     {
       "id": 2,
@@ -22,7 +23,8 @@ export class AccommodationListingComponent {
       "shortDescription": "Modern apartment with a stunning city view",
       "totalPrice": 200,
       "pricePerDay": 60,
-      "rating": 4.8
+      "rating": 4.8,
+      "image": "../../assets/living-room.jpg"
     },
     {
       "id": 3,
@@ -30,7 +32,8 @@ export class AccommodationListingComponent {
       "shortDescription": "Luxurious villa with direct access to the beach",
       "totalPrice": 500,
       "pricePerDay": 100,
-      "rating": 5.0
+      "rating": 5.0,
+      "image": "../../assets/kitchen-2165756_640.jpg"
     }
   ];
   clickedAcc: string = ''
