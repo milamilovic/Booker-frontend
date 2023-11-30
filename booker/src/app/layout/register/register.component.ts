@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserType} from "../../enums/user-type.enum";
-import {UserService} from "../../user.service";
+import {UserService} from "../../user/user.service";
 import {User} from "../../user/model/user.model";
 
 @Component({
