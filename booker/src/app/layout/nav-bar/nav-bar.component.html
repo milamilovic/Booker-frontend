@@ -2,6 +2,23 @@
   <div>
     <div class="property-1default">
       <img [routerLink]="['/home']" class="big-logo-icon1" alt="" src="../../assets/images/booker-high-resolution-logo-transparent.png" />
+      <div class="right-section-menu">
+        <button class="menu-toggle" (click)="toggleMenu()">Menu</button>
+        <ul class="right-menu" [ngClass]="{'show-menu': isMenuOpen}" id="menu">
+          <li class="menu-item"><a href="#">Reservations</a></li>
+          <li class="menu-item"><a href="#">Notifications</a></li>
+          <li class="menu-item"><a href="#">My accommodations</a></li>
+          <li class="menu-item"><a href="#">Reservation requests</a></li>
+          <li class="menu-item"><a href="#">Approve comments</a></li>
+          <li class="menu-item"><a href="#">Approve blocking</a></li>
+          <li class="menu-item"><a href="#">Approve accommodations</a></li>
+          <li class="menu-item"><a href="#">Favorite accommodations</a></li>
+          <li class="menu-item"><a href="#">Log out</a></li>
+        </ul>
+      </div>
+      <div class="profile-button">
+        <button class="profile">My profile</button>
+      </div>
       <div class="log-in-button">
         <button class="log-in" [routerLink]="['login']">Log in</button>
       </div>
