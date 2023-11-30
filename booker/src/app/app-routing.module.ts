@@ -5,6 +5,7 @@ import {AccommodationListingComponent} from "./accommodation/accommodation-listi
 import {LoginComponent} from "./layout/login/login.component";
 import {AccommodationComponent} from "./accommodation/accommodation/accommodation.component";
 import {RegisterComponent} from "./layout/register/register.component";
+import {GuestViewComponent} from "./user/guest-view/guest-view.component";
 
 
 const routes: Routes = [
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: 'accommodation/:accommodationId', component: AccommodationComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'search', component: AccommodationListingComponent}
+  {path: 'search', component: AccommodationListingComponent},
+  {path: 'guest', component: GuestViewComponent}
 ];
 
 @NgModule({
