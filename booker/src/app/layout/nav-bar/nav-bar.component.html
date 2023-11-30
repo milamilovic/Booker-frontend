@@ -5,15 +5,15 @@
       <div class="right-section-menu">
         <button class="menu-toggle" (click)="toggleMenu()">Menu</button>
         <ul class="right-menu" [ngClass]="{'show-menu': isMenuOpen}" id="menu">
-          <li class="menu-item"><a href="#">Reservations</a></li>
-          <li class="menu-item"><a href="#">Notifications</a></li>
-          <li class="menu-item"><a href="#">My accommodations</a></li>
-          <li class="menu-item"><a href="#">Reservation requests</a></li>
-          <li class="menu-item"><a href="#">Approve comments</a></li>
-          <li class="menu-item"><a href="#">Approve blocking</a></li>
-          <li class="menu-item"><a href="#">Approve accommodations</a></li>
-          <li class="menu-item"><a href="#">Favorite accommodations</a></li>
-          <li class="menu-item"><a href="#">Log out</a></li>
+          <li class="menu-item"><button type="button" (click)="toggleMenu()">Reservations</button></li>
+          <li class="menu-item"><button type="button" (click)="toggleMenu()">Notifications</button></li>
+          <li class="menu-item"><button type="button" (click)="toggleMenu()">My accommodations</button></li>
+          <li class="menu-item"><button type="button" (click)="toggleMenu()">Reservation requests</button></li>
+          <li class="menu-item"><button type="button" (click)="toggleMenu()">Approve comments</button></li>
+          <li class="menu-item"><button type="button" (click)="toggleMenu()">Approve blocking</button></li>
+          <li class="menu-item"><button type="button" (click)="toggleMenu()">Approve accommodations</button></li>
+          <li class="menu-item"><button type="button" (click)="toggleMenu()">Favorite accommodations</button></li>
+          <li class="menu-item"><button type="button" (click)="toggleMenu()" [routerLink]="['login']">Log out</button></li>
         </ul>
       </div>
       <div class="profile-button">
