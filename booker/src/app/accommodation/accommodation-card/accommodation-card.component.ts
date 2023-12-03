@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {AccommodationListingDto} from "../accommodation/model/accommodation.model";
+import {AccommodationListingDto} from "../accommodation/model/accommodation-listing.model";
 
 @Component({
   selector: 'app-accommodation-card',
