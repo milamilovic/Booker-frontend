@@ -1,45 +1,29 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AccommodationListingDto} from "../accommodation/model/accommodation.model";
+import {AccommodationService} from "../accommodation.service";
 
 @Component({
   selector: 'app-accommodation-listing',
   templateUrl: './accommodation-listing.component.html',
   styleUrls: ['./accommodation-listing.component.css']
 })
-export class AccommodationListingComponent {
-  accommodations: AccommodationListingDto[] = [
-    {
-      "id": 1,
-      "name": "Cozy Cottage",
-      "shortDescription": "A charming cottage in the countryside",
-      "totalPrice": 150,
-      "pricePerDay": 50,
-      "rating": 4.5,
-      "image": "../../assets/images/kitchen-2165756_640.jpg"
-    },
-    {
-      "id": 2,
-      "name": "City View Apartment",
-      "shortDescription": "Modern apartment with a stunning city view",
-      "totalPrice": 200,
-      "pricePerDay": 60,
-      "rating": 4.8,
-      "image": "../../assets/images/living-room.jpg"
-    },
-    {
-      "id": 3,
-      "name": "Beachfront Villa",
-      "shortDescription": "Luxurious villa with direct access to the beach",
-      "totalPrice": 500,
-      "pricePerDay": 100,
-      "rating": 5.0,
-      "image": "../../assets/images/kitchen-2165756_640.jpg"
-    }
-  ];
+export class AccommodationListingComponent implements OnInit {
+  accommodations: AccommodationListingDto[] = [];
   clickedAcc: string = ''
 
+  constructor(private service: AccommodationService) {
+  }
+
+  ngOnInit(): void {
+    this.service.searchAccommodations('23.23.2323.', '23.23.2323.', 'novi sad', 1).subscribe({
+      next: (data: AccommodationListingDto[]) => {
+        this.accommodations = data
+      },
+      error: (_) => {console.log("Greska!")}
+    })
+  }
 
   onAccommodationClick(accommodation: AccommodationListingDto) {
-    this.clickedAcc = accommodation.name + " " + accommodation.id;
+    this.clickedAcc = accommodation.title + " " + accommodation.id;
   }
 }

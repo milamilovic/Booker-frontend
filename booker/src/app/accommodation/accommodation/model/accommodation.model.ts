@@ -1,9 +1,11 @@
+import {Image} from "./Image";
+
 export interface AccommodationListingDto {
   id?: number;
-  name: string;
-  shortDescription: string;
+  title: string;
+  description: string;
+  image: Image;
+  rating: number;
   totalPrice: number;
   pricePerDay: number;
-  rating: number;
-  image: string;
 }

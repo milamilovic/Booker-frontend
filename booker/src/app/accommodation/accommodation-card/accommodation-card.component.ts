@@ -20,12 +20,15 @@ export class AccommodationCardComponent {
   constructor() {
     this.accommodation = {
       id: undefined,
-      name: '',
-      shortDescription: '',
+      title: '',
+      description: '',
       totalPrice: 0,
       pricePerDay: 0,
       rating: 0,
-      image: ''
+      image: {
+        path: '',
+        accommodation: {}
+      }
     }
   }
 }
