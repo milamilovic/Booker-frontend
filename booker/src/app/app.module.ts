@@ -10,6 +10,7 @@ import {MaterialModule} from "./infrastructure/material/material.module";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatSelectModule} from "@angular/material/select";
 import {AccommodationModule} from "./accommodation/accommodation.module";
+import {UserModule} from "./user/user.module";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {AccommodationModule} from "./accommodation/accommodation.module";
     MaterialModule,
     MatRadioModule,
     MatSelectModule,
-    AccommodationModule
+    AccommodationModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

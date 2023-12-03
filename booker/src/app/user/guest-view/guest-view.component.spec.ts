@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserComponent } from './user.component';
+import { GuestViewComponent } from './guest-view.component';
 
-describe('UserComponent', () => {
-  let component: UserComponent;
-  let fixture: ComponentFixture<UserComponent>;
+describe('GuestViewComponent', () => {
+  let component: GuestViewComponent;
+  let fixture: ComponentFixture<GuestViewComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UserComponent]
+      declarations: [GuestViewComponent]
     });
-    fixture = TestBed.createComponent(UserComponent);
+    fixture = TestBed.createComponent(GuestViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

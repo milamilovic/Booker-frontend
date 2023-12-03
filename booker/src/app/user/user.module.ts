@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserComponent } from './user.component';
+import { GuestViewComponent } from './guest-view/guest-view.component';
 
 
 
 @NgModule({
-  declarations: [
-    UserComponent
-  ],
   imports: [
     CommonModule
+  ],
+  declarations: [
+    GuestViewComponent
   ]
 })
 export class UserModule { }

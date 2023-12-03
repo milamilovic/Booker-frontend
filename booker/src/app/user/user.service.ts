@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {UserType} from "./enums/user-type.enum";
-import {User} from "./user/model/user.model";
+import {UserType} from "../enums/user-type.enum";
+import {User} from "./model/user.model";
 
 
 const USERS = [
