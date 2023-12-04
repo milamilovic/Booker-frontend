@@ -194,3 +194,10 @@ img {
   width: 20%;
   margin-left: 50px;
 }
+#price {
+  height: 50px;
+  width: 15%;
+  margin-left: 50px;
+  border-radius: 10px;
+  border-color: #00000000;
+}
