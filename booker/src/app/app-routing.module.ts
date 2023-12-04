@@ -11,7 +11,7 @@ import {GuestViewComponent} from "./user/guest-view/guest-view.component";
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
-  {path: 'accommodation/:accommodationId', component: AccommodationComponent},
+  {path: 'accommodation/:id', component: AccommodationComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'search', component: AccommodationListingComponent},

@@ -4,7 +4,7 @@
   background-size: contain;
   background-position: center;
   height: fit-content;
-  min-height: 1500px;
+  min-height: 100px;
   max-height: max-content;
   width: 100%;
   overflow: hidden;
@@ -21,8 +21,9 @@
   background-color: #90A28880;
   width: 93%;
   height: fit-content;
-  min-height: 1400px;
+  min-height: 100px;
   overflow: hidden;
+  padding-bottom: 20px;
 }
 .photo-box {
   width: 95%;
@@ -169,7 +170,7 @@ img {
   background-color: #90A288;
   border-radius: 10px;
   float: left;
-  margin-bottom: 10px;
+  margin-bottom: 60px;
   text-align: left;
 }
 .left_part_reservation {

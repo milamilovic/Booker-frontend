@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {AccommodationListingDto} from "../accommodation/model/accommodation.model";
+import {AccommodationListingDto} from "../accommodation/model/accommodation-listing.model";
 
 @Component({
   selector: 'app-accommodation-card',
@@ -20,12 +20,15 @@ export class AccommodationCardComponent {
   constructor() {
     this.accommodation = {
       id: undefined,
-      name: '',
-      shortDescription: '',
+      title: '',
+      description: '',
       totalPrice: 0,
       pricePerDay: 0,
       rating: 0,
-      image: ''
+      image: {
+        path: '',
+        accommodation: {}
+      }
     }
   }
 }

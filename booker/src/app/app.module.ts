@@ -11,6 +11,7 @@ import {MatRadioModule} from "@angular/material/radio";
 import {MatSelectModule} from "@angular/material/select";
 import {AccommodationModule} from "./accommodation/accommodation.module";
 import {UserModule} from "./user/user.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {UserModule} from "./user/user.module";
     MatRadioModule,
     MatSelectModule,
     AccommodationModule,
-    UserModule
+    UserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
