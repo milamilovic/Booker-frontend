@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./guest-view.component.css']
 })
 export class GuestViewComponent {
-
+  hide_new: boolean = true;
+  hide_confirm : boolean = true;
 }
