@@ -33,11 +33,17 @@
         <h2 class="section-title">Password: </h2>
         <div class="password-wrapper">
           <label class="password-label">new password: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-          <input type="password" class="password">
+          <input matInput [type]="hide_new ? 'password' : 'text'" class="password">
+          <button mat-icon-button matSuffix (click)="hide_new = !hide_new">
+            <mat-icon class="icon">{{hide_new ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
         </div>
         <div class="password-wrapper">
           <label class="password-label">confirm password: </label>
-          <input type="password" class="password">
+          <input matInput [type]="hide_confirm ? 'password' : 'text'" class="password">
+          <button mat-icon-button matSuffix (click)="hide_confirm = !hide_confirm">
+            <mat-icon class="icon">{{hide_confirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
         </div>
       </div>
       <div class="buttons-section">

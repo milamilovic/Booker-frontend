@@ -4,19 +4,21 @@
   background-image: url("../../../assets/images/backgound_image.png");
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .big-container {
   width: 60%;
-  height: 85%;
+  min-height: 85%;
+  height: fit-content;
   background-color: rgba(144, 162, 136, 0.6);
   border-radius: 30px;
   padding: 20px;
   display: flex;
   flex-direction: column;
+  margin: 10px;
 }
 
 .half-container{
@@ -74,7 +76,7 @@
   border-radius: 20px;
   padding: 20px;
   flex: 1;
-  height: 45vh;
+  height: fit-content;
   margin: 0 30px;
   display: flex;
   flex-direction: column;
@@ -83,7 +85,7 @@
 h2.section-title{
   color: #3c3c3c;
   margin: 10px 15px 15px 15px;
-  font-size: 28px;
+  font-size: 26px;
   font-family: 'Roboto';
   font-weight: bold;
   letter-spacing: 1.5px;
@@ -126,7 +128,6 @@ h2.section-title{
 .email,
 .address,
 .phone{
-  width: 60%;
   padding: 7px;
   background-color: #90A288;
   border: 0 #90A288;
@@ -168,6 +169,7 @@ h2.section-title{
   margin: 15px 0;
   display: flex;
   text-align: left;
+  align-items: center;
 }
 
 .password-label{
@@ -187,6 +189,17 @@ h2.section-title{
   font-weight: normal;
   font-size: 15px;
   text-align: left;
+}
+
+.mat-icon{
+  font-size:20px !important;
+  width:20px;
+  height:20px;
+
+}
+
+#mat-input-0{
+  height:20px !important;
 }
 
 
