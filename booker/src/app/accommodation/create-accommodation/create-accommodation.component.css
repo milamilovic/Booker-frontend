@@ -77,8 +77,15 @@
 
 /* Change the color of the step indicator (number) */
 ::ng-deep .mat-step-icon {
-  color: #E5E5E5; 
+  color: #E5E5E5;
 }
+
+.mat-grid-tile {
+    margin: 5px;
+    width: 150px;
+    height: 100px;
+}
+
 
 
 

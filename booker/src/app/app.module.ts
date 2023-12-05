@@ -23,20 +23,20 @@ import {MapModule} from "./map/map.module";
     CreateAccommodationComponent,
     PhotoUploadComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        LayoutModule,
-        BrowserAnimationsModule,
-        MaterialModule,
-        MatRadioModule,
-        MatSelectModule,
-        AccommodationModule,
-        UserModule,
-        HttpClientModule,
-        MapModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    LayoutModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    MatRadioModule,
+    MatSelectModule,
+    AccommodationModule,
+    UserModule,
+    HttpClientModule,
+    MapModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

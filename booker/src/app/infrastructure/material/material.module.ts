@@ -13,6 +13,9 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatCardModule} from "@angular/material/card";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatStepperModule} from "@angular/material/stepper";
+import {MatOptionModule} from "@angular/material/core";
+import {MatGridList, MatGridListModule} from "@angular/material/grid-list";
+
 
 
 @NgModule({
@@ -31,7 +34,9 @@ import {MatStepperModule} from "@angular/material/stepper";
     MatCheckboxModule,
     MatCardModule,
     MatDatepickerModule,
-    MatStepperModule
+    MatStepperModule,
+    MatOptionModule,
+      MatGridListModule
   ],
   exports: [
     MatToolbarModule,
@@ -47,7 +52,9 @@ import {MatStepperModule} from "@angular/material/stepper";
     MatCheckboxModule,
     MatCardModule,
     MatDatepickerModule,
-    MatStepperModule
+    MatStepperModule,
+    MatOptionModule,
+      MatGridListModule
   ]
 })
 export class MaterialModule { }
