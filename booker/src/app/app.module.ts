@@ -14,6 +14,7 @@ import {UserModule} from "./user/user.module";
 import {HttpClientModule} from "@angular/common/http";
 import { CreateAccommodationComponent } from './accommodation/create-accommodation/create-accommodation.component';
 import { PhotoUploadComponent } from './photo-upload/photo-upload.component';
+import {MapModule} from "./map/map.module";
 
 @NgModule({
   declarations: [
@@ -22,19 +23,20 @@ import { PhotoUploadComponent } from './photo-upload/photo-upload.component';
     CreateAccommodationComponent,
     PhotoUploadComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    LayoutModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    MatRadioModule,
-    MatSelectModule,
-    AccommodationModule,
-    UserModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        LayoutModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        MatRadioModule,
+        MatSelectModule,
+        AccommodationModule,
+        UserModule,
+        HttpClientModule,
+        MapModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

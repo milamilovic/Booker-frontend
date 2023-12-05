@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import * as L from 'leaflet';
 import {MatDateRangePicker} from "@angular/material/datepicker";
 import {FormBuilder, Validators} from "@angular/forms";
+import {MapComponent} from "../../map/map.component";
 
 @Component({
   selector: 'app-create-accommodation',
