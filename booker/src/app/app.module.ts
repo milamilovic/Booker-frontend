@@ -12,11 +12,16 @@ import {MatSelectModule} from "@angular/material/select";
 import {AccommodationModule} from "./accommodation/accommodation.module";
 import {UserModule} from "./user/user.module";
 import {HttpClientModule} from "@angular/common/http";
+import { CreateAccommodationComponent } from './accommodation/create-accommodation/create-accommodation.component';
+import { PhotoUploadComponent } from './photo-upload/photo-upload.component';
+import {MapModule} from "./map/map.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent
+    RegisterComponent,
+    CreateAccommodationComponent,
+    PhotoUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,8 @@ import {HttpClientModule} from "@angular/common/http";
     MatSelectModule,
     AccommodationModule,
     UserModule,
-    HttpClientModule
+    HttpClientModule,
+    MapModule
   ],
   providers: [],
   bootstrap: [AppComponent]
