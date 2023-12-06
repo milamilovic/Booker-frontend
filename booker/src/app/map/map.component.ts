@@ -9,6 +9,7 @@ import {MapService} from "./map.service";
 })
 export class MapComponent implements AfterViewInit {
   private map: any;
+  private address: string = '';
 
   constructor(private mapService : MapService) {
   }
@@ -59,18 +60,22 @@ export class MapComponent implements AfterViewInit {
     });
   }
 
+
   registerOnClick(): void {
+    this.address = '';
     this.map.on('click', (e: any) => {
       const coord = e.latlng;
       const lat = coord.lat;
       const lng = coord.lng;
       this.mapService.reverseSearch(lat, lng).subscribe((res) => {
+        this.address = res.display_name;
         console.log(res.display_name);
       });
       console.log(
         'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
       );
       const mp = new L.Marker([lat, lng]).addTo(this.map);
+      mp.bindPopup(this.address).openPopup();
       alert(mp.getLatLng());
     });
   }

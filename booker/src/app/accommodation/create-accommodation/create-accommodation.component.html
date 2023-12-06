@@ -4,12 +4,9 @@
   <div class="logo-container">
     <img src="../../../assets/images/big-logo.png" alt="logo" class="logo">
   </div>
-    <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-      {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-    </button>
-    <mat-stepper orientation="vertical" #stepper [linear]="isLinear">
-      <mat-step>
-      <form>
+    <mat-stepper orientation="vertical" #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Accommodation name</ng-template>
         <mat-form-field>
           <mat-label>Accommodation name</mat-label>
@@ -21,8 +18,8 @@
         </div>
       </form>
       </mat-step>
-      <mat-step>
-        <form>
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
           <ng-template matStepLabel>Accommodation description</ng-template>
           <mat-form-field>
             <mat-label>Enter accommodation description</mat-label>
@@ -33,21 +30,21 @@
           <button mat-button matStepperNext>Next</button>
         </form>
       </mat-step>
-      <mat-step>
-        <form>
+      <mat-step [stepControl]="thirdFormGroup">
+        <form [formGroup]="thirdFormGroup">
           <ng-template matStepLabel>Accommodation location</ng-template>
           <mat-form-field>
             <mat-label>Enter accommodation location</mat-label>
-            <input matInput required>
+            <input matInput required formControlName="thirdCtrl">{{address}}
             <mat-icon matPrefix>place</mat-icon>
           </mat-form-field>
-          <app-map></app-map>
+          <app-map (click)="onMapClick($event)"></app-map>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </form>
       </mat-step>
-      <mat-step>
-        <form>
+      <mat-step [stepControl]="fourthFormGroup">
+        <form [formGroup]="fourthFormGroup">
           <ng-template matStepLabel>Accommodation amenities</ng-template>
           <mat-card>
             <mat-card-content>
@@ -61,8 +58,8 @@
           <button mat-button matStepperNext>Next</button>
         </form>
       </mat-step>
-      <mat-step>
-        <form>
+      <mat-step [stepControl]="fifthFormGroup">
+        <form [formGroup]="fifthFormGroup">
           <ng-template matStepLabel>Add photos</ng-template>
           <button mat-raised-button type="button" (click)="fileInput.click()">
             <span>Upload</span>
@@ -77,16 +74,14 @@
               </mat-grid-tile>
             </mat-grid-list>
           </div>
-
-
           <div>
             <button mat-button matStepperPrevious>Back</button>
             <button mat-button matStepperNext>Next</button>
           </div>
         </form>
       </mat-step>
-      <mat-step>
-        <form>
+      <mat-step [stepControl]="sixthFormGroup">
+        <form [formGroup]="sixthFormGroup">
           <ng-template matStepLabel>Accommodation capacity</ng-template>
           <mat-form-field>
             <mat-label>Enter minimal capacity</mat-label>
@@ -102,8 +97,8 @@
           <button mat-button matStepperNext>Next</button>
         </form>
       </mat-step>
-      <mat-step>
-        <form>
+      <mat-step [stepControl]="seventhFormGroup">
+        <form [formGroup]="seventhFormGroup">
           <ng-template matStepLabel>Accommodation type</ng-template>
           <mat-card>
             <mat-card-content>
@@ -119,8 +114,8 @@
           <button mat-button matStepperNext>Next</button>
         </form>
       </mat-step>
-      <mat-step>
-        <form>
+      <mat-step [stepControl]="eighthFormGroup">
+        <form [formGroup]="eighthFormGroup">
           <ng-template matStepLabel>Accommodation availability</ng-template>
             <mat-form-field>
               <mat-label>Enter a date range</mat-label>
@@ -128,35 +123,39 @@
                 <input matStartDate placeholder="Start date">
                 <input matEndDate placeholder="End date">
               </mat-date-range-input>
-              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker-toggle matIconPrefix [for]="picker"></mat-datepicker-toggle>
               <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </form>
       </mat-step>
-      <mat-step>
-        <form>
+      <mat-step [stepControl]="ninthFormGroup">
+        <form [formGroup]="ninthFormGroup">
           <ng-template matStepLabel>Accommodation price</ng-template>
           <mat-form-field>
-            <mat-label>Accommodation price</mat-label>
+            <mat-label>Enter period</mat-label>
+              <mat-date-range-input [rangePicker]="picker_price">
+                <input matStartDate placeholder="Start date" required>
+                <input matEndDate placeholder="End date" required>
+
+              </mat-date-range-input>
+            <mat-datepicker-toggle matPrefix [for]="picker_price"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker_price></mat-date-range-picker>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Enter amount</mat-label>
             <input type="number" matInput required>
             <mat-icon matPrefix>attach_money</mat-icon>
           </mat-form-field>
-          <mat-radio-group>
-            <mat-radio-button>Per accommodation</mat-radio-button>
-            <mat-radio-button>Per guest</mat-radio-button>
-          </mat-radio-group>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-          </div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
         </form>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Submit data</ng-template>
         <div id="buttons">
-          <button type="submit" mat-raised-button>Submit</button>
+          <button type="submit" mat-raised-button (click)="openSnackBar('Button clicked!', 'Close')">Submit</button>
           <button type="reset" mat-raised-button>Reset</button>
         </div>
       </mat-step>

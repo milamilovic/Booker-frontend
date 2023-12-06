@@ -3,6 +3,8 @@ import * as L from 'leaflet';
 import {MatDateRangePicker} from "@angular/material/datepicker";
 import {FormBuilder, Validators} from "@angular/forms";
 import {MapComponent} from "../../map/map.component";
+import {MapService} from "../../map/map.service";
+import {SnackBarComponent} from "../../shared/snack-bar/snack-bar.component";
 interface SelectedFile {
   name: string;
   url: string;
@@ -14,6 +16,7 @@ interface SelectedFile {
 
 })
 export class CreateAccommodationComponent {
+  address: string = '';
   selectedFiles: SelectedFile[] = [];
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
@@ -21,9 +24,37 @@ export class CreateAccommodationComponent {
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
-  isLinear = false;
+  thirdFormGroup = this._formBuilder.group({
+    thirdCtrl: ['', Validators.required]
+  });
+  fourthFormGroup = this._formBuilder.group({
+    fourthCtrl: ['', Validators.required]
+  });
+  fifthFormGroup = this._formBuilder.group({
+    fifthCtrl: ['', Validators.required]
+  });
+  sixthFormGroup = this._formBuilder.group({
+    sixthCtrl: ['', Validators.required]
+  });
+  seventhFormGroup = this._formBuilder.group({
+    seventhCtrl: ['', Validators.required]
+  });
+  eighthFormGroup = this._formBuilder.group({
+    eighthCtrl: ['', Validators.required]
+  });
+  ninthFormGroup = this._formBuilder.group({
+    ninthCtrl: ['', Validators.required]
+  })
+  tenthFormGroup = this._formBuilder.group({
+    tenthCtrl: ['', Validators.required]
+  })
 
-  constructor(private _formBuilder : FormBuilder, private renderer: Renderer2) {
+  constructor(private _formBuilder : FormBuilder, private renderer: Renderer2, private mapService: MapService,
+              private snackBar : SnackBarComponent) {
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.openSnackBar(message, action);
   }
 
   onFileInput(event: any): void {
@@ -69,6 +100,19 @@ export class CreateAccommodationComponent {
         const slider = document.querySelector('.slider') as HTMLElement;
         this.renderer.setStyle(slider, 'transform', `translateX(-${this.currentIndex * 100}%)`);
     }
+
+    onMapClick(event: any) {
+      const lat = event.latLng.lat;
+      const lng = event.latLng.lng;
+
+      this.mapService.reverseSearch(lat, lng).subscribe(
+        (res) => {
+          this.address = res.display_name;
+        }
+      )
+    }
+
+
 }
 
 
