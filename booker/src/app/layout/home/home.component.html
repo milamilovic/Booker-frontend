@@ -1,11 +1,11 @@
 <div class="background">
   <div class="container">
-    <form>
-      <input type="text" id="where_input" name="where_input" placeholder="Where to?">
-      <input type="date" id="from_date" name="from_date" placeholder="When?">
-      <input type="date" id="to_date" name="to_date" placeholder="When?">
-      <input type="number" id="people_input" name="people_input" placeholder="How many people?">
-      <button [routerLink]="['/search']" id="search_button" class="search-button">Search!</button>
+    <form (ngSubmit)="onSubmit(location, startDate, endDate, people)">
+      <input type="text" id="location" name="location" placeholder="Where to?" #location>
+      <input type="date" id="startDate" name="startDate" placeholder="When?" #startDate>
+      <input type="date" id="endDate" name="endDate" placeholder="When?" #endDate>
+      <input type="number" id="people" name="people" placeholder="How many people?" #people>
+      <button id="search_button" class="search-button" >Search!</button>
     </form>
     <br>
     <div class="placeholder">
