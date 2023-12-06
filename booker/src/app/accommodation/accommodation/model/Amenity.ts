@@ -4,5 +4,5 @@ export interface Amenity {
   id?: number;
   name: string;
   accommodation: object;
-  image: Image;
+  image_path: string;
 }
