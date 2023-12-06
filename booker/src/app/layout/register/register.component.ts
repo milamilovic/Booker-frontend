@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserType} from "../../enums/user-type.enum";
 import {UserService} from "../../user/user.service";
 import {User} from "../../user/model/user.model";
+import {ProfilePicture} from "../../user/model/ProfilePicture";
 
 @Component({
   selector: 'app-register',
@@ -27,6 +28,11 @@ export class RegisterComponent {
 
   create(): void {
     if (this.registerForm.valid) {
+      const initialProfilePic: ProfilePicture = {
+        id: 1,
+        path: '../../images/initialProfilePic.png',
+        user: {}
+      };
       const user: User = {
         _id: Math.random(),
         name: this.registerForm.value.name ?? '',
@@ -35,7 +41,8 @@ export class RegisterComponent {
         address: this.registerForm.value.address ?? '',
         phone: this.registerForm.value.phone ?? '',
         password: this.registerForm.value.password ?? '',
-        type: this.registerForm.value.type ?? UserType.Guest
+        type: this.registerForm.value.type ?? UserType.Guest,
+        profilePicture: initialProfilePic
       };
       this.userService.add(user);
     }

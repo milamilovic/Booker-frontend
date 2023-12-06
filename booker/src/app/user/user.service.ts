@@ -1,6 +1,10 @@
 import {Injectable} from '@angular/core';
 import {UserType} from "../enums/user-type.enum";
 import {User} from "./model/user.model";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {Guest} from "./guest-view/model/guest.model";
+import {environment} from "../../env/env";
 
 
 const USERS = [
@@ -33,20 +37,14 @@ export class UserService {
   private usersList: User[] = [];
 
 
-  constructor() {
-    for (let userObj of USERS) {
-      const user: User = {
-        _id: userObj._id,
-        name: userObj.name,
-        surname: userObj.surname,
-        email: userObj.email,
-        address: userObj.address,
-        phone: userObj.phone,
-        password: userObj.password,
-        type: userObj.type
-      };
-      this.usersList.push(user);
-    }
+  constructor(private http: HttpClient) { }
+
+  getGuests(): Observable<Guest>{
+    return this.http.get<Guest>(environment.apiHost + 'guests/all');
+  }
+
+  getGuestById(id: number): Observable<Guest>{
+    return this.http.get<Guest>(environment.apiHost + 'guests/' + id);
   }
 
   getAll() : User[] {
