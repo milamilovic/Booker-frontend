@@ -65,8 +65,11 @@ export class MapComponent implements AfterViewInit {
     this.address = '';
     this.map.on('click', (e: any) => {
       const coord = e.latlng;
+
       const lat = coord.lat;
       const lng = coord.lng;
+      localStorage.setItem("lat", lat);
+      localStorage.setItem("lng", lng);
       this.mapService.reverseSearch(lat, lng).subscribe((res) => {
         this.address = res.display_name;
         console.log(res.display_name);
@@ -90,4 +93,5 @@ export class MapComponent implements AfterViewInit {
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
   }
+
 }

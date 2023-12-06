@@ -17,6 +17,8 @@ import { PhotoUploadComponent } from './photo-upload/photo-upload.component';
 import {MapModule} from "./map/map.module";
 import {FormsModule} from "@angular/forms";
 import {SharedModule} from "./shared/shared.module";
+import {MapService} from "./map/map.service";
+import {MapComponent} from "./map/map.component";
 
 @NgModule({
   declarations: [
@@ -41,7 +43,7 @@ import {SharedModule} from "./shared/shared.module";
     FormsModule,
     SharedModule
   ],
-  providers: [],
+  providers: [MapService, MapComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
