@@ -6,18 +6,20 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import {MaterialModule} from "../infrastructure/material/material.module";
+import {FormsModule} from "@angular/forms";
 
 
 
 @NgModule({
-    imports: [
-        CommonModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        MaterialModule
-    ],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MaterialModule,
+    FormsModule
+  ],
   declarations: [
     GuestViewComponent
   ]
