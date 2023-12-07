@@ -23,6 +23,6 @@ export class AccommodationService {
   }
 
   add(createAccommodation: CreateAccommodation): Observable<CreateAccommodation> {
-    return this.http.post<CreateAccommodation>(environment.apiHost + "api/accommodations/add", createAccommodation)
+    return this.http.post<CreateAccommodation>(environment.apiHost + 'api/accommodations/add', createAccommodation)
   }
 }

@@ -153,8 +153,8 @@ export class CreateAccommodationComponent implements OnInit{
     }
 
   onMapClick(event: any) {
-    var location = event.latLng;
-    console.log(location);
+    // var location = event.latLng;
+    // console.log(location);
     this.formGroupLocation.value.lat = Number(localStorage.getItem("lat")!);
     this.formGroupLocation.value.lng = Number(localStorage.getItem("lng")!);
 
