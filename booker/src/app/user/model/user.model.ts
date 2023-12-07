@@ -1,4 +1,5 @@
 import {UserType} from "../../enums/user-type.enum";
+import {ProfilePicture} from "./ProfilePicture";
 
 export interface User {
   _id: number;
@@ -9,4 +10,5 @@ export interface User {
   phone: string;
   password: string;
   type: UserType;
+  profilePicture: ProfilePicture;
 }
