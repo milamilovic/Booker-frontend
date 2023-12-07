@@ -44,9 +44,15 @@ export class GuestViewComponent implements OnInit{
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
-    // TODO load profile pic path
+    const reader = new FileReader();
+
+    reader.onload = (e: any) => {
+      // @ts-ignore
+      this.updateUser.profilePicture.path = e.target.result;
+    };
+    reader.readAsDataURL(file);
     // @ts-ignore
-    this.updateUser.profilePicture.path = 'new_path';
+    console.log(this.updateUser.profilePicture.path);
   }
 
   saveChanges(): void {
