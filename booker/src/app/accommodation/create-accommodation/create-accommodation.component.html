@@ -3,163 +3,164 @@
   <div class="container">
   <div class="logo-container">
     <img src="../../../assets/images/big-logo.png" alt="logo" class="logo">
+    <input id="duration" value="2000" type="number" min="0" step="100" style="display: none" #duration>
   </div>
-    <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-      {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-    </button>
-    <mat-stepper orientation="vertical" #stepper [linear]="isLinear">
-      <mat-step>
-      <form>
-        <ng-template matStepLabel>Accommodation name</ng-template>
-        <mat-form-field>
-          <mat-label>Accommodation name</mat-label>
-          <input matInput type="text" required>
-          <mat-icon matPrefix>apartment</mat-icon>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
+    <form>
+    <mat-vertical-stepper [linear]="false" [animationDuration]="duration.value" #stepper>
+      <mat-step  [stepControl]="formGroupNameDescType">
+          <form [formGroup]="formGroupNameDescType">
+            <ng-template matStepLabel>Accommodation name, description and type</ng-template>
+            <mat-form-field>
+              <mat-label>Accommodation name</mat-label>
+              <input formControlName="name"  matInput type="text" required>
+              <mat-icon matPrefix>apartment</mat-icon>
+            </mat-form-field>
+              <mat-form-field>
+                  <mat-label>Enter accommodation description</mat-label>
+                  <textarea formControlName="description" matInput required></textarea>
+                  <mat-icon matPrefix>description</mat-icon>
+              </mat-form-field>
+              <mat-card>
+                  <mat-card-content>
+                      <mat-radio-group formControlName="accommodation_type">
+                          <mat-radio-button>Studio</mat-radio-button>
+                          <mat-radio-button>Room</mat-radio-button>
+                          <mat-radio-button>Hotel</mat-radio-button>
+                          <mat-radio-button>Villa</mat-radio-button>
+                      </mat-radio-group>
+                  </mat-card-content>
+              </mat-card>
+            <div>
+              <button mat-button matStepperNext type="button">Next</button>
+            </div>
+          </form>
       </mat-step>
-      <mat-step>
-        <form>
-          <ng-template matStepLabel>Accommodation description</ng-template>
-          <mat-form-field>
-            <mat-label>Enter accommodation description</mat-label>
-            <textarea matInput required></textarea>
-            <mat-icon matPrefix>description</mat-icon>
-          </mat-form-field>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </form>
-      </mat-step>
-      <mat-step>
-        <form>
+      <mat-step [stepControl]="formGroupLocation">
+        <form [formGroup]="formGroupLocation">
           <ng-template matStepLabel>Accommodation location</ng-template>
           <mat-form-field>
             <mat-label>Enter accommodation location</mat-label>
-            <input matInput required>
+            <input matInput required formControlName="lat" id="latitude">
             <mat-icon matPrefix>place</mat-icon>
           </mat-form-field>
-          <app-map></app-map>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </form>
-      </mat-step>
-      <mat-step>
-        <form>
-          <ng-template matStepLabel>Accommodation amenities</ng-template>
-          <mat-card>
-            <mat-card-content>
-              <mat-checkbox>Wifi</mat-checkbox>
-              <mat-checkbox>AC</mat-checkbox>
-              <mat-checkbox>Kitchen</mat-checkbox>
-              <mat-checkbox>Free parking</mat-checkbox>
-            </mat-card-content>
-          </mat-card>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </form>
-      </mat-step>
-      <mat-step>
-        <form>
-          <ng-template matStepLabel>Add photos</ng-template>
-          <button mat-raised-button type="button" (click)="fileInput.click()">
-            <span>Upload</span>
-            <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;" multiple accept=".jpg, .jpeg, .png, .gif, .webp"/>
-          </button>
-          <div *ngIf="selectedFiles.length > 0">
-            <mat-grid-list cols="3" rowHeight="2:1" class="scroll-container">
-              <mat-grid-tile *ngFor="let file of selectedFiles">
-                <mat-card>
-                  <img matCardImage [src]="file.url" alt="{{ file.name }}">
-                </mat-card>
-              </mat-grid-tile>
-            </mat-grid-list>
-          </div>
-
-
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-          </div>
-        </form>
-      </mat-step>
-      <mat-step>
-        <form>
-          <ng-template matStepLabel>Accommodation capacity</ng-template>
-          <mat-form-field>
-            <mat-label>Enter minimal capacity</mat-label>
-            <input matInput type="number" required>
-            <mat-icon matPrefix>people</mat-icon>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Enter maximal capacity</mat-label>
-            <input matInput type="number" required>
-            <mat-icon matPrefix>people</mat-icon>
-          </mat-form-field>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </form>
-      </mat-step>
-      <mat-step>
-        <form>
-          <ng-template matStepLabel>Accommodation type</ng-template>
-          <mat-card>
-            <mat-card-content>
-              <mat-radio-group>
-                <mat-radio-button>Studio</mat-radio-button>
-                <mat-radio-button>Room</mat-radio-button>
-                <mat-radio-button>Hotel</mat-radio-button>
-                <mat-radio-button>Villa</mat-radio-button>
-              </mat-radio-group>
-            </mat-card-content>
-          </mat-card>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </form>
-      </mat-step>
-      <mat-step>
-        <form>
-          <ng-template matStepLabel>Accommodation availability</ng-template>
             <mat-form-field>
-              <mat-label>Enter a date range</mat-label>
-              <mat-date-range-input [rangePicker]="picker">
-                <input matStartDate placeholder="Start date">
-                <input matEndDate placeholder="End date">
-              </mat-date-range-input>
-              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-label>Enter accommodation location</mat-label>
+                <input matInput required formControlName="lng" id="lng">
+                <mat-icon matPrefix>place</mat-icon>
             </mat-form-field>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <app-map (click)="onMapClick($event)"></app-map>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button>
         </form>
       </mat-step>
-      <mat-step>
-        <form>
-          <ng-template matStepLabel>Accommodation price</ng-template>
-          <mat-form-field>
-            <mat-label>Accommodation price</mat-label>
-            <input type="number" matInput required>
-            <mat-icon matPrefix>attach_money</mat-icon>
-          </mat-form-field>
-          <mat-radio-group>
-            <mat-radio-button>Per accommodation</mat-radio-button>
-            <mat-radio-button>Per guest</mat-radio-button>
-          </mat-radio-group>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-          </div>
-        </form>
+      <mat-step [stepControl]="formGroupAmenities">
+          <form [formGroup]="formGroupAmenities">
+              <ng-template matStepLabel>Accommodation amenities</ng-template>
+              <mat-card>
+                <mat-card-content>
+                  <mat-checkbox>Wifi</mat-checkbox>
+                  <mat-checkbox>AC</mat-checkbox>
+                  <mat-checkbox>Kitchen</mat-checkbox>
+                  <mat-checkbox>Free parking</mat-checkbox>
+                </mat-card-content>
+              </mat-card>
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-button matStepperNext type="button">Next</button>
+          </form>
+      </mat-step>
+      <mat-step  [stepControl]="formGroupPhotos">
+          <form [formGroup]="formGroupPhotos">
+              <ng-template matStepLabel>Add photos</ng-template>
+              <button mat-raised-button type="button" (click)="fileInput.click()">
+                <span>Upload</span>
+                <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;" multiple accept=".jpg, .jpeg, .png, .gif, .webp"/>
+              </button>
+              <div *ngIf="selectedFiles.length > 0">
+                <mat-grid-list formControlName="photos" cols="3" rowHeight="2:1" class="scroll-container">
+                  <mat-grid-tile *ngFor="let file of selectedFiles">
+                    <mat-card>
+                      <img matCardImage [src]="file.url" alt="{{ file.name }}">
+                    </mat-card>
+                  </mat-grid-tile>
+                </mat-grid-list>
+              </div>
+              <div>
+                <button mat-button matStepperPrevious type="button">Back</button>
+                <button mat-button matStepperNext type="button">Next</button>
+              </div>
+          </form>
+      </mat-step>
+      <mat-step [stepControl]="formGroupMinMaxCapacity">
+          <form [formGroup]="formGroupMinMaxCapacity">
+              <ng-template matStepLabel>Accommodation capacity</ng-template>
+              <mat-form-field>
+                <mat-label>Enter minimal capacity</mat-label>
+                <input matInput type="number" required formControlName="minCapacity">
+                <mat-icon matPrefix>people</mat-icon>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Enter maximal capacity</mat-label>
+                <input matInput type="number" required formControlName="maxCapacity">
+                <mat-icon matPrefix>people</mat-icon>
+              </mat-form-field>
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-button matStepperNext type="button">Next</button>
+          </form>
+      </mat-step>
+      <mat-step [stepControl]="formGroupAvailability">
+          <form [formGroup]="formGroupAvailability">
+              <ng-template matStepLabel>Accommodation availability</ng-template>
+                <mat-form-field>
+                  <mat-label>Enter a date range</mat-label>
+                  <mat-date-range-input [rangePicker]="picker" >
+                    <input formControlName="startDate" matStartDate placeholder="Start date">
+                    <input formControlName="endDate" matEndDate placeholder="End date">
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle matIconPrefix [for]="picker"></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-button matStepperNext type="button">Next</button>
+          </form>
+      </mat-step>
+      <mat-step [stepControl]="formGroupPrice">
+          <form [formGroup]="formGroupPrice">
+              <ng-template matStepLabel>Accommodation price</ng-template>
+              <mat-form-field>
+                <mat-label>Enter period</mat-label>
+                  <mat-date-range-input [rangePicker]="picker_price">
+                    <input formControlName="priceStartDate" matStartDate placeholder="Start date" required>
+                    <input formControlName="priceEndDate" matEndDate placeholder="End date" required>
+
+                  </mat-date-range-input>
+                <mat-datepicker-toggle matPrefix [for]="picker_price"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker_price></mat-date-range-picker>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Enter amount</mat-label>
+                <input type="number" matInput required formControlName="amount">
+                <mat-icon matPrefix>attach_money</mat-icon>
+              </mat-form-field>
+              <mat-card>
+                  <mat-card-content>
+                      <mat-radio-group formControlName="price_type">
+                          <mat-radio-button>Per guest</mat-radio-button>
+                          <mat-radio-button>Per accommodation</mat-radio-button>
+                      </mat-radio-group>
+                  </mat-card-content>
+              </mat-card>
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-button matStepperNext type="button">Next</button>
+          </form>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Submit data</ng-template>
         <div id="buttons">
-          <button type="submit" mat-raised-button>Submit</button>
+          <button type="submit" mat-raised-button (click)="openSnackBar('Your accommodation will become available after approval by admin', 'Close')">Submit</button>
           <button type="reset" mat-raised-button>Reset</button>
         </div>
       </mat-step>
-    </mat-stepper>
+    </mat-vertical-stepper>
+    </form>
   </div>
 </div>
