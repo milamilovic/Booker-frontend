@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Guest} from "./guest-view/model/guest.model";
 import {environment} from "../../env/env";
+import {UpdateUserDTO} from "./dto/UpdateUserDTO";
 
 
 const USERS = [
@@ -55,5 +56,8 @@ export class UserService {
     this.usersList.push(user);
   }
 
+  updateUser(id: number, updateUser: UpdateUserDTO): Observable<UpdateUserDTO> {
+    return this.http.put<UpdateUserDTO>(environment.apiHost + 'guests', updateUser);
+  }
 }
 
