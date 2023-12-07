@@ -6,6 +6,7 @@ import {RouterLink} from "@angular/router";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {LoginComponent} from "./login/login.component";
 import {MaterialModule} from "../infrastructure/material/material.module";
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -20,11 +21,12 @@ import {MaterialModule} from "../infrastructure/material/material.module";
     LoginComponent,
     HomeComponent
   ],
-  imports: [
-    CommonModule,
-    RouterLink,
-    MatToolbarModule,
-    MaterialModule
-  ]
+    imports: [
+        CommonModule,
+        RouterLink,
+        MatToolbarModule,
+        MaterialModule,
+        FormsModule
+    ]
 })
 export class LayoutModule { }

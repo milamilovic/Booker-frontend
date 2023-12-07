@@ -2,13 +2,13 @@
   <div class="big-container">
     <div class="half-container">
       <div class="picture-section">
-        <img src="../../../assets/images/profile_pic.jpg" alt="profile-pic" class="profile-pic" />
+        <img [src]="guest.profilePicture.path" alt="profile-pic" class="profile-pic" />
         <button class="change-pic-button">upload</button>
       </div>
       <div class="info-section">
         <h2 class="section-title">Profile: </h2>
         <div class ="help-div">
-          <input type="text" class="name-surname" value="Dunja Matejic" placeholder="name & surname">
+          <input type="text" class="name-surname" value="{{guest.name + ' ' + guest.surname}}" placeholder="name & surname">
         </div>
         <div class ="help-div">
           <label class="role">guest</label>
@@ -16,15 +16,15 @@
         <br>
         <div class ="help-div2">
           <label class="password-label">email address: </label>
-          <input type="text" class="email" value="dunja123@gmail.com" placeholder="email address">
+          <input type="text" class="email" value="{{guest.email}}" placeholder="email address">
         </div>
         <div class ="help-div2">
           <label class="password-label">address:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-          <input type="text" class="address" value="Adresa adresa 12, Novi Sad" placeholder="address">
+          <input type="text" class="address" value="{{guest.address}}" placeholder="address">
         </div>
         <div class ="help-div2">
           <label class="password-label">phone number: </label>
-          <input type="text" class="phone" value="+381 60 123 4567" placeholder="phone number">
+          <input type="text" class="phone" value="{{guest.phone}}" placeholder="phone number">
         </div>
       </div>
     </div>
@@ -33,11 +33,17 @@
         <h2 class="section-title">Password: </h2>
         <div class="password-wrapper">
           <label class="password-label">new password: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-          <input type="password" class="password">
+          <input matInput [type]="hide_new ? 'password' : 'text'" class="password">
+          <button mat-icon-button matSuffix (click)="hide_new = !hide_new">
+            <mat-icon class="icon">{{hide_new ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
         </div>
         <div class="password-wrapper">
           <label class="password-label">confirm password: </label>
-          <input type="password" class="password">
+          <input matInput [type]="hide_confirm ? 'password' : 'text'" class="password">
+          <button mat-icon-button matSuffix (click)="hide_confirm = !hide_confirm">
+            <mat-icon class="icon">{{hide_confirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
         </div>
       </div>
       <div class="buttons-section">
