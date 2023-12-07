@@ -15,6 +15,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { CreateAccommodationComponent } from './accommodation/create-accommodation/create-accommodation.component';
 import { PhotoUploadComponent } from './photo-upload/photo-upload.component';
 import {MapModule} from "./map/map.module";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {MapModule} from "./map/map.module";
     AccommodationModule,
     UserModule,
     HttpClientModule,
-    MapModule
+    MapModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

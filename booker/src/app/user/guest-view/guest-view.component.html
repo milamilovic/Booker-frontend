@@ -9,7 +9,7 @@
       <div class="info-section">
         <h2 class="section-title">Profile: </h2>
         <div class ="help-div">
-          <input type="text" class="name-surname" [(ngModel)]="guest.name" placeholder="name & surname">
+          <input type="text" class="name-surname" name="ns" [(ngModel)]="updateUser.name" placeholder="name & surname">
         </div>
         <div class ="help-div">
           <label class="role">guest</label>
@@ -17,15 +17,15 @@
         <br>
         <div class ="help-div2">
           <label class="password-label">email address: </label>
-          <input type="text" class="email" [(ngModel)]="guest.email" placeholder="email address">
+          <input type="text" class="email" [(ngModel)]="updateUser.email" placeholder="email address">
         </div>
         <div class ="help-div2">
           <label class="password-label">address:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-          <input type="text" class="address" [(ngModel)]="guest.address" placeholder="address">
+          <input type="text" class="address" [(ngModel)]="updateUser.address" placeholder="address">
         </div>
         <div class ="help-div2">
           <label class="password-label">phone number: </label>
-          <input type="text" class="phone" [(ngModel)]="guest.phone" placeholder="phone number">
+          <input type="text" class="phone" [(ngModel)]="updateUser.phone" placeholder="phone number">
         </div>
       </div>
     </div>

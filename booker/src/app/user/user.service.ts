@@ -57,7 +57,7 @@ export class UserService {
   }
 
   updateUser(id: number, updateUser: UpdateUserDTO): Observable<UpdateUserDTO> {
-    return this.http.put<UpdateUserDTO>(environment.apiHost + 'guests/' + id, updateUser);
+    return this.http.put<UpdateUserDTO>(environment.apiHost + 'guests', updateUser);
   }
 }
 

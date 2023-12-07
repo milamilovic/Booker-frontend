@@ -12,7 +12,9 @@ export class GuestViewComponent implements OnInit{
   hide_new: boolean = true;
   hide_confirm : boolean = true;
   guest!: Guest;
-  updateUser!: UpdateUserDTO;
+  updateUser: UpdateUserDTO = {
+    _id: 1
+  };
   newPassword: string = '';
   confirmPassword: string = '';
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -43,7 +45,8 @@ export class GuestViewComponent implements OnInit{
   onFileSelected(event: any) {
     const file = event.target.files[0];
     // TODO load profile pic path
-    // this.updateUser.profilePicture.path = 'new_path';
+    // @ts-ignore
+    this.updateUser.profilePicture.path = 'new_path';
   }
 
   saveChanges(): void {
@@ -57,6 +60,7 @@ export class GuestViewComponent implements OnInit{
       this.saveChanges();
     } else {
       // TODO error with password
+      console.log('Passwords must be the same!');
     }
   }
 
