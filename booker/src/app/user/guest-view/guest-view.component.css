@@ -117,12 +117,20 @@ h2.section-title{
 .help-div2{
   width: 100%;
   margin-top: 15px;
+  display: flex;
+  align-items: center;
 }
 
 .role{
   color: #3c3c3c;
   font-weight: bold;
   font-size: 20px;
+}
+
+.info-icon{
+  width: 24px;
+  height: 24px;
+  margin: 0 30px 0 20px;
 }
 
 .email,
@@ -136,6 +144,7 @@ h2.section-title{
   font-weight: normal;
   font-size: 20px;
   text-align: left;
+  width: 60%;
 }
 
 .email::placeholder {
