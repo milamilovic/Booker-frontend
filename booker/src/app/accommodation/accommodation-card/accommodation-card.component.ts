@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AccommodationListingDto} from "../accommodation/model/accommodation-listing.model";
 
 @Component({
@@ -6,13 +6,14 @@ import {AccommodationListingDto} from "../accommodation/model/accommodation-list
   templateUrl: './accommodation-card.component.html',
   styleUrls: ['./accommodation-card.component.css']
 })
-export class AccommodationCardComponent {
+export class AccommodationCardComponent implements OnInit{
   @Input()
   accommodation: AccommodationListingDto;
 
   @Output()
   clicked: EventEmitter<AccommodationListingDto> = new EventEmitter<AccommodationListingDto>();
 
+  favourite: string = "";
   onAccommodationClick(): void {
     this.clicked.emit(this.accommodation);
   }
@@ -29,6 +30,16 @@ export class AccommodationCardComponent {
         path: '',
         accommodation: {}
       }
+    }
+  }
+
+  ngOnInit(): void {
+    //TODO: add checking if acc is favourite for user
+    let isFavourite = Math.round(Math.random()) == 1;
+    if(isFavourite) {
+      this.favourite = "../../../assets/images/icons8-heart-30.png"
+    } else {
+      this.favourite = "../../../assets/images/icons8-heart-30 (1).png"
     }
   }
 }
