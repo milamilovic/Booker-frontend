@@ -2,7 +2,7 @@
   <div class="big-container">
     <div class="half-container">
       <div class="picture-section">
-        <img [src]="guest.profilePicture.path" alt="profile-pic" class="profile-pic" />
+        <img [src]="updateUser.profilePicture?.path" alt="profile-pic" class="profile-pic" />
         <button class="change-pic-button" (click)="fileInput.click()">upload</button>
         <input #fileInput type="file" style="display: none;" (change)="onFileSelected($event)" />
       </div>
@@ -16,15 +16,15 @@
         </div>
         <br>
         <div class ="help-div2">
-          <label class="password-label">email address: </label>
+          <img class="info-icon" src="../../../assets/images/email_32.png">
           <input type="text" class="email" [(ngModel)]="updateUser.email" placeholder="email address">
         </div>
         <div class ="help-div2">
-          <label class="password-label">address:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+          <img class="info-icon" src="../../../assets/images/location_32.png">
           <input type="text" class="address" [(ngModel)]="updateUser.address" placeholder="address">
         </div>
         <div class ="help-div2">
-          <label class="password-label">phone number: </label>
+          <img class="info-icon" src="../../../assets/images/phone_32.png">
           <input type="text" class="phone" [(ngModel)]="updateUser.phone" placeholder="phone number">
         </div>
       </div>
