@@ -1,0 +1,4 @@
+export enum PriceType {
+    PER_ACCOMMODATION= 'PER_ACCOMMODATION',
+    PER_GUEST = 'PER_GUEST'
+}

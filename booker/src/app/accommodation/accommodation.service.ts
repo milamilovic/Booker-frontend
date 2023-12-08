@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {AccommodationListingDto} from "./accommodation/model/accommodation-listing.model";
 import {environment} from "../../env/env";
 import {AccommodationViewDto} from "./accommodation/model/accommodation-view";
+import {CreateAccommodation} from "./create-accommodation/model/create-accommodation.model";
 import {ReservationRequest} from "./accommodation/model/ReservationRequest";
 
 @Injectable({
@@ -22,6 +23,10 @@ export class AccommodationService {
     return this.http.get<AccommodationViewDto>(environment.apiHost + 'api/accommodations/' + id)
   }
 
+
+  add(createAccommodation: CreateAccommodation): Observable<CreateAccommodation> {
+    return this.http.post<CreateAccommodation>(environment.apiHost + "api/accommodations/add", createAccommodation)
+  }
   makeReservationRequest(request: ReservationRequest): Observable<ReservationRequest> {
     return this.http.post<ReservationRequest>(environment.apiHost + 'api/requests', request)
   }
