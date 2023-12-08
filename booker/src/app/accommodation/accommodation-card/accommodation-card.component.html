@@ -2,6 +2,9 @@
   <mat-card-content [routerLink]="['/accommodation', accommodation.id]">
     <div class="left_part">
       <img class="image" src="/{{accommodation.image.path}}/">
+      <div class="favourite_container">
+        <img class="fav_icon" src="/{{favourite}}/">
+      </div>
     </div>
     <div class="right_part">
       <div class="name_and_price">
