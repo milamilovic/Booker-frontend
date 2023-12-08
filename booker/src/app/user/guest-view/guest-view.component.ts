@@ -56,7 +56,7 @@ export class GuestViewComponent implements OnInit{
   }
 
   saveChanges(): void {
-    this.service.updateUser(1, this.updateUser).subscribe((response) => {
+    this.service.updateGuest(1, this.updateUser).subscribe((response) => {
       console.log('Updated user data!', response);
     });
   }
