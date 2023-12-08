@@ -7,6 +7,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import {MaterialModule} from "../infrastructure/material/material.module";
 import {FormsModule} from "@angular/forms";
+import { OwnerViewComponent } from './owner-view/owner-view.component';
 
 
 
@@ -21,7 +22,8 @@ import {FormsModule} from "@angular/forms";
     FormsModule
   ],
   declarations: [
-    GuestViewComponent
+    GuestViewComponent,
+    OwnerViewComponent
   ]
 })
 export class UserModule { }
