@@ -14,4 +14,5 @@ export interface AccommodationViewDto {
   prices: object;
   ratings: object;
   comments: object;
+  owner_id: number;
 }
