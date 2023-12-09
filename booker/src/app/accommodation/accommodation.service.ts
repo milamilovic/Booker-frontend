@@ -25,7 +25,7 @@ export class AccommodationService {
 
 
   add(createAccommodation: CreateAccommodation): Observable<CreateAccommodation> {
-    return this.http.post<CreateAccommodation>(environment.apiHost + "api/accommodations/add", createAccommodation)
+    return this.http.post<CreateAccommodation>(environment.apiHost + 'api/accommodations/add', createAccommodation)
   }
   makeReservationRequest(request: ReservationRequest): Observable<ReservationRequest> {
     return this.http.post<ReservationRequest>(environment.apiHost + 'api/requests', request)
