@@ -71,20 +71,22 @@
       <mat-step  [stepControl]="formGroupPhotos">
           <form [formGroup]="formGroupPhotos">
               <ng-template matStepLabel>Add photos</ng-template>
-              <button mat-raised-button type="button" (click)="fileInput.click()">
-                <span>Upload</span>
-                <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;" multiple accept=".jpg, .jpeg, .png, .gif, .webp"/>
-              </button>
-              <div *ngIf="selectedFiles.length > 0">
-                <mat-grid-list formControlName="photos" cols="3" rowHeight="2:1" class="scroll-container">
-                  <mat-grid-tile *ngFor="let file of selectedFiles">
-                    <mat-card>
-                      <img matCardImage [src]="file.url" alt="{{ file.name }}">
-                    </mat-card>
-                  </mat-grid-tile>
-                </mat-grid-list>
-              </div>
+<!--              <button mat-raised-button type="button" (click)="fileInput.click()">-->
+<!--                <span>Upload</span>-->
+<!--                <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;" multiple accept=".jpg, .jpeg, .png, .gif, .webp"/>-->
+<!--              </button>-->
+<!--              <div *ngIf="selectedFiles.length > 0">-->
+<!--                <mat-grid-list formControlName="photos" cols="3" rowHeight="2:1" class="scroll-container">-->
+<!--                  <mat-grid-tile *ngFor="let file of selectedFiles">-->
+<!--                    <mat-card>-->
+<!--                      <img matCardImage [src]="file.url" alt="{{ file.name }}">-->
+<!--                    </mat-card>-->
+<!--                  </mat-grid-tile>-->
+<!--                </mat-grid-list>-->
+<!--              </div>-->
+            <app-photo-upload></app-photo-upload>
               <div>
+
                 <button mat-button matStepperPrevious type="button">Back</button>
                 <button mat-button matStepperNext type="button">Next</button>
               </div>

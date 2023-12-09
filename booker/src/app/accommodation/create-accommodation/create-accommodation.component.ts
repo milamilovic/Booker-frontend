@@ -8,6 +8,7 @@ import {AccommodationService} from "../accommodation.service";
 import {Price} from "../accommodation/model/price.model";
 import {PriceType} from "../../enums/price-type.enum";
 import {Image} from "../accommodation/model/Image";
+import {environment} from "../../../env/env";
 
 interface SelectedFile {
   name: string;

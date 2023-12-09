@@ -1,1 +1,10 @@
-<p>photo-upload works!</p>
+<div>
+  <input type="file" (change)="onFileSelected($event)" multiple>
+</div>
+<div>
+  <button (click)="uploadFiles()" [disabled]="loading">Upload</button>
+</div>
+<div *ngIf="loading">Uploading...</div>
+<div *ngFor="let file of images">
+  <img [src]="file.path" alt="Uploaded image">
+</div>

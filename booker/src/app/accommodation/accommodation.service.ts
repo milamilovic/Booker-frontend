@@ -30,4 +30,6 @@ export class AccommodationService {
   makeReservationRequest(request: ReservationRequest): Observable<ReservationRequest> {
     return this.http.post<ReservationRequest>(environment.apiHost + 'api/requests', request)
   }
+
+
 }
