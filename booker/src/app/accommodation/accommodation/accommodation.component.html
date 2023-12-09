@@ -67,6 +67,12 @@
       <button class="map_button">Show on map</button>
     </div>
 
+    <div class="description_box">
+      <b class="title">Owner:</b><br>
+      <i class="address">{{owner.name}}</i>
+      <p class="show_profile" [routerLink]="['/owner']"><u>Show profile</u></p>
+    </div>
+
     <div class="reservation">
       <b class="title">Make a reservation request: </b><br><br>
       <div class="left_part_reservation">
