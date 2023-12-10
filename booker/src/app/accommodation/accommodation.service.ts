@@ -9,6 +9,7 @@ import {ReservationRequest} from "./accommodation/model/ReservationRequest";
 import {UserService} from "../user/user.service";
 import {Owner} from "../user/owner-view/model/owner.model";
 import {Filter} from "./accommodation/model/Filter";
+import {Amenity} from "./accommodation/model/Amenity";
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +51,9 @@ export class AccommodationService {
 
   getOwner(id: number): Observable<Owner> {
     return this.userService.getOwnerById(id);
+  }
+
+  getAmenityNames() {
+    return this.http.get<string[]>(environment.apiHost + 'api/amenities/names');
   }
 }

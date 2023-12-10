@@ -15,9 +15,25 @@ export class AccommodationListingComponent implements OnInit {
   endDate: string = '';
   location: string = '';
   people: number = 0;
+  hotel: boolean = false;
+  room: boolean = false;
+  studio: boolean = false;
+  villa: boolean = false;
+  //amenities
+  amenities: string[] = [];
+  selectedAmenities: { [key: string]: boolean } = {};
+
+  minPrice?: number;
+  maxPrice?: number;
 
   constructor(private service: AccommodationService, private route: ActivatedRoute,
               private elemRef : ElementRef, private router: Router) {
+  }
+
+  onCheckboxChange(amenity: string) {
+    console.log("amenity change: " + amenity);
+    let isSelected = this.selectedAmenities[amenity];
+    this.selectedAmenities[amenity] = isSelected;
   }
 
   ngOnInit(): void {
@@ -36,6 +52,19 @@ export class AccommodationListingComponent implements OnInit {
         }
       })
     })
+    //initialize amenities
+    this.service.getAmenityNames().subscribe({
+      next: (data: string[]) => {
+        this.amenities = data
+        for(let amenityName in data) {
+          console.log(data[amenityName]);
+          this.selectedAmenities[data[amenityName]] = false;
+        }
+      },
+      error: (_) => {
+        console.log("Greska!")
+      }
+    })
   }
 
   onAccommodationClick(accommodation: AccommodationListingDto) {
@@ -48,20 +77,49 @@ export class AccommodationListingComponent implements OnInit {
     let end_date = to_date.value;
     let people_search = Number(people_input.value);
     let filters: Filter[] = [];
-    //TODO: make amenities dynamic (get amenity names from back)
-    let amenityNames: String[] = ['wifi', 'ac', 'goodLocation', 'cancellation'];
-    for(let amenity in amenityNames) {
-      let amenityCheck = this.elemRef.nativeElement.querySelector('amenity');
-      if(amenityCheck!=null && amenityCheck.isChecked()) {
+    for(let key in this.amenities) {
+      console.log('amenity: ' + this.amenities[key]);
+      let isSelected = this.selectedAmenities[this.amenities[key]];
+      console.log(isSelected);
+      if(isSelected) {
         filters.push({
-          "name": amenity,
+          "name": this.amenities[key],
           "value": {
             "checked": true
           }
         });
       }
     }
-    console.log("filterig!!!")
+
+    let accTypes: boolean[] = [this.hotel, this.room, this.villa, this.studio];
+    let accTypeNames: string[] = ['hotel', 'room', 'villa', 'studio'];
+    for(let type in accTypes) {
+      if (accTypes[type]) {
+        filters.push({
+          "name": accTypeNames[type],
+          "value": {
+            "checked": true
+          }
+        });
+      }
+    }
+
+    if (this.minPrice) {
+      filters.push({
+        "name": "minPrice",
+        "value": {
+          "price": this.minPrice
+        }
+      });
+    }if (this.maxPrice) {
+      filters.push({
+        "name": "maxPrice",
+        "value": {
+          "price": this.maxPrice
+        }
+      });
+    }
+
     this.service.searchAndFilterAccommodations(start_date, end_date, location, people_search, filters).subscribe({
       next: (data: AccommodationListingDto[]) => {
         this.accommodations = data

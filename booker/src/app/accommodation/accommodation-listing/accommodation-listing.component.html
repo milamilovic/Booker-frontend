@@ -10,23 +10,20 @@
       </div>
       <div class="filters">
         <div class="left_part_accommodations">
-          <mat-checkbox class="amenities" id="wifi"><p class="filter-text">Wi-fi</p></mat-checkbox>
-          <mat-checkbox class="amenities" id="ac"><p class="filter-text">AC</p></mat-checkbox>
-          <mat-checkbox class="amenities" id="goodLocation"><p class="filter-text">Good location</p></mat-checkbox>
-          <mat-checkbox class="amenities" id="cancellation"><p class="filter-text">Free cancellation</p></mat-checkbox>
+          <div *ngFor="let amenity of amenities">
+            <mat-checkbox class="amenities" [(ngModel)]="selectedAmenities[amenity]" [ngModelOptions]="{standalone: true}" (change)="onCheckboxChange(amenity)"><p class="filter-text">{{amenity}}</p></mat-checkbox>
+          </div>
         </div>
         <div class="right_part">
-          <mat-radio-group aria-label="Select an accommodation type: " class="right_part_acc_type">
-            <mat-radio-button value="1"><p class="filter-text">all</p></mat-radio-button>
-            <mat-radio-button value="2"><p class="filter-text">studio</p></mat-radio-button>
-            <mat-radio-button value="3"><p class="filter-text">hotel</p></mat-radio-button>
-            <mat-radio-button value="4"><p class="filter-text">villa</p></mat-radio-button>
-            <mat-radio-button value="5"><p class="filter-text">room</p></mat-radio-button>
-            <mat-radio-button value="6"><p class="filter-text">resort</p></mat-radio-button>
-          </mat-radio-group>
+          <div class="right_part_acc_type">
+            <mat-checkbox [(ngModel)]="studio" [ngModelOptions]="{standalone: true}"><p class="filter-text">studio</p></mat-checkbox>
+            <mat-checkbox [(ngModel)]="hotel" [ngModelOptions]="{standalone: true}"><p class="filter-text">hotel</p></mat-checkbox>
+            <mat-checkbox [(ngModel)]="villa" [ngModelOptions]="{standalone: true}"><p class="filter-text">villa</p></mat-checkbox>
+            <mat-checkbox [(ngModel)]="room" [ngModelOptions]="{standalone: true}"><p class="filter-text">room</p></mat-checkbox>
+          </div>
           <div class="right_part_price">
-            <input type="number" id="min_price" name="min_price" placeholder="minimum">
-            <input type="number" id="max_price" name="max_price" placeholder="maximum">
+            <input type="number" id="min_price" [(ngModel)]="minPrice" [ngModelOptions]="{standalone: true}" placeholder="minimum">
+            <input type="number" id="max_price" [(ngModel)]="maxPrice" [ngModelOptions]="{standalone: true}" placeholder="maximum">
           </div>
         </div>
       </div>
