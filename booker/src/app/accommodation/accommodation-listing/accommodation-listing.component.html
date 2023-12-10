@@ -2,18 +2,18 @@
   <div class="container">
     <form>
       <div>
-        <input type="text" id="where_input" name="where_input" placeholder="Where to?">
-        <input type="date" id="from_date" name="from_date" placeholder="When?">
-        <input type="date" id="to_date" name="to_date" placeholder="When?">
-        <input type="number" id="people_input" name="people_input" placeholder="How many people?">
-        <button id="search_button" class="search-button">Search!</button>
+        <input type="text" id="where_input" name="where_input" placeholder="Where to?" #where_input [value]="location">
+        <input type="date" id="from_date" name="from_date" placeholder="When?" #from_date [value]="startDate">
+        <input type="date" id="to_date" name="to_date" placeholder="When?" #to_date [value]="endDate">
+        <input type="number" id="people_input" name="people_input" placeholder="How many people?" #people_input [value]="people">
+        <input type="button" class="search-button" value="Search!" (click)="search(where_input, from_date, to_date, people_input)"/>
       </div>
       <div class="filters">
         <div class="left_part_accommodations">
-          <mat-checkbox class="amenities"><p class="filter-text">Wi-fi</p></mat-checkbox>
-          <mat-checkbox class="amenities"><p class="filter-text">AC</p></mat-checkbox>
-          <mat-checkbox class="amenities"><p class="filter-text">Kitchen</p></mat-checkbox>
-          <mat-checkbox class="amenities"><p class="filter-text">Free parking</p></mat-checkbox>
+          <mat-checkbox class="amenities" id="wifi"><p class="filter-text">Wi-fi</p></mat-checkbox>
+          <mat-checkbox class="amenities" id="ac"><p class="filter-text">AC</p></mat-checkbox>
+          <mat-checkbox class="amenities" id="goodLocation"><p class="filter-text">Good location</p></mat-checkbox>
+          <mat-checkbox class="amenities" id="cancellation"><p class="filter-text">Free cancellation</p></mat-checkbox>
         </div>
         <div class="right_part">
           <mat-radio-group aria-label="Select an accommodation type: " class="right_part_acc_type">
