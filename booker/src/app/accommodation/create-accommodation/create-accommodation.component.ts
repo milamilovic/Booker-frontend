@@ -9,6 +9,8 @@ import {Price} from "../accommodation/model/price.model";
 import {PriceType} from "../../enums/price-type.enum";
 import {Image} from "../accommodation/model/Image";
 import {environment} from "../../../env/env";
+import {PhotoUploadService} from "../../photo-upload/photo-upload.service";
+import {Address} from "../accommodation/model/address.model";
 
 interface SelectedFile {
   name: string;
@@ -22,6 +24,8 @@ interface SelectedFile {
 })
 export class CreateAccommodationComponent implements OnInit{
   address: string = '';
+  urls = new Array<string>();
+  photos = new Array<Image>();
   formGroupNameDescType = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
@@ -29,8 +33,10 @@ export class CreateAccommodationComponent implements OnInit{
   })
 
   formGroupLocation = new FormGroup({
-    lat: new FormControl(45.2396, [Validators.required]),
-    lng: new FormControl(19.8227, [Validators.required])
+    street: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
+    lat: new FormControl(0, [Validators.required]),
+    lng: new FormControl(0 ,[Validators.required]),
   })
 
   formGroupPhotos = new FormGroup({
@@ -60,7 +66,7 @@ export class CreateAccommodationComponent implements OnInit{
   selectedFiles: SelectedFile[] = [];
 
   constructor(private fb : FormBuilder, private renderer: Renderer2, private accommodationService: AccommodationService,
-              private snackBar : SnackBarComponent, private map: MapComponent) {
+              private snackBar : SnackBarComponent, private map: MapComponent, private photoUploadService : PhotoUploadService) {
   }
 
   openSnackBar(message: string, action: string) {
@@ -71,12 +77,26 @@ export class CreateAccommodationComponent implements OnInit{
       toDate: this.formGroupPrice.value.priceEndDate,
       type: (this.formGroupPrice.value.price_type === "PER_ACCOMMODATION") ? PriceType.PER_ACCOMMODATION : PriceType.PER_GUEST,
     };
+
+    const address: Address = {
+      street: this.formGroupLocation.value.street!,
+      city: this.formGroupLocation.value.city!,
+      latitude: this.formGroupLocation.value.lat!,
+      longitude: this.formGroupLocation.value.lng!
+    }
     let accType = AccommodationType.STUDIO;
     if(this.formGroupNameDescType.value.accommodation_type === "Studio"){
       accType = AccommodationType.STUDIO;
     }else if(this.formGroupNameDescType.value.accommodation_type === "Room"){
       accType = AccommodationType.ROOM;
     }
+
+
+
+    const selectedImages: File[] = this.formGroupPhotos.get('photos')?.value;
+
+    console.log(typeof(selectedImages));
+    this.photos = this.convertFilesToImages(selectedImages);
 
     const image: Image = {
       path: 'asd',
@@ -87,24 +107,26 @@ export class CreateAccommodationComponent implements OnInit{
       title: this.formGroupNameDescType.value.name!,
       description: this.formGroupNameDescType.value.description!,
       type: accType,
-      address: '',
+      address: address,
       amenities: [],
-      images: imgs,
+      images: this.photos,
       startDate: this.formGroupAvailability.value.startDate!,
       endDate: this.formGroupAvailability.value.endDate!,
       price: price,
       minCapacity: this.formGroupMinMaxCapacity.value.minCapacity!,
       maxCapacity: this.formGroupMinMaxCapacity.value.maxCapacity!,
     };
-    this.accommodationService.add(accommodation).subscribe(
-        {
-          next: () => {
-          },
-          error: (_) => {
-            this.snackBar.openSnackBar('error happened', action);
-          }
+
+
+    this.accommodationService.createAccommodationWithPhotos(accommodation, this.photos).subscribe(
+        (response) => {
+          console.log("Acccommodation created with photos: ", response);
+
+        },
+        (error) => {
+          console.error("Error creating accommodation with photos: ", error);
         }
-    );
+    )
 
 
   }
@@ -156,10 +178,36 @@ export class CreateAccommodationComponent implements OnInit{
   onMapClick(event: any) {
     // var location = event.latLng;
     // console.log(location);
-    this.formGroupLocation.value.lat = Number(localStorage.getItem("lat")!);
-    this.formGroupLocation.value.lng = Number(localStorage.getItem("lng")!);
+    // this.formGroupLocation.value.lat = Number(localStorage.getItem("lat")!);
+    // this.formGroupLocation.value.lng = Number(localStorage.getItem("lng")!);
 
   }
+
+    detectFiles(event: any) {
+        const files = event.target.files;
+        console.log(files);
+    }
+
+    convertFileToImage(file: File): Image {
+      const blob = new Blob([file], { type: file.type });
+      return {
+        path: URL.createObjectURL(blob),
+      };
+    }
+
+    convertFilesToImages(fileList: File[]): Image[] {
+        const images: Image[] = [];
+
+        for (let i = 0; i < fileList.length; i++) {
+            const file = fileList[i];
+            if (file) {
+                const image = this.convertFileToImage(file);
+                images.push(image);
+            }
+        }
+
+        return images;
+    }
 
 
 

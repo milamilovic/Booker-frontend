@@ -12,6 +12,7 @@ export class PhotoUploadComponent implements OnInit{
   loading: boolean = false;
   selectedFiles: File[] = [];
   images: Image[] = [];
+  urls = new Array<string>();
 
 
   constructor(private photoUploadService : PhotoUploadService) {
@@ -20,33 +21,22 @@ export class PhotoUploadComponent implements OnInit{
   ngOnInit(): void {
   }
 
-  onFileSelected(event: any) {
-    const files: FileList = event.target.files;
-    if(files && files.length > 0) {
-      this.selectedFiles = Array.from(files);
-    }
-  }
 
-  uploadFiles() {
-    if (this.selectedFiles && this.selectedFiles.length > 0) {
-      this.loading = true;
-
-      const uploadObservables = this.selectedFiles.map((file: File) =>
-        this.photoUploadService.upload(file)
-      );
-
-      forkJoin(uploadObservables).subscribe(
-        (responses: any[]) => {
-          this.images = responses.map(response => response as Image);
-          this.loading = false;
-        },
-        error => {
-          console.log("Error uploading files: ", error);
-          this.loading = false;
+  detectFiles(event: any) {
+    this.urls = [];
+    let files = event.target.files;
+    if (files) {
+      for (let file of files) {
+        let reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.urls.push(e.target.result);
         }
-      );
+        reader.readAsDataURL(file);
+      }
     }
   }
+
+
 
 
 }

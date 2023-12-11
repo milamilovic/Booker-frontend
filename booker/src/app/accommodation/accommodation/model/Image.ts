@@ -1,5 +1,5 @@
 export interface Image {
-  id?: number | null;
+  id?: number;
   path: string;
-  accommodation?: object | null;
+  accommodation?: object;
 }
