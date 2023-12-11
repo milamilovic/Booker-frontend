@@ -5,6 +5,8 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Guest} from "./guest-view/model/guest.model";
 import {environment} from "../../env/env";
+import {UpdateUserDTO} from "./dto/UpdateUserDTO";
+import {Owner} from "./owner-view/model/owner.model";
 
 
 const USERS = [
@@ -47,6 +49,14 @@ export class UserService {
     return this.http.get<Guest>(environment.apiHost + 'guests/' + id);
   }
 
+  getOwners(): Observable<Owner>{
+    return this.http.get<Owner>(environment.apiHost + 'owners/all');
+  }
+
+  getOwnerById(id: number): Observable<Owner>{
+    return this.http.get<Owner>(environment.apiHost + 'owners/' + id);
+  }
+
   getAll() : User[] {
     return this.usersList;
   }
@@ -55,5 +65,12 @@ export class UserService {
     this.usersList.push(user);
   }
 
+  updateGuest(id: number, updateUser: UpdateUserDTO): Observable<UpdateUserDTO> {
+    return this.http.put<UpdateUserDTO>(environment.apiHost + 'guests', updateUser);
+  }
+
+  updateOwner(id: number, updateUser: UpdateUserDTO): Observable<UpdateUserDTO> {
+    return this.http.put<UpdateUserDTO>(environment.apiHost + 'owners', updateUser);
+  }
 }
 

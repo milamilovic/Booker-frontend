@@ -9,6 +9,7 @@ import {MatCardModule} from "@angular/material/card";
 import {RouterLink} from "@angular/router";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -26,7 +27,8 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     RouterLink,
     MatInputModule,
     MatDatepickerModule,
-    AccommodationComponent
+    AccommodationComponent,
+    FormsModule
   ],
   exports: [
     AccommodationComponent

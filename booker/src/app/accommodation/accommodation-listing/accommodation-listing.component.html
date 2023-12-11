@@ -2,31 +2,28 @@
   <div class="container">
     <form>
       <div>
-        <input type="text" id="where_input" name="where_input" placeholder="Where to?">
-        <input type="date" id="from_date" name="from_date" placeholder="When?">
-        <input type="date" id="to_date" name="to_date" placeholder="When?">
-        <input type="number" id="people_input" name="people_input" placeholder="How many people?">
-        <button id="search_button" class="search-button">Search!</button>
+        <input type="text" id="where_input" name="where_input" placeholder="Where to?" #where_input [value]="location">
+        <input type="date" id="from_date" name="from_date" placeholder="When?" #from_date [value]="startDate">
+        <input type="date" id="to_date" name="to_date" placeholder="When?" #to_date [value]="endDate">
+        <input type="number" id="people_input" name="people_input" placeholder="How many people?" #people_input [value]="people">
+        <input type="button" class="search-button" value="Search!" (click)="search(where_input, from_date, to_date, people_input)"/>
       </div>
       <div class="filters">
         <div class="left_part_accommodations">
-          <mat-checkbox class="amenities"><p class="filter-text">Wi-fi</p></mat-checkbox>
-          <mat-checkbox class="amenities"><p class="filter-text">AC</p></mat-checkbox>
-          <mat-checkbox class="amenities"><p class="filter-text">Kitchen</p></mat-checkbox>
-          <mat-checkbox class="amenities"><p class="filter-text">Free parking</p></mat-checkbox>
+          <div *ngFor="let amenity of amenities">
+            <mat-checkbox class="amenities" [(ngModel)]="selectedAmenities[amenity]" [ngModelOptions]="{standalone: true}" (change)="onCheckboxChange(amenity)"><p class="filter-text">{{amenity}}</p></mat-checkbox>
+          </div>
         </div>
         <div class="right_part">
-          <mat-radio-group aria-label="Select an accommodation type: " class="right_part_acc_type">
-            <mat-radio-button value="1"><p class="filter-text">all</p></mat-radio-button>
-            <mat-radio-button value="2"><p class="filter-text">studio</p></mat-radio-button>
-            <mat-radio-button value="3"><p class="filter-text">hotel</p></mat-radio-button>
-            <mat-radio-button value="4"><p class="filter-text">villa</p></mat-radio-button>
-            <mat-radio-button value="5"><p class="filter-text">room</p></mat-radio-button>
-            <mat-radio-button value="6"><p class="filter-text">resort</p></mat-radio-button>
-          </mat-radio-group>
+          <div class="right_part_acc_type">
+            <mat-checkbox [(ngModel)]="studio" [ngModelOptions]="{standalone: true}"><p class="filter-text">studio</p></mat-checkbox>
+            <mat-checkbox [(ngModel)]="hotel" [ngModelOptions]="{standalone: true}"><p class="filter-text">hotel</p></mat-checkbox>
+            <mat-checkbox [(ngModel)]="villa" [ngModelOptions]="{standalone: true}"><p class="filter-text">villa</p></mat-checkbox>
+            <mat-checkbox [(ngModel)]="room" [ngModelOptions]="{standalone: true}"><p class="filter-text">room</p></mat-checkbox>
+          </div>
           <div class="right_part_price">
-            <input type="number" id="min_price" name="min_price" placeholder="minimum">
-            <input type="number" id="max_price" name="max_price" placeholder="maximum">
+            <input type="number" id="min_price" [(ngModel)]="minPrice" [ngModelOptions]="{standalone: true}" placeholder="minimum">
+            <input type="number" id="max_price" [(ngModel)]="maxPrice" [ngModelOptions]="{standalone: true}" placeholder="maximum">
           </div>
         </div>
       </div>

@@ -63,8 +63,14 @@
 
     <div class="description_box">
       <b class="title">Address:</b><br>
-      <i class="address">{{accommodation.address}}</i>
+      <i class="address">{{accommodation.address.city}}, {{accommodation.address.street}}</i>
       <button class="map_button">Show on map</button>
+    </div>
+
+    <div class="description_box">
+      <b class="title">Owner:</b><br>
+      <i class="address">{{owner.name}}</i>
+      <p class="show_profile" [routerLink]="['/owner']"><u>Show profile</u></p>
     </div>
 
     <div class="reservation">

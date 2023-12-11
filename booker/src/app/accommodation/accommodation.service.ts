@@ -7,6 +7,10 @@ import {AccommodationViewDto} from "./accommodation/model/accommodation-view";
 import {CreateAccommodation} from "./create-accommodation/model/create-accommodation.model";
 import {ReservationRequest} from "./accommodation/model/ReservationRequest";
 import {Image} from "./accommodation/model/Image";
+import {UserService} from "../user/user.service";
+import {Owner} from "../user/owner-view/model/owner.model";
+import {Filter} from "./accommodation/model/Filter";
+import {Amenity} from "./accommodation/model/Amenity";
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +18,24 @@ import {Image} from "./accommodation/model/Image";
 export class AccommodationService {
   private accListings: AccommodationListingDto[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private userService: UserService) { }
 
   searchAccommodations(startDate: string, endDate: string, location: string, people: number): Observable<AccommodationListingDto[]> {
     return this.http.get<AccommodationListingDto[]>(environment.apiHost + 'api/accommodations/' + 'search/' + startDate + '/' + endDate + '/' + location + '/' + people);
+  }
+
+  searchAndFilterAccommodations(startDate: string, endDate: string, location: string, people: number, filters: Filter[]): Observable<AccommodationListingDto[]> {
+    const requestBody = JSON.stringify(filters);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.post<AccommodationListingDto[]>(environment.apiHost + 'api/accommodations/' + 'search/' + startDate + '/' + endDate + '/' + location + '/' + people + '/filter',
+      requestBody,
+      {headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'http://localhost:4200'}});
   }
 
   getAccommodation(id: number): Observable<AccommodationViewDto> {
@@ -41,6 +59,15 @@ export class AccommodationService {
 
 
     return this.http.post(environment.apiHost + 'api/accommodations/add', formData);
+  }
+
+
+  getOwner(id: number): Observable<Owner> {
+    return this.userService.getOwnerById(id);
+  }
+
+  getAmenityNames() {
+    return this.http.get<string[]>(environment.apiHost + 'api/amenities/names');
   }
 
 }
