@@ -8,6 +8,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MaterialModule} from "../infrastructure/material/material.module";
 import {FormsModule} from "@angular/forms";
 import { OwnerViewComponent } from './owner-view/owner-view.component';
+import { AdminViewComponent } from './admin-view/admin-view.component';
 
 
 
@@ -23,7 +24,8 @@ import { OwnerViewComponent } from './owner-view/owner-view.component';
   ],
   declarations: [
     GuestViewComponent,
-    OwnerViewComponent
+    OwnerViewComponent,
+    AdminViewComponent
   ]
 })
 export class UserModule { }

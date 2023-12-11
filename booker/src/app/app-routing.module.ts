@@ -8,6 +8,7 @@ import {RegisterComponent} from "./layout/register/register.component";
 import {GuestViewComponent} from "./user/guest-view/guest-view.component";
 import {CreateAccommodationComponent} from "./accommodation/create-accommodation/create-accommodation.component";
 import {OwnerViewComponent} from "./user/owner-view/owner-view.component";
+import {AdminViewComponent} from "./user/admin-view/admin-view.component";
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'guest/1', component: GuestViewComponent},
   {path: 'owner', component: OwnerViewComponent},
+  {path: 'admins/5', component: AdminViewComponent},
   {path: 'search/:startDate/:endDate/:location/:people', component: AccommodationListingComponent},
   {path: 'search/:startDate/:endDate/:location/:people/filter', component: AccommodationListingComponent},
   {path: 'create_accommodation', component: CreateAccommodationComponent}
