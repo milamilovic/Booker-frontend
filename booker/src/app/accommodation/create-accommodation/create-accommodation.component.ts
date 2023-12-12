@@ -11,11 +11,10 @@ import {Image} from "../accommodation/model/Image";
 import {environment} from "../../../env/env";
 import {PhotoUploadService} from "../../photo-upload/photo-upload.service";
 import {Address} from "../accommodation/model/address.model";
+import {AmenityService} from "../../amenity/amenity.service";
+import {AmenityDTO} from "../../amenity/AmenityDTO";
 
-interface SelectedFile {
-  name: string;
-  url: string;
-}
+
 @Component({
   selector: 'app-create-accommodation',
   templateUrl: './create-accommodation.component.html',
@@ -25,6 +24,10 @@ interface SelectedFile {
 export class CreateAccommodationComponent implements OnInit{
   urls = new Array<string>();
   photos = new Array<Image>();
+  amenityNames: string[] = [];
+  selectedAmenityNames: { [name: string]: boolean } = {};
+  fileNames: string[] = [];
+  selectedFiles:File[] = [];
   formGroupNameDescType = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
@@ -43,8 +46,8 @@ export class CreateAccommodationComponent implements OnInit{
   })
 
   formGroupMinMaxCapacity = new FormGroup({
-    minCapacity: new FormControl(1, [Validators.required]),
-    maxCapacity: new FormControl(10, [Validators.required])
+    min_capacity: new FormControl(1, [Validators.required]),
+    max_capacity: new FormControl(10, [Validators.required])
   })
 
   formGroupAvailability = new FormGroup({
@@ -62,19 +65,27 @@ export class CreateAccommodationComponent implements OnInit{
   formGroupAmenities = new FormGroup({
     amenities: new FormControl()
   })
-  selectedFiles: SelectedFile[] = [];
 
   constructor(private fb : FormBuilder, private renderer: Renderer2, private accommodationService: AccommodationService,
-              private snackBar : SnackBarComponent, private map: MapComponent, private photoUploadService : PhotoUploadService) {
+              private snackBar : SnackBarComponent, private map: MapComponent, private photoUploadService : PhotoUploadService,
+              private amenityService: AmenityService) {
+  }
+
+
+
+
+
+
+  handleCheckboxChange(name: string) {
+    this.selectedAmenityNames[name] = !this.selectedAmenityNames[name];
+    console.log(this.selectedAmenityNames);
   }
 
   openSnackBar(message: string, action: string) {
     this.snackBar.openSnackBar(message, action);
   }
 
-  submitLocation(): void {
 
-  }
 
   submitForm() {
     const price: Price = {
@@ -90,6 +101,12 @@ export class CreateAccommodationComponent implements OnInit{
       latitude: this.formGroupLocation.value.lat!,
       longitude: this.formGroupLocation.value.lng!
     }
+
+    const selectedAmenities: string[] = this.amenityNames.filter(
+        amenity => this.selectedAmenityNames[amenity]
+    );
+
+
 
     console.log('FormGroup Location:', this.formGroupLocation.value);
     console.log('Address', address.street, address.city, address.latitude, address.longitude)
@@ -117,19 +134,20 @@ export class CreateAccommodationComponent implements OnInit{
       description: this.formGroupNameDescType.value.description!,
       type: accType,
       address: address,
-      amenities: [],
+      amenities: selectedAmenities,
       // images: this.photos,
       startDate: this.formGroupAvailability.value.startDate!,
       endDate: this.formGroupAvailability.value.endDate!,
       price: price,
-      minCapacity: this.formGroupMinMaxCapacity.value.minCapacity!,
-      maxCapacity: this.formGroupMinMaxCapacity.value.maxCapacity!,
+      min_capacity: this.formGroupMinMaxCapacity.value.min_capacity!,
+      max_capacity: this.formGroupMinMaxCapacity.value.max_capacity!,
     };
 
 
     this.accommodationService.createAccommodationWithPhotos(accommodation).subscribe(
         (response) => {
           console.log("Acccommodation created with photos: ", response);
+          this.uploadPhotos(response.id!);
           this.openSnackBar("Success!", "Close");
 
         },
@@ -142,49 +160,16 @@ export class CreateAccommodationComponent implements OnInit{
 
   }
 
-  onFileInput(event: any): void {
-    const files = event.target.files;
-
-    if (files && files.length > 0) {
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        if (this.isFileTypeAllowed(file.type)) {
-          const reader = new FileReader();
-
-          reader.onload = (e) => {
-            const url = e.target?.result as string;
-            this.selectedFiles.push({name: file.name, url});
-          };
-          reader.readAsDataURL(file);
-        } else {
-          alert(`Unsupported file type: ${file.type}. Please select JPG, JPEG, GIF or WEBP.`);
-        }
-        console.log(`File ${i + 1}:`, file);
-      }
-    }
+  private uploadPhotos(accommodationId: number): void {
+    this.selectedFiles.forEach((file) => {
+      this.accommodationService.uploadFiles(accommodationId, file).subscribe(() => {
+        console.log(`File ${file.name} uploaded successfully.`);
+      });
+    });
   }
 
-  private isFileTypeAllowed(fileType: string) : boolean {
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-    return allowedTypes.includes(fileType);
-  }
 
-   currentIndex = 0;
 
-    nextSlide() {
-        this.currentIndex = (this.currentIndex + 1) % document.querySelectorAll('.slider img').length;
-        this.updateSlider();
-    }
-
-  prevSlide() {
-        this.currentIndex = (this.currentIndex - 1 + document.querySelectorAll('.slider img').length) % document.querySelectorAll('.slider img').length;
-        this.updateSlider();
-    }
-
-    private updateSlider() {
-        const slider = document.querySelector('.slider') as HTMLElement;
-        this.renderer.setStyle(slider, 'transform', `translateX(-${this.currentIndex * 100}%)`);
-    }
 
   onMapClick(event: any) {
     // var location = event.latLng;
@@ -232,7 +217,13 @@ export class CreateAccommodationComponent implements OnInit{
 
 
   ngOnInit(): void {
+    this.amenityService.getAllNames().subscribe(
+        (names) => {
+          this.amenityNames = names;
 
+          this.amenityNames.forEach(name => this.selectedAmenityNames[name] = false);
+        }
+    )
   }
 
 

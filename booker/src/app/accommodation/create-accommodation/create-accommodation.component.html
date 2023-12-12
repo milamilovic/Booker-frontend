@@ -68,14 +68,12 @@
       <mat-step [stepControl]="formGroupAmenities">
           <form [formGroup]="formGroupAmenities">
               <ng-template matStepLabel>Accommodation amenities</ng-template>
-              <mat-card>
-                <mat-card-content>
-                  <mat-checkbox>Wifi</mat-checkbox>
-                  <mat-checkbox>AC</mat-checkbox>
-                  <mat-checkbox>Kitchen</mat-checkbox>
-                  <mat-checkbox>Free parking</mat-checkbox>
-                </mat-card-content>
-              </mat-card>
+                <div *ngFor="let amenity of amenityNames">
+                    <p>
+                        <mat-checkbox formControlName="amenities" [checked]="selectedAmenityNames[amenity]" (change)="handleCheckboxChange(amenity)">{{amenity}}</mat-checkbox>
+                    </p>
+                </div>
+
               <button mat-button matStepperPrevious type="button">Back</button>
               <button mat-button matStepperNext type="button">Next</button>
           </form>
@@ -99,7 +97,12 @@
 <!--            <div>-->
 <!--              <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" width="180">-->
 <!--            </div>-->
-            <input type="file" multiple (change)="detectFiles($event)" formControlName="photos">
+            <input type="file" multiple class="file-input" formControlName="photos">
+<!--              <div class="file-upload">-->
+<!--                  <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">-->
+<!--                      <mat-icon>attach_file</mat-icon>-->
+<!--                  </button>-->
+<!--              </div>-->
               <div>
 
                 <button mat-button matStepperPrevious type="button">Back</button>
@@ -112,12 +115,12 @@
               <ng-template matStepLabel>Accommodation capacity</ng-template>
               <mat-form-field>
                 <mat-label>Enter minimal capacity</mat-label>
-                <input matInput type="number" required formControlName="minCapacity">
+                <input matInput type="number" required formControlName="min_capacity">
                 <mat-icon matPrefix>people</mat-icon>
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Enter maximal capacity</mat-label>
-                <input matInput type="number" required formControlName="maxCapacity">
+                <input matInput type="number" required formControlName="max_capacity">
                 <mat-icon matPrefix>people</mat-icon>
               </mat-form-field>
               <button mat-button matStepperPrevious type="button">Back</button>

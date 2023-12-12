@@ -64,4 +64,12 @@ export class AccommodationService {
     return this.http.get<string[]>(environment.apiHost + 'api/amenities/names');
   }
 
+  uploadFiles(accommodationId: number, file: File): Observable<void> {
+    const formData = new FormData();
+    formData.append("images", file);
+
+    return this.http.post<void>(environment.apiHost + `api/accommodations/{$accommodationId}/upload_photos`, formData);
+
+  }
+
 }
