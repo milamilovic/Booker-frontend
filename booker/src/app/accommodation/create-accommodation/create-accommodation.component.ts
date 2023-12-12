@@ -23,7 +23,6 @@ interface SelectedFile {
 
 })
 export class CreateAccommodationComponent implements OnInit{
-  address: string = '';
   urls = new Array<string>();
   photos = new Array<Image>();
   formGroupNameDescType = new FormGroup({
@@ -37,7 +36,7 @@ export class CreateAccommodationComponent implements OnInit{
     city: new FormControl('', [Validators.required]),
     lat: new FormControl(0, [Validators.required]),
     lng: new FormControl(0 ,[Validators.required]),
-  })
+  });
 
   formGroupPhotos = new FormGroup({
     photos: new FormControl()
@@ -71,6 +70,13 @@ export class CreateAccommodationComponent implements OnInit{
 
   openSnackBar(message: string, action: string) {
     this.snackBar.openSnackBar(message, action);
+  }
+
+  submitLocation(): void {
+
+  }
+
+  submitForm() {
     const price: Price = {
       cost: this.formGroupPrice.value.amount!,
       fromDate: this.formGroupPrice.value.priceStartDate,
@@ -84,6 +90,9 @@ export class CreateAccommodationComponent implements OnInit{
       latitude: this.formGroupLocation.value.lat!,
       longitude: this.formGroupLocation.value.lng!
     }
+
+    console.log('FormGroup Location:', this.formGroupLocation.value);
+    console.log('Address', address.street, address.city, address.latitude, address.longitude)
     let accType = AccommodationType.STUDIO;
     if(this.formGroupNameDescType.value.accommodation_type === "Studio"){
       accType = AccommodationType.STUDIO;
@@ -93,10 +102,10 @@ export class CreateAccommodationComponent implements OnInit{
 
 
 
-    const selectedImages: File[] = this.formGroupPhotos.get('photos')?.value;
-
-    console.log(typeof(selectedImages));
-    this.photos = this.convertFilesToImages(selectedImages);
+    // const selectedImages: File[] = this.formGroupPhotos.get('photos')?.value;
+    //
+    // console.log(typeof(selectedImages));
+    // this.photos = this.convertFilesToImages(selectedImages);
 
     const image: Image = {
       path: 'asd',
@@ -109,7 +118,7 @@ export class CreateAccommodationComponent implements OnInit{
       type: accType,
       address: address,
       amenities: [],
-      images: this.photos,
+      // images: this.photos,
       startDate: this.formGroupAvailability.value.startDate!,
       endDate: this.formGroupAvailability.value.endDate!,
       price: price,
@@ -118,13 +127,15 @@ export class CreateAccommodationComponent implements OnInit{
     };
 
 
-    this.accommodationService.createAccommodationWithPhotos(accommodation, this.photos).subscribe(
+    this.accommodationService.createAccommodationWithPhotos(accommodation).subscribe(
         (response) => {
           console.log("Acccommodation created with photos: ", response);
+          this.openSnackBar("Success!", "Close");
 
         },
         (error) => {
           console.error("Error creating accommodation with photos: ", error);
+          this.openSnackBar("Error creating accommodation", "Close");
         }
     )
 
@@ -208,6 +219,14 @@ export class CreateAccommodationComponent implements OnInit{
 
         return images;
     }
+
+  handleMapClick(eventData: { lat: number; lng: number; street: string; city: string }): void {
+    this.formGroupLocation.value.street = eventData.street;
+    this.formGroupLocation.value.city = eventData.city;
+    this.formGroupLocation.value.lat = eventData.lat;
+    this.formGroupLocation.value.lng = eventData.lng;
+
+  }
 
 
 

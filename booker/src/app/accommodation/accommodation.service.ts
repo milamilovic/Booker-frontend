@@ -50,15 +50,9 @@ export class AccommodationService {
     return this.http.post<ReservationRequest>(environment.apiHost + 'api/requests', request)
   }
 
-  createAccommodationWithPhotos(accommodationData: CreateAccommodation, files: Image[]): Observable<any> {
-    const formData = new FormData();
-    formData.append('accommodationData', JSON.stringify(accommodationData));
-    Array.from(files).forEach((photo, index) => {
-      formData.append(`file${index}`, photo.path)
-    });
+  createAccommodationWithPhotos(accommodationData: CreateAccommodation): Observable<CreateAccommodation> {
 
-
-    return this.http.post(environment.apiHost + 'api/accommodations/add', formData);
+    return this.http.post<CreateAccommodation>(environment.apiHost + 'api/accommodations/' + 'add', accommodationData);
   }
 
 

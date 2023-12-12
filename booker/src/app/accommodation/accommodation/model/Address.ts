@@ -4,5 +4,5 @@ export interface Address {
   city: string;
   latitude: number;
   longitude: number;
-  accommodation: object;
+  accommodation?: object;
 }

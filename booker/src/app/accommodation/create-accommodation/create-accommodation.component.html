@@ -46,7 +46,7 @@
           </mat-form-field>
             <mat-form-field>
                 <mat-label>City</mat-label>
-                <input matInput required formControlName="city" id="city">
+                <input type="text" matInput required formControlName="city" id="city">
                 <mat-icon matPrefix>location_city</mat-icon>
             </mat-form-field>
             <mat-form-field>
@@ -56,11 +56,11 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Longitude</mat-label>
-                <input matInput required formControlName="lng" id="longitude">
+                <input formControlName="lng" matInput required  id="longitude">
                 <mat-icon matPrefix>place</mat-icon>
             </mat-form-field>
 
-          <app-map></app-map>
+          <app-map (mapClick)="handleMapClick($event)"></app-map>
           <button mat-button matStepperPrevious type="button">Back</button>
           <button mat-button matStepperNext type="button">Next</button>
         </form>
@@ -173,7 +173,7 @@
       <mat-step>
         <ng-template matStepLabel>Submit data</ng-template>
         <div id="buttons">
-          <button type="submit" mat-raised-button (click)="openSnackBar('Success!', 'Close')">Submit</button>
+          <button type="submit" mat-raised-button (click)="submitForm()">Submit</button>
           <button type="reset" mat-raised-button>Reset</button>
         </div>
       </mat-step>

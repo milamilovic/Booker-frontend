@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, Input} from '@angular/core';
+import {Component, AfterViewInit, Input, Output, EventEmitter} from '@angular/core';
 import * as L from 'leaflet';
 import {MapService} from "./map.service";
 
@@ -12,6 +12,9 @@ export class MapComponent implements AfterViewInit {
   private map: any;
   private address: string = '';
   private marker!: L.Marker;
+
+  @Output() mapClick: EventEmitter<{ lat: number; lng: number; street: string; city: string }> = new EventEmitter<{ lat: number; lng: number; street: string; city: string }>();
+
 
   constructor(private mapService : MapService) {
   }
@@ -92,13 +95,15 @@ export class MapComponent implements AfterViewInit {
       localStorage.setItem("lng", lng);
       this.mapService.reverseSearch(lat, lng).subscribe((data: any) => {
         if (data && data.address) {
-          streetInput.value = `${data.address.road}`
+          streetInput.value = `${data.address.house_number}  ${data.address.road}`
           cityInput.value = `${data.address.city}`
           this.address = `${data.address.road}, ${data.address.city}, ${data.address.country}`
         } else {
           streetInput.value = "Street not found.";
           cityInput.value = "City not found."
         }
+
+        this.mapClick.emit({ lat, lng, street: streetInput.value, city: cityInput.value });
       },
           error => {
             console.error("Error retrieving address: ", error);
