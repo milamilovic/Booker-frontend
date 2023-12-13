@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AccommodationListingDto} from "../accommodation/model/accommodation-listing.model";
+import {PriceType} from "../../enums/price-type.enum";
+import {AccommodationService} from "../accommodation.service";
 
 @Component({
   selector: 'app-accommodation-card',
@@ -14,11 +16,12 @@ export class AccommodationCardComponent implements OnInit{
   clicked: EventEmitter<AccommodationListingDto> = new EventEmitter<AccommodationListingDto>();
 
   favourite: string = "";
+  type: string = "";
   onAccommodationClick(): void {
     this.clicked.emit(this.accommodation);
   }
 
-  constructor() {
+  constructor(private service: AccommodationService) {
     this.accommodation = {
       id: undefined,
       title: '',
@@ -41,5 +44,19 @@ export class AccommodationCardComponent implements OnInit{
     } else {
       this.favourite = "../../../assets/images/icons8-heart-30 (1).png"
     }
+    //TODO set type of price ("day" or "person per day")
+    PriceType
+    let priceType = this.service.getPriceType(this.accommodation.id).subscribe({
+      next: (data: PriceType) => {
+        if(data == PriceType.PER_ACCOMMODATION) {
+          this.type = "day";
+        } else {
+          this.type = "person per day";
+        }
+      },
+      error: (_) => {
+        console.log("Greska!")
+      }
+    })
   }
 }

@@ -13,7 +13,7 @@ import {AccommodationViewDto} from "./model/accommodation-view";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {AccommodationService} from "../accommodation.service";
 import {Image} from "./model/Image";
-import {NgForOf, NgIf} from "@angular/common";
+import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {ReservationRequest} from "./model/ReservationRequest";
 import {ReservationRequestStatus} from "../../enums/reservation-request-status.enum";
 import {Owner} from "../../user/owner-view/model/owner.model";
@@ -24,13 +24,16 @@ import {Observable} from "rxjs";
   templateUrl: './accommodation.component.html',
   styleUrls: ['./accommodation.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, FormsModule, NgForOf, NgIf, RouterLink]
+  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, FormsModule, NgForOf, NgIf, RouterLink, DatePipe]
 })
 export class AccommodationComponent implements OnInit {
   accommodation!: AccommodationViewDto;
   totalPrice: string = "Total price";
   owner!: Owner;
   price: number = 0;
+  startDate: Date = new Date();
+  endDate: Date = new Date();
+  people: number = 1;
 
   constructor(private route: ActivatedRoute, private service: AccommodationService) {
   }
@@ -51,28 +54,58 @@ export class AccommodationComponent implements OnInit {
     })
   }
 
-  closed(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
+  closed() {
     // dateRangeStart.value, dateRangeEnd.value to get dates
     //TODO: get price for date range
-    this.price = Math.random() * 1000;
-    this.totalPrice = this.price.toFixed(2) + " $";
-    console.log(dateRangeEnd.value);
+    // this.price = Math.random() * 1000;
+    // this.totalPrice = this.price.toFixed(2) + " $";
+    // console.log(dateRangeEnd.value);
+    const year1 = this.startDate.getFullYear();
+    const month1 = (this.startDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+    const day1 = this.startDate.getDate().toString().padStart(2, '0');
+    const formattedFromDate = `${year1}-${month1}-${day1}`;
+    const year2 = this.endDate.getFullYear();
+    const month2 = (this.endDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+    const day2 = this.endDate.getDate().toString().padStart(2, '0');
+    console.log(year2 + ", " + month2 + ", " + day2)
+    const formattedToDate = `${year2}-${month2}-${day2}`;
+    this.service.getPrice(this.accommodation.id, formattedFromDate, formattedToDate, this.people).subscribe(
+      {
+        next: (data: number) => {
+          this.price = data;
+          this.totalPrice = this.price.toFixed(2) + " $";
+          console.log(this.price);
+        },
+        error: (_) => {}
+      }
+    );
   }
 
-  makeReservation(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement, peopleInput: HTMLInputElement) {
+  makeReservation() {
     let id = 0;
     this.route.params.subscribe((params) => {
       id = +params['id']
     });
-    //TODO: get price for date range
     //TODO: add logged in guest id
+    const year1 = this.startDate.getFullYear();
+    const month1 = (this.startDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+    const day1 = this.startDate.getDate().toString().padStart(2, '0');
+    console.log(year1 + ", " + month1 + ", " + day1)
+    const formattedFromDate = `${year1}-${month1}-${day1}`;
+
+    const year2 = this.endDate.getFullYear();
+    const month2 = (this.endDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+    const day2 = this.endDate.getDate().toString().padStart(2, '0');
+    console.log(year2 + ", " + month2 + ", " + day2)
+    const formattedToDate = `${year2}-${month2}-${day2}`;
+
     const request: ReservationRequest = {
       guestId: 1,
       accommodationId: id,
       id: -1,
-      fromDate: dateRangeStart.value.toString(),
-      toDate: dateRangeEnd.value.toString(),
-      numberOfGuests: parseInt(peopleInput.value, 10),
+      fromDate: formattedFromDate,
+      toDate: formattedToDate,
+      numberOfGuests: this.people,
       status: ReservationRequestStatus.WAITING,
       deleted: false,
       price: Number(this.price.toFixed(2))

@@ -79,18 +79,18 @@
         <mat-form-field>
           <mat-label>Enter a date range</mat-label>
           <mat-date-range-input [rangePicker]="picker">
-            <input matStartDate placeholder="Start date" #dateRangeStart>
-            <input matEndDate placeholder="End date" #dateRangeEnd>
+            <input matStartDate placeholder="Start date" [(ngModel)]="startDate" [value]="startDate | date:'yyyy-MM-dd'">
+            <input matEndDate placeholder="End date" [(ngModel)]="endDate" [value]="endDate | date:'yyyy-MM-dd'">
           </mat-date-range-input>
-          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+          <mat-hint>YYYY-MM-DD – YYYY-MM-DD</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-date-range-picker #picker (closed)="closed(dateRangeStart, dateRangeEnd)"></mat-date-range-picker>
+          <mat-date-range-picker #picker (closed)="closed()"></mat-date-range-picker>
         </mat-form-field>
       </div>
       <form>
-        <input type="number" id="people_input" name="people_input" placeholder="How many people?" #peopleInput>
+        <input type="number" id="people_input" name="people_input" placeholder="How many people?" [(ngModel)]="people" (change)="closed()">
         <input type="text" id="price" placeholder="Total price" value={{totalPrice}}>
-        <button class="reservation_btn" (click)="makeReservation(dateRangeStart, dateRangeEnd, peopleInput)">Make a request!</button>
+        <button class="reservation_btn" (click)="makeReservation()">Make a request!</button>
       </form>
     </div>
 
