@@ -2,13 +2,14 @@
   <div class="big-container">
     <div class="half-container">
       <div class="picture-section">
-        <img src="" alt="profile-pic" class="profile-pic" />
-        <button class="change-pic-button">upload</button>
+        <img [src]="updateUser.profilePicture?.path" alt="profile-pic" class="profile-pic" />
+        <button class="change-pic-button" (click)="fileInput.click()">upload</button>
+        <input #fileInput type="file" style="display: none;" (change)="onFileSelected($event)" />
       </div>
       <div class="info-section">
         <h2 class="section-title">Profile: </h2>
         <div class ="help-div">
-          <input type="text" class="name-surname" name="ns" value="Admin Admin" placeholder="name & surname">
+          <input type="text" class="name-surname" name="ns" [(ngModel)]="updateUser.name" placeholder="name & surname">
         </div>
         <div class ="help-div">
           <label class="role">admin</label>
@@ -16,15 +17,15 @@
         <br>
         <div class ="help-div2">
           <img class="info-icon" src="../../../assets/images/email_32.png">
-          <input type="text" class="email" value="admin@uns.ac.rs" placeholder="email address">
+          <input type="text" class="email" [(ngModel)]="updateUser.email" placeholder="email address">
         </div>
         <div class ="help-div2">
           <img class="info-icon" src="../../../assets/images/location_32.png">
-          <input type="text" class="address" value="Adresa admina" placeholder="address">
+          <input type="text" class="address" [(ngModel)]="updateUser.address" placeholder="address">
         </div>
         <div class ="help-div2">
           <img class="info-icon" src="../../../assets/images/phone_32.png">
-          <input type="text" class="phone" value="063456789" placeholder="phone number">
+          <input type="text" class="phone" [(ngModel)]="updateUser.phone" placeholder="phone number">
         </div>
       </div>
     </div>
@@ -33,22 +34,21 @@
         <h2 class="section-title">Password: </h2>
         <div class="password-wrapper">
           <label class="password-label">new password: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-          <input matInput [type]="hide_new ? 'password' : 'text'" class="password">
+          <input matInput [type]="hide_new ? 'password' : 'text'" class="password" [(ngModel)]="newPassword">
           <button mat-icon-button matSuffix (click)="hide_new = !hide_new">
             <mat-icon class="icon">{{hide_new ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </div>
         <div class="password-wrapper">
           <label class="password-label">confirm password: </label>
-          <input matInput [type]="hide_confirm ? 'password' : 'text'" class="password">
+          <input matInput [type]="hide_confirm ? 'password' : 'text'" class="password" [(ngModel)]="confirmPassword">
           <button mat-icon-button matSuffix (click)="hide_confirm = !hide_confirm">
             <mat-icon class="icon">{{hide_confirm ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </div>
       </div>
       <div class="buttons-section">
-        <button class="profile-button">Delete account</button>
-        <button class="profile-button">Apply changes</button>
+        <button class="profile-button" (click)="applyChanges()">Apply changes</button>
       </div>
     </div>
   </div>
