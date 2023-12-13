@@ -3,18 +3,22 @@ import {Image} from "../../accommodation/model/Image";
 import {AccommodationType} from "../../../enums/accommodation-type";
 import {Availability} from "../../accommodation/model/Availability";
 import {Price} from "../../accommodation/model/price.model";
+import {Address} from "../../accommodation/model/Address";
+import {AmenityDTO} from "../../../amenity/AmenityDTO";
+
 
 export interface CreateAccommodation {
+  id?: number;
   title: string;
   description: string;
-  address: string;
-  amenities: Amenity[];
-  images: Image[];
+  address: Address;
+  amenities: string[];
+  // images: Image[];
   type: AccommodationType;
   startDate: object;
   endDate: object;
   price: Price;
-  minCapacity: number;
-  maxCapacity: number;
+  min_capacity: number;
+  max_capacity: number;
 
 }

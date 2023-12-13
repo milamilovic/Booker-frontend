@@ -38,17 +38,29 @@
       <mat-step [stepControl]="formGroupLocation">
         <form [formGroup]="formGroupLocation">
           <ng-template matStepLabel>Accommodation location</ng-template>
+
           <mat-form-field>
-            <mat-label>Enter accommodation location</mat-label>
-            <input matInput required formControlName="lat" id="latitude">
-            <mat-icon matPrefix>place</mat-icon>
+            <mat-label>Street</mat-label>
+            <input matInput required formControlName="street" id="street">
+            <mat-icon matPrefix>signpost</mat-icon>
           </mat-form-field>
             <mat-form-field>
-                <mat-label>Enter accommodation location</mat-label>
-                <input matInput required formControlName="lng" id="lng">
+                <mat-label>City</mat-label>
+                <input type="text" matInput required formControlName="city" id="city">
+                <mat-icon matPrefix>location_city</mat-icon>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Latitude</mat-label>
+                <input matInput required formControlName="lat" id="latitude">
                 <mat-icon matPrefix>place</mat-icon>
             </mat-form-field>
-          <app-map (click)="onMapClick($event)"></app-map>
+            <mat-form-field>
+                <mat-label>Longitude</mat-label>
+                <input formControlName="lng" matInput required  id="longitude">
+                <mat-icon matPrefix>place</mat-icon>
+            </mat-form-field>
+
+          <app-map (mapClick)="handleMapClick($event)"></app-map>
           <button mat-button matStepperPrevious type="button">Back</button>
           <button mat-button matStepperNext type="button">Next</button>
         </form>
@@ -56,14 +68,12 @@
       <mat-step [stepControl]="formGroupAmenities">
           <form [formGroup]="formGroupAmenities">
               <ng-template matStepLabel>Accommodation amenities</ng-template>
-              <mat-card>
-                <mat-card-content>
-                  <mat-checkbox>Wifi</mat-checkbox>
-                  <mat-checkbox>AC</mat-checkbox>
-                  <mat-checkbox>Kitchen</mat-checkbox>
-                  <mat-checkbox>Free parking</mat-checkbox>
-                </mat-card-content>
-              </mat-card>
+                <div *ngFor="let amenity of amenityNames">
+                    <p>
+                        <mat-checkbox formControlName="amenities" [checked]="selectedAmenityNames[amenity]" (change)="handleCheckboxChange(amenity)">{{amenity}}</mat-checkbox>
+                    </p>
+                </div>
+
               <button mat-button matStepperPrevious type="button">Back</button>
               <button mat-button matStepperNext type="button">Next</button>
           </form>
@@ -71,20 +81,30 @@
       <mat-step  [stepControl]="formGroupPhotos">
           <form [formGroup]="formGroupPhotos">
               <ng-template matStepLabel>Add photos</ng-template>
-              <button mat-raised-button type="button" (click)="fileInput.click()">
-                <span>Upload</span>
-                <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;" multiple accept=".jpg, .jpeg, .png, .gif, .webp"/>
-              </button>
-              <div *ngIf="selectedFiles.length > 0">
-                <mat-grid-list formControlName="photos" cols="3" rowHeight="2:1" class="scroll-container">
-                  <mat-grid-tile *ngFor="let file of selectedFiles">
-                    <mat-card>
-                      <img matCardImage [src]="file.url" alt="{{ file.name }}">
-                    </mat-card>
-                  </mat-grid-tile>
-                </mat-grid-list>
-              </div>
+<!--              <button mat-raised-button type="button" (click)="fileInput.click()">-->
+<!--                <span>Upload</span>-->
+<!--                <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;" multiple accept=".jpg, .jpeg, .png, .gif, .webp"/>-->
+<!--              </button>-->
+<!--              <div *ngIf="selectedFiles.length > 0">-->
+<!--                <mat-grid-list formControlName="photos" cols="3" rowHeight="2:1" class="scroll-container">-->
+<!--                  <mat-grid-tile *ngFor="let file of selectedFiles">-->
+<!--                    <mat-card>-->
+<!--                      <img matCardImage [src]="file.url" alt="{{ file.name }}">-->
+<!--                    </mat-card>-->
+<!--                  </mat-grid-tile>-->
+<!--                </mat-grid-list>-->
+<!--              </div>-->
+<!--            <div>-->
+<!--              <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" width="180">-->
+<!--            </div>-->
+            <input type="file" multiple class="file-input" formControlName="photos">
+<!--              <div class="file-upload">-->
+<!--                  <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">-->
+<!--                      <mat-icon>attach_file</mat-icon>-->
+<!--                  </button>-->
+<!--              </div>-->
               <div>
+
                 <button mat-button matStepperPrevious type="button">Back</button>
                 <button mat-button matStepperNext type="button">Next</button>
               </div>
@@ -95,12 +115,12 @@
               <ng-template matStepLabel>Accommodation capacity</ng-template>
               <mat-form-field>
                 <mat-label>Enter minimal capacity</mat-label>
-                <input matInput type="number" required formControlName="minCapacity">
+                <input matInput type="number" required formControlName="min_capacity">
                 <mat-icon matPrefix>people</mat-icon>
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Enter maximal capacity</mat-label>
-                <input matInput type="number" required formControlName="maxCapacity">
+                <input matInput type="number" required formControlName="max_capacity">
                 <mat-icon matPrefix>people</mat-icon>
               </mat-form-field>
               <button mat-button matStepperPrevious type="button">Back</button>
@@ -156,7 +176,7 @@
       <mat-step>
         <ng-template matStepLabel>Submit data</ng-template>
         <div id="buttons">
-          <button type="submit" mat-raised-button (click)="openSnackBar('Success!', 'Close')">Submit</button>
+          <button type="submit" mat-raised-button (click)="submitForm()">Submit</button>
           <button type="reset" mat-raised-button>Reset</button>
         </div>
       </mat-step>

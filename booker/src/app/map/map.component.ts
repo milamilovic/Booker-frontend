@@ -1,6 +1,7 @@
-import { Component, AfterViewInit } from '@angular/core';
+import {Component, AfterViewInit, Input, Output, EventEmitter} from '@angular/core';
 import * as L from 'leaflet';
 import {MapService} from "./map.service";
+
 
 @Component({
   selector: 'app-map',
@@ -10,6 +11,10 @@ import {MapService} from "./map.service";
 export class MapComponent implements AfterViewInit {
   private map: any;
   private address: string = '';
+  private marker!: L.Marker;
+
+  @Output() mapClick: EventEmitter<{ lat: number; lng: number; street: string; city: string }> = new EventEmitter<{ lat: number; lng: number; street: string; city: string }>();
+
 
   constructor(private mapService : MapService) {
   }
@@ -41,10 +46,17 @@ export class MapComponent implements AfterViewInit {
     const lat: number = 45.25;
     const lon: number = 19.8228;
 
-    L.marker([lat, lon])
+    if(this.marker) {
+        this.map.removeLayer(this.marker);
+    }
+
+    this.marker = L.marker([lat, lon])
       .addTo(this.map)
       .bindPopup('Trenutno se nalazite ovde.')
       .openPopup();
+
+
+
   }
 
   search(): void {
@@ -68,12 +80,37 @@ export class MapComponent implements AfterViewInit {
 
       const lat = coord.lat;
       const lng = coord.lng;
+      const latitudeVal = e.latlng.lat.toFixed(6);
+      const longitudeVal = e.latlng.lng.toFixed(6);
+       const latitudeInput = document.getElementById('latitude') as HTMLInputElement;
+       const longitudeInput = document.getElementById('longitude') as HTMLInputElement;
+       const streetInput = document.getElementById('street') as HTMLInputElement;
+       const cityInput = document.getElementById('city') as HTMLInputElement;
+      if (latitudeInput && longitudeInput) {
+        latitudeInput.value = latitudeVal;
+        longitudeInput.value = longitudeVal;
+      }
+
       localStorage.setItem("lat", lat);
       localStorage.setItem("lng", lng);
-      this.mapService.reverseSearch(lat, lng).subscribe((res) => {
-        this.address = res.display_name;
-        console.log(res.display_name);
-      });
+      this.mapService.reverseSearch(lat, lng).subscribe((data: any) => {
+        if (data && data.address) {
+          streetInput.value = `${data.address.house_number}  ${data.address.road}`
+          cityInput.value = `${data.address.city}`
+          this.address = `${data.address.road}, ${data.address.city}, ${data.address.country}`
+        } else {
+          streetInput.value = "Street not found.";
+          cityInput.value = "City not found."
+        }
+
+        this.mapClick.emit({ lat, lng, street: streetInput.value, city: cityInput.value });
+      },
+          error => {
+            console.error("Error retrieving address: ", error);
+            streetInput.value = "Error retrieving street";
+            cityInput.value = "Error retrieving city";
+
+          });
       console.log(
         'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
       );
@@ -93,5 +130,9 @@ export class MapComponent implements AfterViewInit {
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
   }
+
+
+
+
 
 }

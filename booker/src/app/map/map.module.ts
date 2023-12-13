@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapComponent } from './map.component';
+import {MaterialModule} from "../infrastructure/material/material.module";
 
 
 
@@ -8,9 +9,10 @@ import { MapComponent } from './map.component';
   declarations: [
     MapComponent
   ],
-  imports: [
-    CommonModule
-  ],
+    imports: [
+        CommonModule,
+        MaterialModule
+    ],
   exports: [
     MapComponent
   ]

@@ -6,6 +6,7 @@ import {environment} from "../../env/env";
 import {AccommodationViewDto} from "./accommodation/model/accommodation-view";
 import {CreateAccommodation} from "./create-accommodation/model/create-accommodation.model";
 import {ReservationRequest} from "./accommodation/model/ReservationRequest";
+import {Image} from "./accommodation/model/Image";
 import {UserService} from "../user/user.service";
 import {Owner} from "../user/owner-view/model/owner.model";
 import {Filter} from "./accommodation/model/Filter";
@@ -50,12 +51,25 @@ export class AccommodationService {
     return this.http.post<ReservationRequest>(environment.apiHost + 'api/requests', request)
   }
 
+  createAccommodationWithPhotos(accommodationData: CreateAccommodation): Observable<CreateAccommodation> {
+
+    return this.http.post<CreateAccommodation>(environment.apiHost + 'api/accommodations/' + 'add', accommodationData);
+  }
+
+
   getOwner(id: number): Observable<Owner> {
     return this.userService.getOwnerById(id);
   }
 
   getAmenityNames() {
     return this.http.get<string[]>(environment.apiHost + 'api/amenities/names');
+  }
+  uploadFiles(accommodationId: number, file: File): Observable<void> {
+    const formData = new FormData();
+    formData.append("images", file);
+
+    return this.http.post<void>(environment.apiHost + `api/accommodations/{$accommodationId}/upload_photos`, formData);
+
   }
 
   getPriceType(id: number | undefined) {
