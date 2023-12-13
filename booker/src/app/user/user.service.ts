@@ -7,6 +7,7 @@ import {Guest} from "./guest-view/model/guest.model";
 import {environment} from "../../env/env";
 import {UpdateUserDTO} from "./dto/UpdateUserDTO";
 import {Owner} from "./owner-view/model/owner.model";
+import {Admin} from "./admin-view/model/admin.model";
 
 
 const USERS = [
@@ -55,6 +56,10 @@ export class UserService {
 
   getOwnerById(id: number): Observable<Owner>{
     return this.http.get<Owner>(environment.apiHost + 'owners/' + id);
+  }
+
+  getAdmin(id: number): Observable<Admin>{
+    return this.http.get<Admin>(environment.apiHost + 'admins/' + id);
   }
 
   getAll() : User[] {
