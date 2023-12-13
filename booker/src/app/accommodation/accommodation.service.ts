@@ -11,6 +11,7 @@ import {UserService} from "../user/user.service";
 import {Owner} from "../user/owner-view/model/owner.model";
 import {Filter} from "./accommodation/model/Filter";
 import {Amenity} from "./accommodation/model/Amenity";
+import {PriceType} from "../enums/price-type.enum";
 
 @Injectable({
   providedIn: 'root'
@@ -63,7 +64,6 @@ export class AccommodationService {
   getAmenityNames() {
     return this.http.get<string[]>(environment.apiHost + 'api/amenities/names');
   }
-
   uploadFiles(accommodationId: number, file: File): Observable<void> {
     const formData = new FormData();
     formData.append("images", file);
@@ -72,4 +72,12 @@ export class AccommodationService {
 
   }
 
+  getPriceType(id: number | undefined) {
+    return this.http.get<PriceType>(environment.apiHost + 'api/accommodations/priceType/' + id);
+  }
+
+  getPrice(id: number | undefined, startDate: string | undefined, endDate: string | undefined, people: number) {
+    return this.http.get<number>(environment.apiHost + 'api/prices/' + id + '/' + startDate + '/'
+    + endDate + '/' + people);
+  }
 }
