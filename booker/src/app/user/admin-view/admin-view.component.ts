@@ -13,7 +13,7 @@ export class AdminViewComponent implements OnInit{
   hide_confirm : boolean = true;
   admin!: Admin;
   updateUser: UpdateUserDTO = {
-    _id: 1
+    _id: 5
   };
   newPassword: string = '';
   confirmPassword: string = '';
@@ -26,7 +26,7 @@ export class AdminViewComponent implements OnInit{
       next: (result: Admin) => {
         this.admin = result;
         this.updateUser = {
-          _id: 1,
+          _id: 5,
           name: result.name,
           surname: result.surname,
           email: result.email,

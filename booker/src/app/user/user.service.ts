@@ -75,11 +75,11 @@ export class UserService {
   }
 
   updateOwner(id: number, updateUser: UpdateUserDTO): Observable<UpdateUserDTO> {
-    return this.http.put<UpdateUserDTO>(environment.apiHost + 'owners', updateUser);
+    return this.http.put<UpdateUserDTO>(environment.apiHost + 'owners/' + id, updateUser);
   }
 
   updateAdmin(id: number, updateUser: UpdateUserDTO): Observable<UpdateUserDTO> {
-    return this.http.put<UpdateUserDTO>(environment.apiHost + 'admins', updateUser);
+    return this.http.put<UpdateUserDTO>(environment.apiHost + 'admins/' + id, updateUser);
   }
 }
 

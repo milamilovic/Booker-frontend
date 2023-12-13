@@ -13,7 +13,7 @@ export class OwnerViewComponent implements OnInit{
   hide_confirm : boolean = true;
   owner!: Owner;
   updateUser: UpdateUserDTO = {
-    _id: 1
+    _id: 6
   };
   newPassword: string = '';
   confirmPassword: string = '';
@@ -22,11 +22,11 @@ export class OwnerViewComponent implements OnInit{
   constructor(private service: UserService) { }
 
   ngOnInit(): void {
-      this.service.getOwnerById(1).subscribe({
+      this.service.getOwnerById(6).subscribe({
           next: (result: Owner) => {
               this.owner = result;
               this.updateUser = {
-                  _id: 1,
+                  _id: 6,
                   name: result.name,
                   surname: result.surname,
                   email: result.email,
@@ -56,7 +56,7 @@ export class OwnerViewComponent implements OnInit{
   }
 
   saveChanges(): void {
-    this.service.updateOwner(1, this.updateUser).subscribe((response) => {
+    this.service.updateOwner(6, this.updateUser).subscribe((response) => {
       console.log('Updated user data!', response);
     });
   }

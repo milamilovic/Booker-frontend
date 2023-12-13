@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'guests', component: GuestViewComponent},
-  {path: 'owner', component: OwnerViewComponent},
+  {path: 'owners/6', component: OwnerViewComponent},
   {path: 'admins/5', component: AdminViewComponent},
   {path: 'search/:startDate/:endDate/:location/:people', component: AccommodationListingComponent},
   {path: 'search/:startDate/:endDate/:location/:people/filter', component: AccommodationListingComponent},
