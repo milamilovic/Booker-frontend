@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UserService} from "../user.service";
 import {Guest} from "./model/guest.model";
 import {UpdateUserDTO} from "../dto/UpdateUserDTO";
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-guest-view',
@@ -19,7 +20,7 @@ export class GuestViewComponent implements OnInit{
   confirmPassword: string = '';
   @ViewChild('fileInput') fileInput!: ElementRef;
 
-  constructor(private service: UserService) { }
+  constructor(private service: UserService, private dialog: DeleteDialogComponent) { }
 
   ngOnInit(): void {
     this.service.getGuestById(1).subscribe({
@@ -71,7 +72,22 @@ export class GuestViewComponent implements OnInit{
   }
 
   deleteAccount() {
-    // TODO delete acc
+    this.service.deleteGuest(1).subscribe(
+      response => {
+        if (!response) {
+          this.openDeleteDialog("Deletion failed", "You can not delete your account " +
+            "at the moment because you have active reservations in the future!\nSorry :(");
+        } else {
+          this.openDeleteDialog("Deletion successful", "Deleted account! ");
+        }
+      },
+      error => {
+        console.error('Error: ', error);
+      }
+    );
   }
 
+  openDeleteDialog(title: String, content: String) {
+
+  }
 }

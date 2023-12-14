@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {UserType} from "../enums/user-type.enum";
 import {User} from "./model/user.model";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {catchError, map, Observable} from "rxjs";
 import {Guest} from "./guest-view/model/guest.model";
 import {environment} from "../../env/env";
 import {UpdateUserDTO} from "./dto/UpdateUserDTO";
@@ -80,6 +80,21 @@ export class UserService {
 
   updateAdmin(id: number, updateUser: UpdateUserDTO): Observable<UpdateUserDTO> {
     return this.http.put<UpdateUserDTO>(environment.apiHost + 'admins/' + id, updateUser);
+  }
+
+  deleteGuest(id: number): Observable<Boolean> {
+    return this.http.put<Boolean>(environment.apiHost + 'guests/delete/' + id, {}).pipe(
+      map(response => {
+        if (!response){
+
+        }
+        return response;
+      }),
+      catchError(error => {
+        console.error('Error: ', error);
+        throw error;
+      })
+    );
   }
 }
 
