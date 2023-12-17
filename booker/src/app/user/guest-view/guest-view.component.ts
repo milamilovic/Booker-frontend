@@ -22,7 +22,8 @@ export class GuestViewComponent implements OnInit{
   constructor(private service: UserService) { }
 
   ngOnInit(): void {
-    this.service.getGuestById(1).subscribe({
+    const loggedId = Number(localStorage.getItem("loggedId"))
+    this.service.getGuestById(loggedId).subscribe({
       next: (result: Guest) => {
         this.guest = result;
         this.updateUser = {

@@ -1,14 +1,13 @@
 import {UserType} from "../../enums/user-type.enum";
-import {ProfilePicture} from "./ProfilePicture";
+import {ProfilePicture} from "../model/ProfilePicture";
 
-export interface User {
-  _id: number;
+export interface CreateUserDTO {
   name: string;
   surname: string;
   email: string;
+  password: string;
   address: string;
   phone: string;
-  password: string;
-  type?: UserType;
+  role?: UserType;
   profilePicture?: ProfilePicture;
 }
