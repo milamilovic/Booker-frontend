@@ -141,6 +141,8 @@ img {
   margin-left: 15px;
   font-size: 14px;
   margin-top: 15px;
+  margin-bottom: 30px;
+  margin-right: 10px;
 }
 .show_profile {
   float: right;
@@ -155,6 +157,7 @@ img {
   border-color: #FFFFFF00;
   height: 40px;
   margin-left: 20px;
+  margin-top: 20px;
 }
 .rating_container {
   display: flex;
@@ -205,4 +208,23 @@ img {
   margin-left: 50px;
   border-radius: 10px;
   border-color: #00000000;
+}
+.map_box {
+  width: 95%;
+  background-color: #90A288;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-left: 1.5%;
+  padding: 1%;
+  overflow: hidden;
+}
+.address_title {
+  font-size: 20px;
+  justify-content: left;
+  height: 100%;
+  display: block;
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: left;
+  float: left;
 }

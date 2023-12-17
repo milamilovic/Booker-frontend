@@ -1,6 +1,10 @@
 import {Component, AfterViewInit, Input, Output, EventEmitter} from '@angular/core';
 import * as L from 'leaflet';
 import {MapService} from "./map.service";
+import {ActivatedRoute} from "@angular/router";
+import {AccommodationViewDto} from "../accommodation/accommodation/model/accommodation-view";
+import {Owner} from "../user/owner-view/model/owner.model";
+import {AccommodationService} from "../accommodation/accommodation.service";
 
 
 @Component({
@@ -11,19 +15,53 @@ import {MapService} from "./map.service";
 export class MapComponent implements AfterViewInit {
   private map: any;
   private address: string = '';
-  private marker!: L.Marker;
 
   @Output() mapClick: EventEmitter<{ lat: number; lng: number; street: string; city: string }> = new EventEmitter<{ lat: number; lng: number; street: string; city: string }>();
 
 
-  constructor(private mapService : MapService) {
+  constructor(private mapService : MapService, private route: ActivatedRoute, private accommodationService: AccommodationService) {
   }
 
   private initMap(): void {
-    this.map = L.map('map', {
-      center: [45.2396, 19.8227],
-      zoom: 13,
-    });
+    this.route.params.subscribe((params) => {
+      const id = +params['id']
+      if(!isNaN(id)) {
+        this.accommodationService.getAccommodation(id).subscribe({
+          next: (data: AccommodationViewDto) => {
+            this.map = L.map('non-clickable', {
+              center: [data.address.latitude, data.address.longitude],
+              zoom: 10,
+            });
+            this.addMarker(data.address.latitude, data.address.longitude);
+
+
+            const tiles = L.tileLayer(
+              'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+              {
+                maxZoom: 18,
+                minZoom: 3,
+                attribution:
+                  '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+              }
+            );
+            tiles.addTo(this.map);
+
+            return;
+          }
+        })
+        return;
+      } else {
+
+        this.map = L.map('map', {
+          center: [45.2396, 19.8227],
+          zoom: 13,
+        });
+
+        this.addMarker(45.25, 19.8228);
+        this.registerOnClick();
+        this.search();
+      }
+    })
 
     const tiles = L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -35,28 +73,19 @@ export class MapComponent implements AfterViewInit {
       }
     );
     tiles.addTo(this.map);
-    this.addMarker();
-    this.registerOnClick();
-    this.search();
+
+    this.map.invalidateSize();
+
   }
 
 
 
-  private addMarker(): void {
-    const lat: number = 45.25;
-    const lon: number = 19.8228;
+  addMarker(lat: number, lon: number): void {
+    // const lat: number = 45.25;
+    // const lon: number = 19.8228;
 
-    if(this.marker) {
-        this.map.removeLayer(this.marker);
-    }
-
-    this.marker = L.marker([lat, lon])
-      .addTo(this.map)
-      .bindPopup('Trenutno se nalazite ovde.')
-      .openPopup();
-
-
-
+    L.marker([lat, lon])
+      .addTo(this.map);
   }
 
   search(): void {
@@ -82,10 +111,10 @@ export class MapComponent implements AfterViewInit {
       const lng = coord.lng;
       const latitudeVal = e.latlng.lat.toFixed(6);
       const longitudeVal = e.latlng.lng.toFixed(6);
-       const latitudeInput = document.getElementById('latitude') as HTMLInputElement;
-       const longitudeInput = document.getElementById('longitude') as HTMLInputElement;
-       const streetInput = document.getElementById('street') as HTMLInputElement;
-       const cityInput = document.getElementById('city') as HTMLInputElement;
+      const latitudeInput = document.getElementById('latitude') as HTMLInputElement;
+      const longitudeInput = document.getElementById('longitude') as HTMLInputElement;
+      const streetInput = document.getElementById('street') as HTMLInputElement;
+      const cityInput = document.getElementById('city') as HTMLInputElement;
       if (latitudeInput && longitudeInput) {
         latitudeInput.value = latitudeVal;
         longitudeInput.value = longitudeVal;
@@ -94,29 +123,27 @@ export class MapComponent implements AfterViewInit {
       localStorage.setItem("lat", lat);
       localStorage.setItem("lng", lng);
       this.mapService.reverseSearch(lat, lng).subscribe((data: any) => {
-        if (data && data.address) {
-          streetInput.value = `${data.address.house_number}  ${data.address.road}`
-          cityInput.value = `${data.address.city}`
-          this.address = `${data.address.road}, ${data.address.city}, ${data.address.country}`
-        } else {
-          streetInput.value = "Street not found.";
-          cityInput.value = "City not found."
-        }
+          if (data && data.address) {
+            streetInput.value = `${data.address.house_number}  ${data.address.road}`
+            cityInput.value = `${data.address.city}`
+            this.address = `${data.address.road}, ${data.address.city}, ${data.address.country}`
+          } else {
+            streetInput.value = "Street not found.";
+            cityInput.value = "City not found."
+          }
 
-        this.mapClick.emit({ lat, lng, street: streetInput.value, city: cityInput.value });
-      },
-          error => {
-            console.error("Error retrieving address: ", error);
-            streetInput.value = "Error retrieving street";
-            cityInput.value = "Error retrieving city";
+          this.mapClick.emit({ lat, lng, street: streetInput.value, city: cityInput.value });
+        },
+        error => {
+          console.error("Error retrieving address: ", error);
+          streetInput.value = "Error retrieving street";
+          cityInput.value = "Error retrieving city";
 
-          });
+        });
       console.log(
         'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
       );
-      const mp = new L.Marker([lat, lng]).addTo(this.map);
-      mp.bindPopup(this.address).openPopup();
-      alert(mp.getLatLng());
+      new L.Marker([lat, lng]).addTo(this.map).bindPopup(this.address).openPopup();
     });
   }
 
@@ -130,9 +157,6 @@ export class MapComponent implements AfterViewInit {
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
   }
-
-
-
 
 
 }
