@@ -96,5 +96,20 @@ export class UserService {
       })
     );
   }
+
+  deleteOwner(id: number): Observable<Boolean> {
+    return this.http.put<Boolean>(environment.apiHost + 'owners/delete/' + id, {}).pipe(
+      map(response => {
+        if (!response){
+
+        }
+        return response;
+      }),
+      catchError(error => {
+        console.error('Error: ', error);
+        throw error;
+      })
+    );
+  }
 }
 
