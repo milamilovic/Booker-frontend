@@ -131,19 +131,16 @@ export class AccommodationListingComponent implements OnInit {
     } else {
       //if there are no filtering params, then we are searching
       this.route.params.subscribe((params) => {
-        this.startDate = String(params['startDate']);
-        this.endDate = String(params['endDate']);
-        this.location = String(params['location']);
-        this.people = +params['people'];
-        console.log("parametri: " + this.startDate + ", " + this.endDate + ", " + this.location + ", " + this.people)
-        this.service.searchAccommodations(this.startDate, this.endDate, this.location, this.people).subscribe({
-          next: (data: AccommodationListingDto[]) => {
-            this.accommodations = data
-          },
-          error: (_) => {
-            console.log("Greska!")
-          }
-        })
+        console.log("parametri: " + start_date + ", " + end_date + ", " + location + ", " + people_search)
+        this.router.navigate(['/search', start_date, end_date, location, people_search]);
+        // this.service.searchAccommodations(start_date, end_date, location, people_search).subscribe({
+        //   next: (data: AccommodationListingDto[]) => {
+        //     this.accommodations = data
+        //   },
+        //   error: (_) => {
+        //     console.log("Greska!")
+        //   }
+        // })
       })
     }
     //this.router.navigate(['/search', start_date.value, end_date.value, location.value, Number(people.value), '/filter']);
