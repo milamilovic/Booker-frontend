@@ -38,7 +38,7 @@ import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
     MatStepperModule,
     MatOptionModule,
     MatGridListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   exports: [
     MatToolbarModule,

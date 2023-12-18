@@ -11,7 +11,7 @@ import {MatRadioModule} from "@angular/material/radio";
 import {MatSelectModule} from "@angular/material/select";
 import {AccommodationModule} from "./accommodation/accommodation.module";
 import {UserModule} from "./user/user.module";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { CreateAccommodationComponent } from './accommodation/create-accommodation/create-accommodation.component';
 import { PhotoUploadComponent } from './photo-upload/photo-upload.component';
 import {MapModule} from "./map/map.module";
@@ -19,13 +19,18 @@ import {FormsModule} from "@angular/forms";
 import {SharedModule} from "./shared/shared.module";
 import {MapService} from "./map/map.service";
 import {MapComponent} from "./map/map.component";
+import { UpdateAccommodationDetailsComponent } from './update-accommodation-details/update-accommodation-details.component';
+import {TokenInterceptor} from "./interceptor/TokenInterceptor";
+import { ActivationViewComponent } from './layout/activation-view/activation-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     CreateAccommodationComponent,
-    PhotoUploadComponent
+    PhotoUploadComponent,
+    UpdateAccommodationDetailsComponent,
+    ActivationViewComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,12 @@ import {MapComponent} from "./map/map.component";
     FormsModule,
     SharedModule
   ],
-  providers: [MapService, MapComponent],
+  providers: [MapService, MapComponent,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
