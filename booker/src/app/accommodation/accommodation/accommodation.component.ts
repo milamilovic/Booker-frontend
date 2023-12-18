@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {
   DateRange,
   ExtractDateTypeFromSelection,
@@ -18,15 +18,18 @@ import {ReservationRequest} from "./model/ReservationRequest";
 import {ReservationRequestStatus} from "../../enums/reservation-request-status.enum";
 import {Owner} from "../../user/owner-view/model/owner.model";
 import {Observable} from "rxjs";
+import {MapModule} from "../../map/map.module";
+import {MapComponent} from "../../map/map.component";
 
 @Component({
   selector: 'app-accommodation',
   templateUrl: './accommodation.component.html',
   styleUrls: ['./accommodation.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, FormsModule, NgForOf, NgIf, RouterLink, DatePipe]
+  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, FormsModule, NgForOf, NgIf, RouterLink, DatePipe, MapModule]
 })
-export class AccommodationComponent implements OnInit {
+
+export class AccommodationComponent implements OnInit  {
   accommodation!: AccommodationViewDto;
   totalPrice: string = "Total price";
   owner!: Owner;
@@ -35,16 +38,18 @@ export class AccommodationComponent implements OnInit {
   endDate: Date = new Date();
   people: number = 1;
 
-  constructor(private route: ActivatedRoute, private service: AccommodationService) {
+
+  constructor(private route: ActivatedRoute, private service: AccommodationService, private map: MapComponent) {
   }
 
   ngOnInit(): void {
+
     this.route.params.subscribe((params) => {
       const id = +params['id']
       this.service.getAccommodation(id).subscribe({
         next: (data: AccommodationViewDto) => {
           this.accommodation = data;
-          this.service.getOwner(id).subscribe({
+          this.service.getOwner(this.accommodation.owner_id).subscribe({
             next: (owner: Owner) => {
               this.owner = owner;
             }
@@ -111,14 +116,14 @@ export class AccommodationComponent implements OnInit {
       price: Number(this.price.toFixed(2))
     }
     this.service.makeReservationRequest(request).subscribe(
-        {
-          next: (data: ReservationRequest) => {
-            //TODO: navigate to my reservations?
-            console.log("made reservation request: ")
-            console.log(data)
-          },
-          error: (_) => {}
-        }
+      {
+        next: (data: ReservationRequest) => {
+          //TODO: navigate to my reservations?
+          console.log("made reservation request: ")
+          console.log(data)
+        },
+        error: (_) => {}
+      }
     );
   }
 }
