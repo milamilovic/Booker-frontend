@@ -21,6 +21,7 @@ import {MapService} from "./map/map.service";
 import {MapComponent} from "./map/map.component";
 import { UpdateAccommodationDetailsComponent } from './update-accommodation-details/update-accommodation-details.component';
 import {TokenInterceptor} from "./interceptor/TokenInterceptor";
+import { ActivationViewComponent } from './layout/activation-view/activation-view.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {TokenInterceptor} from "./interceptor/TokenInterceptor";
     RegisterComponent,
     CreateAccommodationComponent,
     PhotoUploadComponent,
-    UpdateAccommodationDetailsComponent
+    UpdateAccommodationDetailsComponent,
+    ActivationViewComponent
   ],
   imports: [
     BrowserModule,

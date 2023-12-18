@@ -9,6 +9,7 @@ import {GuestViewComponent} from "./user/guest-view/guest-view.component";
 import {CreateAccommodationComponent} from "./accommodation/create-accommodation/create-accommodation.component";
 import {OwnerViewComponent} from "./user/owner-view/owner-view.component";
 import {AdminViewComponent} from "./user/admin-view/admin-view.component";
+import {ActivationViewComponent} from "./layout/activation-view/activation-view.component";
 
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
   {path: 'admins/5', component: AdminViewComponent},
   {path: 'search/:startDate/:endDate/:location/:people', component: AccommodationListingComponent},
   {path: 'search/:startDate/:endDate/:location/:people/filter', component: AccommodationListingComponent},
-  {path: 'create_accommodation', component: CreateAccommodationComponent}
+  {path: 'create_accommodation', component: CreateAccommodationComponent},
+  {path: 'activate_profile/:activationLink', component: ActivationViewComponent}
 ];
 
 @NgModule({

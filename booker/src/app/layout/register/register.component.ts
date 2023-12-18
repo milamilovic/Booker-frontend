@@ -32,8 +32,8 @@ export class RegisterComponent implements OnInit {
     phone: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     confirm_password: new FormControl('', Validators.required),
-    role: new FormControl(null, Validators.required),
-    profilePicture: new FormControl(null, Validators.required)
+    role: new FormControl(null, Validators.required)
+    //profilePicture: new FormControl(null, Validators.required)
   });
 
   constructor(private userService: UserService,
@@ -58,8 +58,8 @@ export class RegisterComponent implements OnInit {
       confirm_password: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])],
       address: ['', Validators.compose([Validators.required])],
       phone: ['', Validators.compose([Validators.required])],
-      role: [null, Validators.compose([Validators.required])],
-      profilePicture: [null, Validators.compose([Validators.required])]
+      role: [null, Validators.compose([Validators.required])]
+      //profilePicture: [null, Validators.compose([Validators.required])]
     });
   }
 

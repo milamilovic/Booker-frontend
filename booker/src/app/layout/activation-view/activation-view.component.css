@@ -1,0 +1,12 @@
+.background {
+  background-image: url("../../../assets/images/pozadina.png");
+  height: 100vh;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content both horizontally and vertically */
+}
