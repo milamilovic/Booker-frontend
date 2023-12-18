@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AccommodationListingDto} from "../accommodation/model/accommodation-listing.model";
 import {PriceType} from "../../enums/price-type.enum";
 import {AccommodationService} from "../accommodation.service";
+import {AccommodationRating} from "../accommodation/model/AccommodationRating";
 
 @Component({
   selector: 'app-accommodation-card',
@@ -17,6 +18,7 @@ export class AccommodationCardComponent implements OnInit{
 
   favourite: string = "";
   type: string = "";
+  rating: string = "";
   onAccommodationClick(): void {
     this.clicked.emit(this.accommodation);
   }
@@ -44,7 +46,6 @@ export class AccommodationCardComponent implements OnInit{
     } else {
       this.favourite = "../../../assets/images/icons8-heart-30 (1).png"
     }
-    //TODO set type of price ("day" or "person per day")
     PriceType
     let priceType = this.service.getPriceType(this.accommodation.id).subscribe({
       next: (data: PriceType) => {
@@ -52,6 +53,24 @@ export class AccommodationCardComponent implements OnInit{
           this.type = "day";
         } else {
           this.type = "person per day";
+        }
+      },
+      error: (_) => {
+        console.log("Greska!")
+      }
+    })
+    //TODO: enter average rating
+    let ratings = this.service.getRatings(this.accommodation.id).subscribe({
+      next: (data: AccommodationRating[]) => {
+        let sum = 0;
+        for(let index in data ) {
+          sum += data[index].rate;
+        }
+        let ratingNum = sum / data.length;
+        if(isNaN(ratingNum)) {
+          this.rating = "No ratings yet     "
+        } else {
+          this.rating = '                 ' + ratingNum.toString() + ' / 5.0';
         }
       },
       error: (_) => {

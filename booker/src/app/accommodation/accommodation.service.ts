@@ -12,6 +12,7 @@ import {Owner} from "../user/owner-view/model/owner.model";
 import {Filter} from "./accommodation/model/Filter";
 import {Amenity} from "./accommodation/model/Amenity";
 import {PriceType} from "../enums/price-type.enum";
+import {AccommodationRating} from "./accommodation/model/AccommodationRating";
 
 @Injectable({
   providedIn: 'root'
@@ -79,5 +80,9 @@ export class AccommodationService {
   getPrice(id: number | undefined, startDate: string | undefined, endDate: string | undefined, people: number) {
     return this.http.get<number>(environment.apiHost + 'api/prices/' + id + '/' + startDate + '/'
     + endDate + '/' + people);
+  }
+
+  getRatings(id: number | undefined) {
+    return this.http.get<AccommodationRating[]>(environment.apiHost + 'api/accommodation_ratings/all/' + id + '/ratings');
   }
 }
