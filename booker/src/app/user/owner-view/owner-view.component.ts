@@ -15,6 +15,8 @@ export class OwnerViewComponent implements OnInit{
   updateUser: UpdateUserDTO = {
     _id: 6
   };
+  title: string = "";
+  content: string = "";
   newPassword: string = '';
   confirmPassword: string = '';
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -65,13 +67,43 @@ export class OwnerViewComponent implements OnInit{
     if (this.newPassword === this.confirmPassword) {
       this.saveChanges();
     } else {
-      // TODO error with password
+      this.openDialog("Password error", "Passwords must be the same!");
       console.log('Passwords must be the same!');
     }
   }
 
   deleteAccount() {
-    // TODO delete acc
+    this.service.deleteOwner(6).subscribe(
+      response => {
+        if (!response) {
+          this.openDialog("Deletion failed", "You can not delete your account " +
+            "at the moment because you have active reservations for your accommodation in the future!\nSorry :(");
+        } else {
+          this.openDialog("Deletion successful", "Deleted account! ");
+        }
+      },
+      error => {
+        console.error('Error: ', error);
+      }
+    );
+  }
+
+  openDialog(title: String, content: String) {
+    // @ts-ignore
+    this.title = title;
+    // @ts-ignore
+    this.content = content;
+    const dialogOverlayById = document.getElementById('dialog-overlay');
+    if (dialogOverlayById) {
+      dialogOverlayById.style.opacity = String(1);
+    }
+  }
+
+  closeDialog(){
+    const dialogOverlayById = document.getElementById('dialog-overlay');
+    if (dialogOverlayById) {
+      dialogOverlayById.style.opacity = String(0);
+    }
   }
 
 }
