@@ -217,6 +217,10 @@ img {
   margin-left: 1.5%;
   padding: 1%;
   overflow: hidden;
+  display: flex;
+  text-align: left;
+  justify-content: left;
+  float: left;
 }
 .address_title {
   font-size: 20px;

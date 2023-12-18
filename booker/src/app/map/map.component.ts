@@ -60,21 +60,19 @@ export class MapComponent implements AfterViewInit {
         this.addMarker(45.25, 19.8228);
         this.registerOnClick();
         this.search();
+
+        const tiles = L.tileLayer(
+          'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          {
+            maxZoom: 18,
+            minZoom: 3,
+            attribution:
+              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+          }
+        );
+        tiles.addTo(this.map);
       }
     })
-
-    const tiles = L.tileLayer(
-      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      {
-        maxZoom: 18,
-        minZoom: 3,
-        attribution:
-          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      }
-    );
-    tiles.addTo(this.map);
-
-    this.map.invalidateSize();
 
   }
 
