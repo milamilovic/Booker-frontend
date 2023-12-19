@@ -87,10 +87,10 @@
           <mat-date-range-picker #picker (closed)="closed()"></mat-date-range-picker>
         </mat-form-field>
       </div>
-      <form>
-        <input type="number" id="people_input" name="people_input" placeholder="How many people?" [(ngModel)]="people" (change)="closed()">
+      <form #request="ngForm" (ngSubmit)="makeReservation()" *ngIf="!submitted" [formGroup]="form" >
+        <input required type="number" id="people_input" name="people_input" placeholder="How many people?" [(ngModel)]="people" (change)="closed()" formControlName="people">
         <input type="text" id="price" placeholder="Total price" value={{totalPrice}}>
-        <button class="reservation_btn" (click)="makeReservation()">Make a request!</button>
+        <button type="submit" class="reservation_btn">Make a request!</button>
       </form>
     </div>
 
