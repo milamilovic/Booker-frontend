@@ -17,8 +17,8 @@ form {
   padding: 1%;
   background-color: #90A28880;
 }
-#location,
-#people {
+#where_input,
+#people_input {
   width: 30%;
   background-color: #e5e5e5;
   border: #00000000;
@@ -26,8 +26,8 @@ form {
   border-radius: 5px;
   min-height: 50px;
 }
-#startDate,
-#endDate {
+#from_date,
+#to_date {
   width: 15%;
   background-color: #e5e5e5;
   border: #00000000;
