@@ -9,7 +9,7 @@ import {MatCardModule} from "@angular/material/card";
 import {RouterLink} from "@angular/router";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -19,17 +19,18 @@ import {FormsModule} from "@angular/forms";
     AccommodationCardComponent,
     AccommodationCardComponent
   ],
-  imports: [
-    CommonModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    MatCardModule,
-    RouterLink,
-    MatInputModule,
-    MatDatepickerModule,
-    AccommodationComponent,
-    FormsModule
-  ],
+    imports: [
+        CommonModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        MatCardModule,
+        RouterLink,
+        MatInputModule,
+        MatDatepickerModule,
+        AccommodationComponent,
+        FormsModule,
+        ReactiveFormsModule
+    ],
   exports: [
     AccommodationComponent
   ]
