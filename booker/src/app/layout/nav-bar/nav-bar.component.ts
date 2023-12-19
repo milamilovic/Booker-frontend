@@ -7,7 +7,7 @@ import {Component} from '@angular/core';
 })
 export class NavBarComponent {
   isMenuOpen: boolean = false;
-  loginUserId: number = 1;
+  loginUserId: number = Number(localStorage.getItem("loggedId"));
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
