@@ -20,15 +20,17 @@ export class OwnerViewComponent implements OnInit{
   newPassword: string = '';
   confirmPassword: string = '';
   @ViewChild('fileInput') fileInput!: ElementRef;
+  loggedIn : number = 0;
 
   constructor(private service: UserService) { }
 
   ngOnInit(): void {
-      this.service.getOwnerById(6).subscribe({
+    this.loggedIn = Number(localStorage.getItem("loggedId"));
+      this.service.getOwnerById(this.loggedIn).subscribe({
           next: (result: Owner) => {
               this.owner = result;
               this.updateUser = {
-                  _id: 6,
+                  _id: this.loggedIn,
                   name: result.name,
                   surname: result.surname,
                   email: result.email,
@@ -58,7 +60,7 @@ export class OwnerViewComponent implements OnInit{
   }
 
   saveChanges(): void {
-    this.service.updateOwner(6, this.updateUser).subscribe((response) => {
+    this.service.updateOwner(this.loggedIn, this.updateUser).subscribe((response) => {
       console.log('Updated user data!', response);
     });
   }
@@ -73,9 +75,9 @@ export class OwnerViewComponent implements OnInit{
   }
 
   deleteAccount() {
-    this.service.deleteOwner(6).subscribe(
+    this.service.deleteOwner(this.loggedIn).subscribe(
       response => {
-        if (!response) {
+        if (!response.body) {
           this.openDialog("Deletion failed", "You can not delete your account " +
             "at the moment because you have active reservations for your accommodation in the future!\nSorry :(");
         } else {
@@ -95,14 +97,14 @@ export class OwnerViewComponent implements OnInit{
     this.content = content;
     const dialogOverlayById = document.getElementById('dialog-overlay');
     if (dialogOverlayById) {
-      dialogOverlayById.style.opacity = String(1);
+      dialogOverlayById.style.display = "flex";
     }
   }
 
   closeDialog(){
     const dialogOverlayById = document.getElementById('dialog-overlay');
     if (dialogOverlayById) {
-      dialogOverlayById.style.opacity = String(0);
+      dialogOverlayById.style.display = "none";
     }
   }
 

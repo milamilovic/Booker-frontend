@@ -136,51 +136,44 @@ export class UserService {
   }
 
   getGuests(): Observable<Guest>{
-    return this.http.get<Guest>(environment.apiHost + 'guests/all');
+    return this.http.get<Guest>(environment.apiHost + 'api/guests/all');
   }
 
   getGuestById(id: number): Observable<Guest>{
-    return this.http.get<Guest>(environment.apiHost + 'guests/' + id);
+    return this.http.get<Guest>(environment.apiHost + 'api/guests/' + id);
   }
 
   getOwners(): Observable<Owner>{
-    return this.http.get<Owner>(environment.apiHost + 'owners/all');
+    return this.http.get<Owner>(environment.apiHost + 'api/owners/all');
   }
 
   getOwnerById(id: number): Observable<Owner>{
-    return this.http.get<Owner>(environment.apiHost + 'owners/' + id);
+    return this.http.get<Owner>(environment.apiHost + 'api/owners/' + id);
   }
 
   getAdmin(id: number): Observable<Admin>{
-    return this.http.get<Admin>(environment.apiHost + 'admins/' + id);
+    return this.http.get<Admin>(environment.apiHost + 'api/admin/' + id);
   }
-
-  // getAll() : User[] {
-  //   return this.usersList;
-  // }
 
   add(user: User) : void {
     this.usersList.push(user);
   }
 
-  updateGuest(id: number, updateUser: UpdateUserDTO): Observable<UpdateUserDTO> {
-    return this.http.put<UpdateUserDTO>(environment.apiHost + 'guests/' + id, updateUser);
+  updateGuest(id: number, updateUser: any) {
+    return this.apiService.put(this.config.guests_url + `/${id}`, JSON.stringify(updateUser));
   }
 
-  updateOwner(id: number, updateUser: UpdateUserDTO): Observable<UpdateUserDTO> {
-    return this.http.put<UpdateUserDTO>(environment.apiHost + 'owners/' + id, updateUser);
+  updateOwner(id: number, updateUser: any){
+    return this.apiService.put(this.config.owners_url + `/${id}`, JSON.stringify(updateUser));
   }
 
-  updateAdmin(id: number, updateUser: UpdateUserDTO): Observable<UpdateUserDTO> {
-    return this.http.put<UpdateUserDTO>(environment.apiHost + 'admins/' + id, updateUser);
+  updateAdmin(id: number, updateUser: any) {
+    return this.apiService.put(this.config.admin_url + `/${id}`, JSON.stringify(updateUser));
   }
 
-  deleteGuest(id: number): Observable<Boolean> {
-    return this.http.put<Boolean>(environment.apiHost + 'guests/delete/' + id, {}).pipe(
+  deleteGuest(id: number) {
+    return this.apiService.put(this.config.guests_url + '/delete' + `/${id}`, {}).pipe(
       map(response => {
-        if (!response){
-
-        }
         return response;
       }),
       catchError(error => {
@@ -190,8 +183,8 @@ export class UserService {
     );
   }
 
-  deleteOwner(id: number): Observable<Boolean> {
-    return this.http.put<Boolean>(environment.apiHost + 'owners/delete/' + id, {}).pipe(
+  deleteOwner(id: number) {
+    return this.apiService.put(this.config.owners_url + '/delete' + `/${id}`, {}).pipe(
       map(response => {
         if (!response){
 
