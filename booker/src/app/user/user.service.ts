@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {UserType} from "../enums/user-type.enum";
 import {User} from "./model/user.model";
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
-import {catchError, map, Observable, throwError} from "rxjs";
+import {catchError, map, Observable, switchMap, throwError} from "rxjs";
 import {Guest} from "./guest-view/model/guest.model";
 import {environment} from "../../env/env";
 import {UpdateUserDTO} from "./dto/UpdateUserDTO";
@@ -40,6 +40,8 @@ const USERS = [
 })
 export class UserService {
   private usersList: User[] = [];
+  loginRole: string = '';
+  loggedInUser: User | undefined;
 
 
   constructor(private http: HttpClient,
@@ -62,7 +64,7 @@ export class UserService {
     };
     return this.apiService.post(this.config.login_url, JSON.stringify(body), loginHeaders)
       .pipe(
-        map((response: any) => {
+        switchMap((response: any) => {
           console.log('Login success');
           const token = response.body; // Use 'text' property for text responses
 
@@ -71,7 +73,27 @@ export class UserService {
           localStorage.setItem('jwt', this.access_token!);
           localStorage.setItem('loggedId', token.userId);
 
-        }),
+          return this.findById(token.userId).pipe(
+            map((user: User) => {
+                this.loggedInUser = user;
+
+                if (this.loggedInUser && this.loggedInUser.role) {
+                    if (this.loggedInUser.role === UserType.GUEST) {
+                        this.loginRole = 'guests';
+                    } else if (this.loggedInUser.role === UserType.OWNER) {
+                        this.loginRole = 'owners';
+                    } else if (this.loggedInUser.role === UserType.ADMIN) {
+                        this.loginRole = 'admins';
+                    }
+                }
+
+                // Sačuvaj ulogu korisnika u localStorage
+                localStorage.setItem('loggedRole', this.loginRole);
+
+                return this.loggedInUser; // Povrati podatke o ulogovanom korisniku
+            })
+        );
+          }),
         catchError((error: any) => {
           console.error('Error during login:', error);
           console.log('Error Response Body:', error.error); // Log the response body for further inspection
@@ -123,6 +145,8 @@ export class UserService {
   logout() {
     this.currentUser = null;
     localStorage.removeItem("jwt");
+    localStorage.removeItem("loggedId");
+    localStorage.removeItem("loggedRole");
     this.access_token = null;
     this.router.navigate(['/login']);
   }
@@ -133,6 +157,10 @@ export class UserService {
 
   getToken() {
     return this.access_token;
+  }
+
+  findById(id: number): any{
+    return this.http.get<User>(environment.apiHost + 'api/users/' + id);
   }
 
   getGuests(): Observable<Guest>{

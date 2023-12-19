@@ -22,6 +22,10 @@ export class ConfigService {
     return this._whoami_url;
   }
 
+  get auth_url(): string {
+    return this._auth_url;
+  }
+
 
   private _users_url = this._user_url + "/all";
 

@@ -9,6 +9,6 @@ export interface User {
   address: string;
   phone: string;
   password: string;
-  type?: UserType;
+  role: UserType;
   profilePicture?: ProfilePicture;
 }
