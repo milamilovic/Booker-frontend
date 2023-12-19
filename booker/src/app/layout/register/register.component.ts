@@ -83,7 +83,7 @@ export class RegisterComponent implements OnInit {
         address: this.form.value.address ?? '',
         phone: this.form.value.phone ?? '',
         password: this.form.value.password ?? '',
-        type: this.form.value.role ?? UserType.GUEST,
+        role: this.form.value.role ?? UserType.GUEST,
         profilePicture: initialProfilePic
       };
       this.userService.add(user);

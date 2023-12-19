@@ -2,28 +2,28 @@
   <div>
     <div class="property-1default">
       <img [routerLink]="['/home']" class="big-logo-icon1" alt="" src="../../assets/images/booker-high-resolution-logo-transparent.png" />
-      <div class="right-section-menu">
+      <div class="right-section-menu" *ngIf="loginUserId!=0">
         <button class="menu-toggle" (click)="toggleMenu()">Menu</button>
         <ul class="right-menu" [ngClass]="{'show-menu': isMenuOpen}" id="menu">
-          <li class="menu-item"><button type="button" (click)="toggleMenu()">Reservations</button></li>
-          <li class="menu-item"><button type="button" (click)="toggleMenu()">Notifications</button></li>
-          <li class="menu-item"><button type="button" (click)="toggleMenu()">My accommodations</button></li>
-          <li class="menu-item"><button type="button" (click)="toggleMenu()">Reservation requests</button></li>
-          <li class="menu-item"><button type="button" (click)="toggleMenu()">Approve comments</button></li>
-          <li class="menu-item"><button type="button" (click)="toggleMenu()">Approve blocking</button></li>
-          <li class="menu-item"><button type="button" (click)="toggleMenu()">Approve accommodations</button></li>
-          <li class="menu-item"><button type="button" (click)="toggleMenu()">Favorite accommodations</button></li>
-          <li class="menu-item"><button type="button" (click)="toggleMenu()" [routerLink]="['create_accommodation']">Create accommodation</button> </li>
-          <li class="menu-item"><button type="button" (click)="logout()">Log out</button></li>
+          <li class="menu-item" *ngIf="loginRole!='admins'"><button type="button" (click)="toggleMenu()">Reservations</button></li>
+          <li class="menu-item" *ngIf="loginRole!='admins'"><button type="button" (click)="toggleMenu()">Notifications</button></li>
+          <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()">My accommodations</button></li>
+          <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()">Reservation requests</button></li>
+          <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()">Approve comments</button></li>
+          <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()">Approve blocking</button></li>
+          <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()">Approve accommodations</button></li>
+          <li class="menu-item" *ngIf="loginRole==='guests'"><button type="button" (click)="toggleMenu()">Favorite accommodations</button></li>
+          <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['create_accommodation']">Create accommodation</button> </li>
+          <li class="menu-item"><button type="button" (click)="logout()" >Log out</button></li>
         </ul>
       </div>
-      <div class="profile-button">
-        <button class="profile" [routerLink]="['guests']" [queryParams]="{ id: loginUserId }">My profile</button>
+      <div class="profile-button" *ngIf="loginUserId!=0">
+        <button class="profile" id="profile-id"  [routerLink]="[loginRole]" [queryParams]="{ id: loginUserId }">My profile</button>
       </div>
-      <div class="log-in-button">
+      <div class="log-in-button" *ngIf="loginUserId==0">
         <button class="log-in" [routerLink]="['login']">Log in</button>
       </div>
-      <div class="sign-up-button">
+      <div class="sign-up-button" *ngIf="loginUserId==0">
         <button class="sign-up" [routerLink]="['signup']">Sign up</button>
       </div>
       <div [routerLink]="['/home']" class="search-button">
