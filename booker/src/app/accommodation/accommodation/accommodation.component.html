@@ -78,7 +78,7 @@
       <div class="left_part_reservation">
         <mat-form-field>
           <mat-label>Enter a date range</mat-label>
-          <mat-date-range-input [rangePicker]="picker">
+          <mat-date-range-input [rangePicker]="picker" [dateFilter]="invalidDateFiter">
             <input matStartDate placeholder="Start date" [(ngModel)]="startDate" [value]="startDate | date:'yyyy-MM-dd'">
             <input matEndDate placeholder="End date" [(ngModel)]="endDate" [value]="endDate | date:'yyyy-MM-dd'">
           </mat-date-range-input>

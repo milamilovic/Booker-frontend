@@ -22,6 +22,8 @@ import {MapModule} from "../../map/map.module";
 import {MapComponent} from "../../map/map.component";
 import {UserService} from "../../user/user.service";
 import {Guest} from "../../user/guest-view/model/guest.model";
+import {SharedService} from "../../shared/shared.service";
+import {Availability} from "./model/Availability";
 
 @Component({
   selector: 'app-accommodation',
@@ -40,8 +42,10 @@ export class AccommodationComponent implements OnInit  {
   endDate: Date = new Date();
   people: number = 1;
   loggedInGuest: number = 0;
+  invalidDateFiter: any;
+  available: boolean = false;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private service: AccommodationService, private map: MapComponent) {
+  constructor(private route: ActivatedRoute, private sharedService: SharedService, private userService: UserService, private service: AccommodationService, private map: MapComponent) {
   }
 
   ngOnInit(): void {
@@ -68,6 +72,15 @@ export class AccommodationComponent implements OnInit  {
               this.owner = owner;
             }
           })
+          //disable dates
+          this.invalidDateFiter = (d: Date | null): boolean => {
+            const selectedDate = d || new Date();
+
+            // Prevent dates that return false in the checkDate method from being selected.
+            let isAvailable = this.checkDate(new Date(selectedDate.toString()));
+            console.log("date " + selectedDate.toString() + "is available: " + isAvailable);
+            return isAvailable;
+          };
         }
       })
     })
@@ -75,10 +88,6 @@ export class AccommodationComponent implements OnInit  {
 
   closed() {
     // dateRangeStart.value, dateRangeEnd.value to get dates
-    //TODO: get price for date range
-    // this.price = Math.random() * 1000;
-    // this.totalPrice = this.price.toFixed(2) + " $";
-    // console.log(dateRangeEnd.value);
     const year1 = this.startDate.getFullYear();
     const month1 = (this.startDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
     const day1 = this.startDate.getDate().toString().padStart(2, '0');
@@ -105,7 +114,6 @@ export class AccommodationComponent implements OnInit  {
     this.route.params.subscribe((params) => {
       id = +params['id']
     });
-    //TODO: add logged in guest id
     const year1 = this.startDate.getFullYear();
     const month1 = (this.startDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
     const day1 = this.startDate.getDate().toString().padStart(2, '0');
@@ -119,7 +127,7 @@ export class AccommodationComponent implements OnInit  {
     const formattedToDate = `${year2}-${month2}-${day2}`;
 
     const request: ReservationRequest = {
-      guestId: 1,
+      guestId: this.loggedInGuest,
       accommodationId: id,
       id: -1,
       fromDate: formattedFromDate,
@@ -135,9 +143,22 @@ export class AccommodationComponent implements OnInit  {
           //TODO: navigate to my reservations?
           console.log("made reservation request: ")
           console.log(data)
+          this.sharedService.openSnack("You successfully made a reservation request!")
         },
         error: (_) => {}
       }
     );
+  }
+
+  private checkDate(selectedDate: Date) {
+    for(let a in this.accommodation.availabilities) {
+      let availability: Availability = this.accommodation.availabilities[a];
+      let startDate = new Date(availability.startDate.toString())
+      let endDate = new Date(availability.endDate.toString())
+      if(selectedDate >= startDate && selectedDate <= endDate) {
+        return true;
+      }
+    }
+    return false;
   }
 }
