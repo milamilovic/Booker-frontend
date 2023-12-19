@@ -13,6 +13,7 @@ import {PhotoUploadService} from "../../photo-upload/photo-upload.service";
 import {Address} from "../accommodation/model/address.model";
 import {AmenityService} from "../../amenity/amenity.service";
 import {AmenityDTO} from "../../amenity/AmenityDTO";
+import {HttpClient} from "@angular/common/http";
 
 
 @Component({
@@ -68,11 +69,32 @@ export class CreateAccommodationComponent implements OnInit{
 
   constructor(private fb : FormBuilder, private renderer: Renderer2, private accommodationService: AccommodationService,
               private snackBar : SnackBarComponent, private map: MapComponent, private photoUploadService : PhotoUploadService,
-              private amenityService: AmenityService) {
+              private amenityService: AmenityService,
+              private http: HttpClient) {
   }
 
 
+  onFilesSelected(event: any): void {
+    const files = event.target.files as File[];
+    this.selectedFiles = [...this.selectedFiles, ...files];
+  }
 
+  onSubmit(): void {
+    if (this.selectedFiles.length > 0) {
+      const formData = new FormData();
+
+      for (const file of this.selectedFiles) {
+        formData.append('files', file);
+      }
+
+      this.http.post('http://localhost:8080/api/images/upload-multiple', formData)
+        .subscribe(response => {
+          console.log('Files uploaded successfully:', response);
+        }, error => {
+          console.error('Error uploading files:', error);
+        });
+    }
+  }
 
 
 

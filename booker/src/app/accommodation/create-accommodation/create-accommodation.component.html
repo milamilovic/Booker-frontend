@@ -79,7 +79,7 @@
           </form>
       </mat-step>
       <mat-step  [stepControl]="formGroupPhotos">
-          <form [formGroup]="formGroupPhotos">
+          <form [formGroup]="formGroupPhotos" (submit)="onSubmit()" enctype="multipart/form-data">
               <ng-template matStepLabel>Add photos</ng-template>
 <!--              <button mat-raised-button type="button" (click)="fileInput.click()">-->
 <!--                <span>Upload</span>-->
@@ -97,13 +97,16 @@
 <!--            <div>-->
 <!--              <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" width="180">-->
 <!--            </div>-->
-            <input type="file" multiple class="file-input" formControlName="photos">
+<!--            <input type="file" multiple class="file-input" formControlName="photos">-->
 <!--              <div class="file-upload">-->
 <!--                  <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">-->
 <!--                      <mat-icon>attach_file</mat-icon>-->
 <!--                  </button>-->
 <!--              </div>-->
-              <div>
+
+            <input type="file" (change)="onFilesSelected($event)" multiple/>
+            <button type="submit">Upload Image</button>
+            <div>
 
                 <button mat-button matStepperPrevious type="button">Back</button>
                 <button mat-button matStepperNext type="button">Next</button>
