@@ -29,9 +29,18 @@ export class ConfigService {
     return this._users_url;
   }
 
+  get user_url(): string {
+    return this._user_url;
+  }
+
   private _signup_url = this._auth_url + "/signup";
 
   get signup_url(): string {
     return this._signup_url;
+  }
+
+  private _accommodations_url = this._api_url + "/accommodations";
+  get accommodations_url(): string {
+    return this._accommodations_url;
   }
 }

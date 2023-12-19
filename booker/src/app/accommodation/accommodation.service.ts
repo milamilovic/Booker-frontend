@@ -12,6 +12,7 @@ import {Owner} from "../user/owner-view/model/owner.model";
 import {Filter} from "./accommodation/model/Filter";
 import {Amenity} from "./accommodation/model/Amenity";
 import {PriceType} from "../enums/price-type.enum";
+import {ApiService, ConfigService} from "../service";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,10 @@ import {PriceType} from "../enums/price-type.enum";
 export class AccommodationService {
   private accListings: AccommodationListingDto[] = [];
 
-  constructor(private http: HttpClient, private userService: UserService) { }
+  constructor(private http: HttpClient,
+              private userService: UserService,
+              private apiService: ApiService,
+              private configService: ConfigService) { }
 
   searchAccommodations(startDate: string, endDate: string, location: string, people: number): Observable<AccommodationListingDto[]> {
     return this.http.get<AccommodationListingDto[]>(environment.apiHost + 'api/accommodations/' + 'search/' + startDate + '/' + endDate + '/' + location + '/' + people);
@@ -44,16 +48,16 @@ export class AccommodationService {
   }
 
 
-  add(createAccommodation: CreateAccommodation): Observable<CreateAccommodation> {
-    return this.http.post<CreateAccommodation>(environment.apiHost + 'api/accommodations/add', createAccommodation)
+  add(createAccommodation: any) {
+    return this.apiService.post(environment.apiHost + 'api/accommodations/create_accommodation', createAccommodation)
   }
   makeReservationRequest(request: ReservationRequest): Observable<ReservationRequest> {
     return this.http.post<ReservationRequest>(environment.apiHost + 'api/requests', request)
   }
 
-  createAccommodationWithPhotos(accommodationData: CreateAccommodation): Observable<CreateAccommodation> {
+  createAccommodationWithPhotos(accommodationData: any) {
 
-    return this.http.post<CreateAccommodation>(environment.apiHost + 'api/accommodations/' + 'add', accommodationData);
+    return this.apiService.post(environment.apiHost + 'api/accommodations/' + 'create_accommodation', accommodationData);
   }
 
 
@@ -79,5 +83,9 @@ export class AccommodationService {
   getPrice(id: number | undefined, startDate: string | undefined, endDate: string | undefined, people: number) {
     return this.http.get<number>(environment.apiHost + 'api/prices/' + id + '/' + startDate + '/'
     + endDate + '/' + people);
+  }
+
+  updateAvailability(id: number, updateAvailabilityDTO: any) {
+    return this.apiService.put(this.configService.accommodations_url + `/update_availability/${id}`, updateAvailabilityDTO);
   }
 }

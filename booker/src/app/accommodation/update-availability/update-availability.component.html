@@ -1,0 +1,37 @@
+<div class="background">
+  <div class="container">
+    <div class="logo-container">
+      <img src="../../../assets/images/big-logo.png" alt="logo" class="logo">
+      <p *ngIf="notification" [class]="notification.msgType">{{notification.msgBody}}</p>
+    </div>
+    <form #updateForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="!submitted" [formGroup]="form">
+      <mat-form-field>
+        <mat-label>Select date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input formControlName="startDate" matStartDate placeholder="Start date">
+          <input formControlName="endDate" matEndDate placeholder="End date">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconPrefix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Enter amount</mat-label>
+        <input type="number" matInput required formControlName="amount">
+        <mat-icon matPrefix>attach_money</mat-icon>
+      </mat-form-field>
+      <mat-card>
+        <mat-card-content>
+          <mat-radio-group formControlName="price_type">
+            <mat-radio-button>Per guest</mat-radio-button>
+            <mat-radio-button>Per accommodation</mat-radio-button>
+          </mat-radio-group>
+        </mat-card-content>
+      </mat-card>
+      <mat-form-field>
+        <mat-label>Enter cancellation deadline</mat-label>
+        <input matInput type="number" formControlName="deadline">
+        <mat-icon matPrefix>free_cancellation</mat-icon>
+      </mat-form-field>
+    </form>
+  </div>
+</div>

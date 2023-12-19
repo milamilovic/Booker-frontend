@@ -98,11 +98,8 @@ export class UserService {
   }
 
   activateProfile(activationLink:string) {
-    const signupHeaders = new HttpHeaders({
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    });
-    return this.apiService.put(this.config.users_url + `/activate_profile/${activationLink}`, signupHeaders)
+
+    return this.apiService.put(this.config.user_url + `/activate_profile/${activationLink}`, null)
       .pipe(map(() => {
         console.log('Sign up success');
       }));
@@ -123,6 +120,7 @@ export class UserService {
   logout() {
     this.currentUser = null;
     localStorage.removeItem("jwt");
+    localStorage.removeItem("loggedId")
     this.access_token = null;
     this.router.navigate(['/login']);
   }
@@ -163,8 +161,8 @@ export class UserService {
     this.usersList.push(user);
   }
 
-  updateGuest(id: number, updateUser: UpdateUserDTO): Observable<UpdateUserDTO> {
-    return this.http.put<UpdateUserDTO>(environment.apiHost + 'guests/' + id, updateUser);
+  updateGuest(id: number, updateUser: any) {
+    return this.apiService.put(this.config.users_url + `/${id}`, JSON.stringify(updateUser));
   }
 
   updateOwner(id: number, updateUser: UpdateUserDTO): Observable<UpdateUserDTO> {
@@ -174,5 +172,7 @@ export class UserService {
   updateAdmin(id: number, updateUser: UpdateUserDTO): Observable<UpdateUserDTO> {
     return this.http.put<UpdateUserDTO>(environment.apiHost + 'admins/' + id, updateUser);
   }
+
+
 }
 

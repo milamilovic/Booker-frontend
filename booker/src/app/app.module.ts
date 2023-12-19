@@ -19,9 +19,9 @@ import {FormsModule} from "@angular/forms";
 import {SharedModule} from "./shared/shared.module";
 import {MapService} from "./map/map.service";
 import {MapComponent} from "./map/map.component";
-import { UpdateAccommodationDetailsComponent } from './update-accommodation-details/update-accommodation-details.component';
 import {TokenInterceptor} from "./interceptor/TokenInterceptor";
 import { ActivationViewComponent } from './layout/activation-view/activation-view.component';
+import { UpdateAvailabilityComponent } from './accommodation/update-availability/update-availability.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +29,8 @@ import { ActivationViewComponent } from './layout/activation-view/activation-vie
     RegisterComponent,
     CreateAccommodationComponent,
     PhotoUploadComponent,
-    UpdateAccommodationDetailsComponent,
-    ActivationViewComponent
+    ActivationViewComponent,
+    UpdateAvailabilityComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +46,7 @@ import { ActivationViewComponent } from './layout/activation-view/activation-vie
     HttpClientModule,
     MapModule,
     FormsModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [MapService, MapComponent,{
     provide: HTTP_INTERCEPTORS,

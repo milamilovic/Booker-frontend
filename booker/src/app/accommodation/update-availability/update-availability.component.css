@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+}
+
+.background {
+  background-image: url("../../../assets/images/pozadina.png");
+  height: fit-content;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.container {
+  width: 900px;
+  height: fit-content;
+  border-radius: 30px;
+  background-color: rgba(144, 162, 136, 0.6);
+  text-align: start;
+  padding: 20px;
+  margin: 50px;
+  position: relative;
+  z-index: 2;
+
+}
+
+.logo-container {
+  text-align: center;
+}
+
+.logo {
+  width: 355px;
+  height: 85px;
+  text-align: center;
+  position: relative;
+}
+
+.mat-stepper-vertical {
+  margin-top: 8px;
+  height: fit-content;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+  width: 350px;
+  margin-right: 16px;
+  display: flex;
+}
+
+#buttons button {
+  margin: 10px
+}
+
+::ng-deep matStepperPrevious {
+  color: #3c3c3c;
+}
+
+
+::ng-deep .mat-step-header {
+  background-color: #90A288;
+}
+
+/* Change the color of the step label */
+::ng-deep .mat-step-label {
+  color: #E5E5E5;
+}
+
+/* Change the color of the selected step */
+::ng-deep .mat-step-header.mat-step-header-selected {
+  background-color: #3C3C3C;
+}
+
+/* Change the color of the step indicator (number) */
+::ng-deep .mat-step-icon {
+  color: #E5E5E5;
+}
+
+.mat-grid-tile {
+  margin: 5px;
+  width: 150px;
+  height: 100px;
+}
+
+
+
+
+
+
+
+

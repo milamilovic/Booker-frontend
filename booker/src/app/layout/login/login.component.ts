@@ -106,9 +106,15 @@ export class LoginComponent implements OnInit{
           return data;
         }),
         catchError(error => {
-          console.log(error);
-          this.submitted = false;
-          this.notification = {msgType: 'error', msgBody: 'Incorrect username or password.'};
+          if(error.status == 400){
+            this.notification = {msgType: 'error', msgBody: 'not activated.'};
+
+          }else{
+            console.log(error);
+            this.submitted = false;
+            this.notification = {msgType: 'error', msgBody: 'Incorrect username or password.'};
+
+          }
           // Returning an observable here if you want to continue the error flow
           // return throwError('Custom error message');
           // or just returning an empty observable to complete the observable chain
