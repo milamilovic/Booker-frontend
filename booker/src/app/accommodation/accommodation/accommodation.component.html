@@ -73,7 +73,7 @@
       <p class="show_profile" [routerLink]="['/owner']"><u>Show profile</u></p>
     </div>
 
-    <div class="reservation">
+    <div class="reservation" *ngIf="loggedInGuest!=0">
       <b class="title">Make a reservation request: </b><br><br>
       <div class="left_part_reservation">
         <mat-form-field>
