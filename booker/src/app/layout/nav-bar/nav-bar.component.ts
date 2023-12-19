@@ -8,7 +8,7 @@ import {UserService} from "../../user/user.service";
 })
 export class NavBarComponent {
   isMenuOpen: boolean = false;
-  loginUserId: number = 1;
+  loginUserId: number = Number(localStorage.getItem("loggedId"));
 
   constructor(private userService: UserService) {
   }

@@ -29,6 +29,17 @@
         </div>
       </div>
     </div>
+    <div class="overlay" id="dialog-overlay">
+      <div class="dialog">
+        <div class="dialog-title-wrapper">
+          <h2 class="dialog-title">{{ title }}</h2>
+        </div>
+        <div class="dialog-content-wrapper">
+          <p class="dialog-content">{{ content }}</p>
+        </div>
+        <button class="dialog-button" (click)="closeDialog()">OK</button>
+      </div>
+    </div>
     <div class="half-container">
       <div class="password-section">
         <h2 class="section-title">Password: </h2>

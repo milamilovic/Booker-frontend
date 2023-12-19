@@ -15,19 +15,23 @@ export class GuestViewComponent implements OnInit{
   updateUser: UpdateUserDTO = {
     _id: 1
   };
+  title: string = "";
+  content: string = "";
   newPassword: string = '';
   confirmPassword: string = '';
   @ViewChild('fileInput') fileInput!: ElementRef;
+  loggedIn:number = 0;
 
   constructor(private service: UserService) { }
 
   ngOnInit(): void {
-    const loggedId = Number(localStorage.getItem("loggedId"))
+    const loggedId = Number(localStorage.getItem("loggedId"));
+    this.loggedIn = loggedId;
     this.service.getGuestById(loggedId).subscribe({
       next: (result: Guest) => {
         this.guest = result;
         this.updateUser = {
-          _id: 1,
+          _id: this.loggedIn,
           name: result.name,
           surname: result.surname,
           email: result.email,
@@ -57,7 +61,7 @@ export class GuestViewComponent implements OnInit{
   }
 
   saveChanges(): void {
-    this.service.updateGuest(1, this.updateUser).subscribe((response) => {
+    this.service.updateGuest(this.loggedIn, this.updateUser).subscribe((response) => {
       console.log('Updated user data!', response);
     });
   }
@@ -66,13 +70,42 @@ export class GuestViewComponent implements OnInit{
     if (this.newPassword === this.confirmPassword) {
       this.saveChanges();
     } else {
-      // TODO error with password
+      this.openDialog("Password error", "Passwords must be the same!");
       console.log('Passwords must be the same!');
     }
   }
 
   deleteAccount() {
-    // TODO delete acc
+    this.service.deleteGuest(this.loggedIn).subscribe(
+      response => {
+        if (!response.body) {
+          this.openDialog("Deletion failed", "You can not delete your account " +
+            "at the moment because you have active reservations in the future!\nSorry :(");
+        } else {
+          this.openDialog("Deletion successful", "Deleted account! ");
+        }
+      },
+      error => {
+        console.error('Error: ', error);
+      }
+    );
   }
 
+  openDialog(title: String, content: String) {
+    // @ts-ignore
+    this.title = title;
+    // @ts-ignore
+    this.content = content;
+    const dialogOverlayById = document.getElementById('dialog-overlay');
+    if (dialogOverlayById) {
+      dialogOverlayById.style.display = "flex";
+    }
+  }
+
+  closeDialog(){
+    const dialogOverlayById = document.getElementById('dialog-overlay');
+    if (dialogOverlayById) {
+      dialogOverlayById.style.display = "none";
+    }
+  }
 }

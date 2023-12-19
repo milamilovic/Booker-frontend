@@ -20,6 +20,8 @@ import {Owner} from "../../user/owner-view/model/owner.model";
 import {Observable} from "rxjs";
 import {MapModule} from "../../map/map.module";
 import {MapComponent} from "../../map/map.component";
+import {UserService} from "../../user/user.service";
+import {Guest} from "../../user/guest-view/model/guest.model";
 
 @Component({
   selector: 'app-accommodation',
@@ -37,13 +39,25 @@ export class AccommodationComponent implements OnInit  {
   startDate: Date = new Date();
   endDate: Date = new Date();
   people: number = 1;
+  loggedInGuest: number = 0;
 
-
-  constructor(private route: ActivatedRoute, private service: AccommodationService, private map: MapComponent) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private service: AccommodationService, private map: MapComponent) {
   }
 
   ngOnInit(): void {
-
+    //getting the user - if not guest hide reservation request div
+    const loggedIn = localStorage.getItem("loggedId");
+    console.log(loggedIn)
+    if(loggedIn) {
+      this.userService.getGuestById(Number(loggedIn)).subscribe( {
+        next: (result: Guest) => {
+          this.loggedInGuest = Number(loggedIn);
+        },
+        error: (_) => {     //owner or admin
+          this.loggedInGuest = 0;
+        }
+      })
+    }
     this.route.params.subscribe((params) => {
       const id = +params['id']
       this.service.getAccommodation(id).subscribe({

@@ -13,6 +13,7 @@ import {Filter} from "./accommodation/model/Filter";
 import {Amenity} from "./accommodation/model/Amenity";
 import {PriceType} from "../enums/price-type.enum";
 import {ApiService, ConfigService} from "../service";
+import {AccommodationRating} from "./accommodation/model/AccommodationRating";
 
 @Injectable({
   providedIn: 'root'
@@ -87,5 +88,8 @@ export class AccommodationService {
 
   updateAvailability(id: number, updateAvailabilityDTO: any) {
     return this.apiService.put(this.configService.accommodations_url + `/update_availability/${id}`, updateAvailabilityDTO);
+  }
+  getRatings(id: number | undefined) {
+    return this.http.get<AccommodationRating[]>(environment.apiHost + 'api/accommodation_ratings/all/' + id + '/ratings');
   }
 }

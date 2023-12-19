@@ -25,12 +25,29 @@ export class ConfigService {
 
   private _users_url = this._user_url + "/all";
 
+  private _guests_url:string = this._api_url + "/guests";
+
+  private _owners_url:string = this._api_url + "/owners";
+
+  private _admins_url:string = this._api_url + "/admin";
+
   get users_url(): string {
     return this._users_url;
   }
 
   get user_url(): string {
     return this._user_url;
+  }
+  get guests_url(): string{
+    return this._guests_url;
+  }
+
+  get owners_url(): string{
+    return this._owners_url;
+  }
+
+  get admin_url(): string{
+    return this._admins_url;
   }
 
   private _signup_url = this._auth_url + "/signup";

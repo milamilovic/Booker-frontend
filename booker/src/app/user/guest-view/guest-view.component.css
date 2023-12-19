@@ -21,6 +21,73 @@
   margin: 10px;
 }
 
+.overlay{
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /*opacity: 0;*/
+}
+
+.dialog {
+  background-color: #90A288;
+  padding: 0;
+  border-radius: 20px;
+  text-align: center;
+  width: 30%;
+  height: 40%;
+}
+
+.dialog-title-wrapper{
+  height: 25%;
+  width: 100%;
+  border-bottom: 2px solid #3c3c3c;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.dialog-title{
+  width: fit-content;
+  color: #3c3c3c;
+  font-size: 20px;
+  font-family: 'Roboto';
+  margin: 20px;
+  padding: 10px;
+}
+
+.dialog-content-wrapper{
+  height: 55%;
+  width: 100%;
+  border-bottom: 2px solid #3c3c3c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog-button{
+  margin: 10px 0;
+  padding: 10px 20px;
+  width: 30%;
+  background-color: #3c3c3c;
+  color: #e5e5e5;
+  border: 2px solid #3c3c3c;
+  border-radius: 5px;
+  cursor: pointer;
+  justify-self: right;
+}
+
+.dialog-button:hover{
+  background-color: #e5e5e5;
+  color: #3c3c3c;
+  transition: 500ms;
+}
+
 .half-container{
   height: fit-content;
   margin: 10px 0;
