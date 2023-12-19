@@ -123,6 +123,7 @@ export class UserService {
   logout() {
     this.currentUser = null;
     localStorage.removeItem("jwt");
+    localStorage.removeItem("loggedId");
     this.access_token = null;
     this.router.navigate(['/login']);
   }
@@ -133,6 +134,10 @@ export class UserService {
 
   getToken() {
     return this.access_token;
+  }
+
+  findById(id: number): any{
+    return this.http.get<User>(environment.apiHost + 'api/users/' + id);
   }
 
   getGuests(): Observable<Guest>{
