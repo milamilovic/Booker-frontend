@@ -11,7 +11,8 @@ import {UserType} from "../../enums/user-type.enum";
 export class NavBarComponent{
   isMenuOpen: boolean = false;
   loginUserId: number = Number(localStorage.getItem("loggedId"));
-  loginRole: string = '';
+  // @ts-ignore
+    loginRole: string = localStorage.getItem("loggedRole");
   loggedInUser: User | undefined;
 
   constructor(private userService: UserService) {}

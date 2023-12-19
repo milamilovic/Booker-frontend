@@ -18,7 +18,7 @@
         </ul>
       </div>
       <div class="profile-button" *ngIf="loginUserId!=0">
-        <button class="profile" id="profile-id" (click)="setRouterLink()" [routerLink]="[loginRole]" [queryParams]="{ id: loginUserId }">My profile</button>
+        <button class="profile" id="profile-id"  [routerLink]="[loginRole]" [queryParams]="{ id: loginUserId }">My profile</button>
       </div>
       <div class="log-in-button" *ngIf="loginUserId==0">
         <button class="log-in" [routerLink]="['login']">Log in</button>
