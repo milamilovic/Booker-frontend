@@ -12,6 +12,8 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import { OwnerAccommodationListingComponent } from './owner-accommodation-listing/owner-accommodation-listing.component';
 import { OwnerAccommodationCardComponent } from './owner-accommodation-card/owner-accommodation-card.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { UpdateAccommodationComponent } from './update-accommodation/update-accommodation.component';
+import {MapModule} from "../map/map.module";
 
 
 
@@ -21,20 +23,22 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     AccommodationCardComponent,
     AccommodationCardComponent,
     OwnerAccommodationListingComponent,
-    OwnerAccommodationCardComponent
+    OwnerAccommodationCardComponent,
+    UpdateAccommodationComponent
   ],
-    imports: [
-        CommonModule,
-        MatCheckboxModule,
-        MatRadioModule,
-        MatCardModule,
-        RouterLink,
-        MatInputModule,
-        MatDatepickerModule,
-        AccommodationComponent,
-        FormsModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    CommonModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatCardModule,
+    RouterLink,
+    MatInputModule,
+    MatDatepickerModule,
+    AccommodationComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    MapModule
+  ],
   exports: [
     AccommodationComponent
   ]

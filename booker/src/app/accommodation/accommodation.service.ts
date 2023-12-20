@@ -13,6 +13,9 @@ import {Filter} from "./accommodation/model/Filter";
 import {Amenity} from "./accommodation/model/Amenity";
 import {PriceType} from "../enums/price-type.enum";
 import {AccommodationRating} from "./accommodation/model/AccommodationRating";
+import {UpdateAccommodationViewDTO} from "./dto/UpdateAccommodationViewDTO";
+import {UpdateAddressDTO} from "./dto/UpdateAddressDTO";
+import {AmenityDTO} from "../amenity/AmenityDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -96,5 +99,32 @@ export class AccommodationService {
 
   getAcceptedForOwner(id: number): Observable<AccommodationListingDto[]>{
     return this.http.get<AccommodationListingDto[]>(environment.apiHost + 'api/accommodations/owner/' + id + '/active');
+  }
+
+  removeImage(id: number, image: Image){
+    return this.http.delete<void>(environment.apiHost + 'api/accommodations/' + id + '/remove_image/' + image.id);
+  }
+
+  uploadFile(id:number, files: File[]) {
+    const data : FormData = new FormData();
+    for (let file of files){
+      data.append("images", file);
+    }
+    return this.http.post(environment.apiHost + 'api/accommodations/' + id + '/upload_images', data);
+  }
+
+  saveUpdatedAcc(accommodation: UpdateAccommodationViewDTO){
+    console.log(accommodation);
+    return this.http.put<String>(environment.apiHost + 'api/accommodations/update/' + accommodation._id, accommodation);
+  }
+
+  saveUpdatedAddr(id:number, address: UpdateAddressDTO){
+    console.log(address);
+    return this.http.put<String>(environment.apiHost + 'api/accommodations/update/' + id + '/address', address);
+  }
+
+  saveUpdateAmenities(id: number, amenities: AmenityDTO[]){
+    console.log(amenities);
+    return this.http.put<String>(environment.apiHost + 'api/amenities/update/' + id + '/amenities', amenities);
   }
 }

@@ -16,5 +16,12 @@ export class AmenityService {
     return this.http.get<string[]>(environment.apiHost + "api/amenities/names");
   }
 
+  getAll(): Observable<AmenityDTO[]>{
+    return this.http.get<AmenityDTO[]>(environment.apiHost + "api/amenities/all");
+  }
+
+  getAllForAccommodation(id: number){
+    return this.http.get<AmenityDTO[]>(environment.apiHost + "api/amenities/" + id);
+  }
 
 }
