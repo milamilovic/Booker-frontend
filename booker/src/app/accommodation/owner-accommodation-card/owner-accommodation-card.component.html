@@ -1,0 +1,31 @@
+<mat-card>
+  <mat-card-content [routerLink]="['/accommodation', accommodation.id]">
+    <div class="part">
+      <img class="image" src="/{{accommodation.image.path}}/">
+    </div>
+    <div class="part">
+      <div class="name-and-rating">
+        <b class="acc-name">{{accommodation.title}}</b>
+        <div class="rating-with-star">
+          <p class="rating">{{rating}}</p>
+          <img class="icon-image" src="assets/images/icons8-star-26.png" alt="star">
+        </div>
+      </div>
+      <p class="description">{{accommodation.description}}</p>
+      <div class="right-part-bottom">
+        <div class="buttons">
+          <button class="btn">
+            <img class="icon-image" src="assets/images/icons8-edit-32.png" alt="Edit">
+          </button>
+          <button class="btn">
+            <img class="icon-image" src="assets/images/icons8-delete-24.png" alt="Delete">
+          </button>
+        </div>
+        <div class="prices">
+          <p class="full-price"><b>{{accommodation.totalPrice + "$"}}</b></p>
+          <p class="unit-price">{{accommodation.pricePerDay + "$/"}}{{type}}</p>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

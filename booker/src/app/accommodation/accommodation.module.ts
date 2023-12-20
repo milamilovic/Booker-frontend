@@ -11,6 +11,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {FormsModule} from "@angular/forms";
 import { OwnerAccommodationListingComponent } from './owner-accommodation-listing/owner-accommodation-listing.component';
+import { OwnerAccommodationCardComponent } from './owner-accommodation-card/owner-accommodation-card.component';
 
 
 
@@ -19,7 +20,8 @@ import { OwnerAccommodationListingComponent } from './owner-accommodation-listin
     AccommodationListingComponent,
     AccommodationCardComponent,
     AccommodationCardComponent,
-    OwnerAccommodationListingComponent
+    OwnerAccommodationListingComponent,
+    OwnerAccommodationCardComponent
   ],
   imports: [
     CommonModule,

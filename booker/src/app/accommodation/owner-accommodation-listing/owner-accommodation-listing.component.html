@@ -1,16 +1,20 @@
 <div class="background">
   <div class="container">
     <div class="placeholder">
-      <h2>Accepted accommodation</h2>
+      <div class="h-background">
+        <h2>Accepted accommodation</h2>
+      </div>
       <div *ngFor="let accommodation of acceptedAccommodations" class="card_div">
-        <app-accommodation-card (clicked)="onAccommodationClick($event)" [accommodation]="accommodation"></app-accommodation-card>
+        <app-owner-accommodation-card (clicked)="onAccommodationClick($event)" [accommodation]="accommodation"></app-owner-accommodation-card>
       </div>
     </div>
+    <br>
     <div class="placeholder">
-      <br>
-      <h2>My accommodation</h2>
+      <div class="h-background">
+        <h2>My accommodation</h2>
+      </div>
       <div *ngFor="let accommodation of accommodations" class="card_div">
-        <app-accommodation-card (clicked)="onAccommodationClick($event)" [accommodation]="accommodation"></app-accommodation-card>
+        <app-owner-accommodation-card (clicked)="onAccommodationClick($event)" [accommodation]="accommodation"></app-owner-accommodation-card>
       </div>
     </div>
   </div>
