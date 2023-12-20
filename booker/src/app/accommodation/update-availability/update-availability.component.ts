@@ -22,8 +22,8 @@ export class UpdateAvailabilityComponent implements OnInit{
   returnUrl!: string;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   form = new FormGroup({
-    start_date: new FormControl(),
-    end_date: new FormControl(),
+    startDate: new FormControl(),
+    endDate: new FormControl(),
     amount: new FormControl(),
     price_type: new FormControl(),
     deadline: new FormControl()
@@ -44,8 +44,8 @@ export class UpdateAvailabilityComponent implements OnInit{
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.form = this.formBuilder.group({
-      start_date: [],
-      end_date: [],
+      startDate: [],
+      endDate: [],
       amount: [],
       price_type: [],
       deadline: []

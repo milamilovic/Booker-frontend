@@ -30,10 +30,9 @@ const routes: Routes = [
   {path: 'search/:startDate/:endDate/:location/:people/filter', component: AccommodationListingComponent},
   {path: 'create_accommodation', component: CreateAccommodationComponent},
   {path: 'activate_profile/:activationLink', component: ActivationViewComponent},
-  {path: 'update_availability/:id', component: UpdateAvailabilityComponent},
+  {path: 'update_availability', component: UpdateAvailabilityComponent},
   {path: 'accommodation/:id/update', component: UpdateAccommodationComponent},
-  {path: 'owner/accommodations', component: OwnerAccommodationListingComponent},
-  {path: 'activate_profile/:activationLink', component: ActivationViewComponent}
+  {path: 'accommodations/owner', component: OwnerAccommodationListingComponent}
 ];
 
 @NgModule({

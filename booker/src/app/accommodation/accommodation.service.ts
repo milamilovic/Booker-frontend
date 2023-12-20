@@ -98,7 +98,7 @@ export class AccommodationService {
   }
 
   getAllForOwner(id: number): Observable<AccommodationListingDto[]>{
-    return this.http.get<AccommodationListingDto[]>(environment.apiHost + 'api/accommodations/owner/' + id);
+    return this.http.get<AccommodationListingDto[]>(environment.apiHost + `api/accommodations/owner/${id}`);
   }
 
   getAcceptedForOwner(id: number): Observable<AccommodationListingDto[]>{

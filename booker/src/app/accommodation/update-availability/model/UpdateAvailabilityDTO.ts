@@ -1,9 +1,9 @@
 import {PriceType} from "../../../enums/price-type.enum";
+import {Price} from "../../accommodation/model/price.model";
 
 export interface UpdateAvailabilityDTO {
-  start_date: Object;
-  end_date: Object;
-  amount: number;
-  price_type: PriceType;
+  start_date: object;
+  end_date: object;
+  price: Price;
   deadline: number;
 }
