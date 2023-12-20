@@ -44,6 +44,10 @@ export class AccommodationService {
     return this.http.get<AccommodationViewDto>(environment.apiHost + 'api/accommodations/' + id)
   }
 
+  checkDate(id: number | undefined, date: String): Observable<boolean> {
+    return this.http.get<boolean>(environment.apiHost + 'api/availability/' + id + '/' + date);
+  }
+
 
   add(createAccommodation: CreateAccommodation): Observable<CreateAccommodation> {
     return this.http.post<CreateAccommodation>(environment.apiHost + 'api/accommodations/add', createAccommodation)

@@ -1,11 +1,11 @@
 <div class="background">
   <div class="container">
-    <form>
-      <input type="text" id="location" name="location" placeholder="Where to?" #location>
-      <input type="date" id="startDate" name="startDate" placeholder="When?" #startDate>
-      <input type="date" id="endDate" name="endDate" placeholder="When?" #endDate>
-      <input type="number" id="people" name="people" placeholder="How many people?" #people>
-      <input type="button" class="search-button" value="Search!" (click)="search(location, startDate, endDate, people)"/>
+    <form  #request="ngForm" (ngSubmit)="search(where_input, from_date, to_date, people_input)" *ngIf="!submitted" [formGroup]="form" >
+      <input type="text" id="where_input" name="where_input" placeholder="Where to?" #where_input [(ngModel)]="location" [value]="location" required formControlName="location">
+      <input type="date" id="from_date" name="from_date" placeholder="When?" #from_date [(ngModel)]="startDate" [value]="startDate" required formControlName="start">
+      <input type="date" id="to_date" name="to_date" placeholder="When?" #to_date [(ngModel)]="endDate" [value]="endDate" required formControlName="end">
+      <input type="number" id="people_input" name="people_input" placeholder="How many people?" #people_input [(ngModel)]="people" [value]="people" required formControlName="people">
+      <input type="submit" class="search-button" value="Search!"/>
     </form>
     <br>
     <div class="placeholder">

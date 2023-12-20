@@ -8,7 +8,7 @@ import {
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
-import {FormsModule} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AccommodationViewDto} from "./model/accommodation-view";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {AccommodationService} from "../accommodation.service";
@@ -22,13 +22,16 @@ import {MapModule} from "../../map/map.module";
 import {MapComponent} from "../../map/map.component";
 import {UserService} from "../../user/user.service";
 import {Guest} from "../../user/guest-view/model/guest.model";
+import {SharedService} from "../../shared/shared.service";
+import {Availability} from "./model/Availability";
+import {MatButtonModule} from "@angular/material/button";
 
 @Component({
   selector: 'app-accommodation',
   templateUrl: './accommodation.component.html',
   styleUrls: ['./accommodation.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, FormsModule, NgForOf, NgIf, RouterLink, DatePipe, MapModule]
+  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, FormsModule, NgForOf, NgIf, RouterLink, DatePipe, MapModule, ReactiveFormsModule, MatButtonModule]
 })
 
 export class AccommodationComponent implements OnInit  {
@@ -40,8 +43,19 @@ export class AccommodationComponent implements OnInit  {
   endDate: Date = new Date();
   people: number = 1;
   loggedInGuest: number = 0;
+  invalidDateFiter: any;
+  submitted: boolean = false;
+  form = new FormGroup({
+    people: new FormControl('', [Validators.required,
+      Validators.min(1)])
+  });
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private service: AccommodationService, private map: MapComponent) {
+  constructor(private route: ActivatedRoute,
+              private sharedService: SharedService,
+              private userService: UserService,
+              private service: AccommodationService,
+              private map: MapComponent,
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -58,6 +72,7 @@ export class AccommodationComponent implements OnInit  {
         }
       })
     }
+    //initializing accommodation
     this.route.params.subscribe((params) => {
       const id = +params['id']
       this.service.getAccommodation(id).subscribe({
@@ -68,17 +83,26 @@ export class AccommodationComponent implements OnInit  {
               this.owner = owner;
             }
           })
+          //disable dates
+          this.invalidDateFiter = (d: Date | null): boolean => {
+            const selectedDate = d || new Date();
+
+            // Prevent dates that return false in the checkDate method from being selected.
+            let isAvailable = this.checkDate(new Date(selectedDate.toString()));
+            console.log("date " + selectedDate.toString() + "is available: " + isAvailable);
+            return isAvailable;
+          };
         }
       })
     })
+    //form validation
+    this.form = this.formBuilder.group({
+      people: ['', [Validators.required, Validators.min(this.accommodation.min_capacity), Validators.max(this.accommodation.max_capacity)]]
+    });
   }
 
   closed() {
     // dateRangeStart.value, dateRangeEnd.value to get dates
-    //TODO: get price for date range
-    // this.price = Math.random() * 1000;
-    // this.totalPrice = this.price.toFixed(2) + " $";
-    // console.log(dateRangeEnd.value);
     const year1 = this.startDate.getFullYear();
     const month1 = (this.startDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
     const day1 = this.startDate.getDate().toString().padStart(2, '0');
@@ -101,43 +125,91 @@ export class AccommodationComponent implements OnInit  {
   }
 
   makeReservation() {
-    let id = 0;
-    this.route.params.subscribe((params) => {
-      id = +params['id']
-    });
-    //TODO: add logged in guest id
-    const year1 = this.startDate.getFullYear();
-    const month1 = (this.startDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
-    const day1 = this.startDate.getDate().toString().padStart(2, '0');
-    console.log(year1 + ", " + month1 + ", " + day1)
-    const formattedFromDate = `${year1}-${month1}-${day1}`;
+    if (this.form.valid
+      && this.checkDate(new Date(this.startDate.toString()))
+      && this.checkDate(new Date(this.endDate.toString()))) {
+      if (this.people <= this.accommodation.max_capacity
+        &&
+        this.people >= this.accommodation.min_capacity) {
+        let id = 0;
+        this.route.params.subscribe((params) => {
+          id = +params['id']
+        });
+        const year1 = this.startDate.getFullYear();
+        const month1 = (this.startDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+        const day1 = this.startDate.getDate().toString().padStart(2, '0');
+        console.log(year1 + ", " + month1 + ", " + day1)
+        const formattedFromDate = `${year1}-${month1}-${day1}`;
 
-    const year2 = this.endDate.getFullYear();
-    const month2 = (this.endDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
-    const day2 = this.endDate.getDate().toString().padStart(2, '0');
-    console.log(year2 + ", " + month2 + ", " + day2)
-    const formattedToDate = `${year2}-${month2}-${day2}`;
+        const year2 = this.endDate.getFullYear();
+        const month2 = (this.endDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+        const day2 = this.endDate.getDate().toString().padStart(2, '0');
+        console.log(year2 + ", " + month2 + ", " + day2)
+        const formattedToDate = `${year2}-${month2}-${day2}`;
 
-    const request: ReservationRequest = {
-      guestId: 1,
-      accommodationId: id,
-      id: -1,
-      fromDate: formattedFromDate,
-      toDate: formattedToDate,
-      numberOfGuests: this.people,
-      status: ReservationRequestStatus.WAITING,
-      deleted: false,
-      price: Number(this.price.toFixed(2))
-    }
-    this.service.makeReservationRequest(request).subscribe(
-      {
-        next: (data: ReservationRequest) => {
-          //TODO: navigate to my reservations?
-          console.log("made reservation request: ")
-          console.log(data)
-        },
-        error: (_) => {}
+        const request: ReservationRequest = {
+          guestId: this.loggedInGuest,
+          accommodationId: id,
+          id: -1,
+          fromDate: formattedFromDate,
+          toDate: formattedToDate,
+          numberOfGuests: this.people,
+          status: ReservationRequestStatus.WAITING,
+          deleted: false,
+          price: Number(this.price.toFixed(2))
+        }
+        this.service.makeReservationRequest(request).subscribe(
+          {
+            next: (data: ReservationRequest) => {
+              //TODO: navigate to my reservations?
+              console.log("made reservation request: ")
+              console.log(data)
+              alert("You made a reservation request!");
+            },
+            error: (_) => {
+            }
+          }
+        );
+      } else {
+        if (!this.checkDate(new Date(this.startDate.toString()))
+          || !this.checkDate(new Date(this.endDate.toString()))) {
+          alert("Dates are not available!");
+        } else {
+          if (this.people <= 0) {
+            alert("Number of people is invalid!")
+          } else if (this.people < this.accommodation.min_capacity) {
+            alert("More people required!")
+          } else if (this.people > this.accommodation.max_capacity) {
+            alert("Less people required!")
+          }
+        }
       }
-    );
+    } else {
+      if (!this.checkDate(new Date(this.startDate.toString()))
+        || !this.checkDate(new Date(this.endDate.toString()))) {
+        alert("Dates are not available!");
+      } else if (this.people <= 0) {
+        alert("Number of people is invalid!")
+      } else if (this.people < this.accommodation.min_capacity) {
+        alert("More people required!")
+      } else if (this.people > this.accommodation.max_capacity) {
+        alert("Less people required!")
+      }
+    }
+  }
+
+  private checkDate(selectedDate: Date) {
+    if(selectedDate < new Date()) {
+      return false;
+    }
+    for(let a in this.accommodation.availabilities) {
+      let availability: Availability = this.accommodation.availabilities[a];
+      let startDate = new Date(availability.startDate.toString())
+      let endDate = new Date(availability.endDate.toString())
+      if(selectedDate >= startDate && selectedDate <= endDate) {
+        return true;
+      }
+    }
+    return false;
   }
 }
