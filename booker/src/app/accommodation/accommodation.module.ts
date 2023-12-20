@@ -9,6 +9,8 @@ import {MatCardModule} from "@angular/material/card";
 import {RouterLink} from "@angular/router";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import { OwnerAccommodationListingComponent } from './owner-accommodation-listing/owner-accommodation-listing.component';
+import { OwnerAccommodationCardComponent } from './owner-accommodation-card/owner-accommodation-card.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
@@ -17,7 +19,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
   declarations: [
     AccommodationListingComponent,
     AccommodationCardComponent,
-    AccommodationCardComponent
+    AccommodationCardComponent,
+    OwnerAccommodationListingComponent,
+    OwnerAccommodationCardComponent
   ],
     imports: [
         CommonModule,
