@@ -14,6 +14,8 @@ import { OwnerAccommodationCardComponent } from './owner-accommodation-card/owne
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UpdateAccommodationComponent } from './update-accommodation/update-accommodation.component';
 import {MapModule} from "../map/map.module";
+import { ApproveAccommodationComponent } from './approve-accommodation/approve-accommodation.component';
+import { ApproveAccommodationCardComponent } from './approve-accommodation-card/approve-accommodation-card.component';
 
 
 
@@ -24,7 +26,9 @@ import {MapModule} from "../map/map.module";
     AccommodationCardComponent,
     OwnerAccommodationListingComponent,
     OwnerAccommodationCardComponent,
-    UpdateAccommodationComponent
+    UpdateAccommodationComponent,
+    ApproveAccommodationComponent,
+    ApproveAccommodationCardComponent
   ],
   imports: [
     CommonModule,

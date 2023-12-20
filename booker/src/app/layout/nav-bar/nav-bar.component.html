@@ -11,7 +11,7 @@
           <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()">Reservation requests</button></li>
           <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()">Approve comments</button></li>
           <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()">Approve blocking</button></li>
-          <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()">Approve accommodations</button></li>
+          <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()" [routerLink]="['approve']">Approve accommodations</button></li>
           <li class="menu-item" *ngIf="loginRole==='guests'"><button type="button" (click)="toggleMenu()">Favorite accommodations</button></li>
           <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['create_accommodation']">Create accommodation</button> </li>
           <li class="menu-item"><button type="button" (click)="logout()" >Log out</button></li>
