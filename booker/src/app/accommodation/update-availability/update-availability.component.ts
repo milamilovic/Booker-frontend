@@ -4,6 +4,10 @@ import {AccommodationService} from "../accommodation.service";
 import {SnackBarComponent} from "../../shared/snack-bar/snack-bar.component";
 import {ActivatedRoute, Router} from "@angular/router";
 import {catchError, map, of, Subject, takeUntil} from "rxjs";
+import {Price} from "../accommodation/model/price.model";
+import {PriceType} from "../../enums/price-type.enum";
+import {UpdateAvailabilityDTO} from "./model/UpdateAvailabilityDTO";
+import {HttpClient} from "@angular/common/http";
 
 interface DisplayMessage {
   msgType: string;
@@ -16,74 +20,66 @@ interface DisplayMessage {
   styleUrls: ['./update-availability.component.css']
 })
 export class UpdateAvailabilityComponent implements OnInit{
-  id!: number;
-  submitted: boolean = false;
-  notification!: DisplayMessage;
-  returnUrl!: string;
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
-  form = new FormGroup({
+  formGroupAvailability = new FormGroup({
     startDate: new FormControl(),
-    endDate: new FormControl(),
-    amount: new FormControl(),
-    price_type: new FormControl(),
-    deadline: new FormControl()
-  });
+    endDate: new FormControl()
+  })
 
-  constructor(private accommodationService: AccommodationService,
-              private snackBarComponent: SnackBarComponent,
-              private route: ActivatedRoute,
-              private router: Router,
-              private formBuilder: FormBuilder) {
+  formGroupPrice = new FormGroup({
+    priceStartDate: new FormControl(),
+    priceEndDate: new FormControl(),
+    amount: new FormControl(100.0, [Validators.required]),
+    price_type: new FormControl('PER_GUEST', [Validators.required])
+  })
+
+  formGroupDeadline = new FormGroup({
+    deadline: new FormControl(1, [Validators.required])
+  })
+
+  constructor(private http: HttpClient,
+              private snackBar: SnackBarComponent,
+              private accommodationService: AccommodationService) {
   }
   ngOnInit(): void {
-    this.route.params
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((params: any) => {
-        this.notification = params as DisplayMessage;
-      });
-    // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    this.form = this.formBuilder.group({
-      startDate: [],
-      endDate: [],
-      amount: [],
-      price_type: [],
-      deadline: []
-      //profilePicture: [null, Validators.compose([Validators.required])]
-    });
   }
 
-  ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+  openSnackBar(message: string, action: string) {
+    this.snackBar.openSnackBar(message, action);
   }
 
-  onSubmit(): void {
-    this.notification;
-    this.submitted = true;
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
-    this.accommodationService.updateAvailability(this.id,this.form.value)
-      .pipe(
-        map(data => {
-          console.log(data);
-          // Transform the data if needed
-          return data;
-        }),
-        catchError(error => {
-          console.log(error);
-          this.submitted = false;
-          this.notification = {msgType: 'error', msgBody: 'Incorrect username or password.'};
-          // Returning an observable here if you want to continue the error flow
-          // return throwError('Custom error message');
-          // or just returning an empty observable to complete the observable chain
-          return of();
-        })
-      )
-      .subscribe(data => {
-        // Handle the transformed data or side effects
-        //this.userService.getMyInfo().subscribe();
-        this.router.navigate([this.returnUrl]);
-      });
+  submitForm() {
+    const price: Price = {
+      cost: this.formGroupPrice.value.amount!,
+      fromDate: this.formGroupPrice.value.priceStartDate,
+      toDate: this.formGroupPrice.value.priceEndDate,
+      type: (this.formGroupPrice.value.price_type === "PER_ACCOMMODATION") ? PriceType.PER_ACCOMMODATION : PriceType.PER_GUEST,
+    };
+
+    const updateAvailability: UpdateAvailabilityDTO = {
+      startDate: this.formGroupAvailability.value.startDate,
+      endDate: this.formGroupAvailability.value.endDate,
+      price: price,
+      deadline: this.formGroupDeadline.value.deadline!
+    }
+
+    const accommodationId = Number(localStorage.getItem("accommodationId"));
+
+    this.accommodationService.updateAvailability(accommodationId, updateAvailability).subscribe(
+      (response) => {
+        console.log("Successfully updated: ", response);
+        //this.uploadPhotos(response.id!);
+        this.openSnackBar("Success!", "Close");
+
+      },
+      (error) => {
+        console.error("Error in updating availability: ", error);
+        this.openSnackBar("Error updating availability", "Close");
+      }
+    )
+
+
+
   }
+
 
 }
