@@ -1,0 +1,246 @@
+.background {
+  background-image: url("../../../assets/images/background_image.png");
+  background-size: contain;
+  background-position: center;
+  height: fit-content;
+  min-height: 100px;
+  max-height: max-content;
+  width: 100%;
+  overflow: hidden;
+  text-align: right;
+  font-size: 12px;
+  color: #3c3c3c;
+  font-family: Roboto, serif;
+  padding-bottom: 50px;
+}
+
+.dialog1 {
+  position: relative;
+  top: 50px;
+  left: 50px;
+  border-radius: 10px;
+  background-color: #90A28880;
+  width: 93%;
+  height: fit-content;
+  min-height: 100px;
+  overflow: hidden;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.photo-box {
+  width: 95%;
+  height: 220px;
+  display: flex;
+  white-space: nowrap;
+  padding: 15px;
+  overflow-x: scroll;
+  list-style: none;
+  margin: 10px;
+}
+
+img {
+  width: 300px;
+  height: 200px;
+  display: inline-block;
+  border-radius: 10px;
+  float: left;
+  margin-right: 10px;
+}
+
+.description-box {
+  padding: 1%;
+  margin-left: 1.5%;
+  width: 95%;
+  background-color: #90A288;
+  border-radius: 10px;
+  text-align: left;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.btn-section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.btn-more-update{
+  width: 20%;
+  height: fit-content;
+  padding: 10px;
+  background-color: #3c3c3c;
+  border: 2px solid #3c3c3c;
+  border-radius: 10px;
+  color: #e5e5e5;
+  font-size: 15px;
+  font-family: 'Roboto';
+}
+
+.btn-more-update:hover{
+  background-color: #e5e5e5;
+  color: #3c3c3c;
+  transition: 500ms;
+}
+
+.title {
+  font-size: 20px;
+  justify-content: left;
+  height: 100%;
+  display: inline;
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: left;
+}
+
+.description {
+  text-align: left;
+  font-size: 13px;
+}
+
+.container {
+  padding: 1%;
+  margin-left: 1.5%;
+  width: 95%;
+  height: fit-content;
+  background-color: #90A288;
+  border-radius: 10px;
+  float: left;
+  margin-bottom: 10px;
+  align-content: flex-start;
+  text-align: left;
+}
+
+.amenity-container {
+  float: left;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.amenity {
+  position: relative;
+  display: flex;
+  float: initial;
+  width: 180px;
+  height: 60px;
+}
+
+.amenity-image {
+  position: relative;
+  left: 5px;
+  display: inline;
+  height: 30px;
+  width: 30px;
+}
+
+.profile {
+  height: 70px;
+  width: 70px;
+  border-radius: 40px;
+  object-fit: cover;
+  margin-top: 10px;
+  margin-left: 40px;
+}
+
+.comment {
+  width: 95%;
+  margin: auto;
+  border-radius: 10px;
+  background-color: #3c3c3c40;
+  margin-bottom: 10px;
+}
+
+.right-part {
+  width: 80%;
+  /*this margin should be bigger than image width*/
+  margin-left: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.comment-text {
+  justify-content: start;
+  width: 80%;
+  float: left;
+  font-size: 13px;
+  display: inline;
+}
+
+.commenter-name {
+  width: 60%;
+  float: left;
+  font-size: 15px;
+  display: inline;
+}
+
+.address {
+  color: #3c3c3c80;
+  float: left;
+  margin-left: 15px;
+  font-size: 14px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  margin-right: 10px;
+}
+
+.map-button {
+  display: inline;
+  float: left;
+  background-color: #3c3c3c40;
+  border-radius: 7px;
+  border-color: #FFFFFF00;
+  height: 40px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+.rating-container {
+  display: flex;
+  font-size: 14px;
+}
+.rating {
+  margin-left: 20px;
+}
+
+#people-input {
+  border-radius: 10px;
+  border-color: #00000000;
+  background-color: #e5e5e580;
+  height: 50px;
+  width: 20%;
+  margin-left: 50px;
+}
+#price {
+  height: 50px;
+  width: 15%;
+  margin-left: 50px;
+  border-radius: 10px;
+  border-color: #00000000;
+}
+.map-box {
+  width: 95%;
+  background-color: #90A288;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-left: 1.5%;
+  padding: 1%;
+  overflow: hidden;
+  display: flex;
+  text-align: left;
+  justify-content: left;
+  float: left;
+}
+.address-title {
+  font-size: 20px;
+  justify-content: left;
+  height: 100%;
+  display: block;
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: left;
+  float: left;
+}

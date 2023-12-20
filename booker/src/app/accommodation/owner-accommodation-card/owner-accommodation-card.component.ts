@@ -3,6 +3,7 @@ import {AccommodationListingDto} from "../accommodation/model/accommodation-list
 import {AccommodationService} from "../accommodation.service";
 import {PriceType} from "../../enums/price-type.enum";
 import {AccommodationRating} from "../accommodation/model/AccommodationRating";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-owner-accommodation-card',
@@ -18,12 +19,8 @@ export class OwnerAccommodationCardComponent implements OnInit{
 
   type: string = "";
   rating: string = "";
-  
-  onAccommodationClick(): void {
-    this.clicked.emit(this.accommodation);
-  }
 
-  constructor(private service: AccommodationService) {
+  constructor(private router: Router, private service: AccommodationService) {
     this.accommodation = {
       id: undefined,
       title: '',
@@ -36,6 +33,10 @@ export class OwnerAccommodationCardComponent implements OnInit{
         accommodation: {}
       }
     }
+  }
+
+  onUpdateClick(): void {
+    this.router.navigate(['accommodation/' + this.accommodation.id + '/update'])
   }
 
   ngOnInit(): void {

@@ -1,0 +1,78 @@
+<div class="background">
+
+  <div class="dialog1">
+    <div  class="photo-box">
+      <div *ngFor="let image of accommodation.images">
+        <img
+          alt=""
+          [src]="image.path"
+        />
+      </div>
+    </div>
+    <div class="description-box">
+      <div class="title"><b>{{accommodation.title}}</b></div>
+      <br>
+      <br>
+      <p class="description">{{accommodation.description}}</p>
+    </div>
+
+    <div class="container">
+      <b class="title">Amenities: </b>
+      <br>
+      <br>
+      <div class="amenity-container">
+        <div *ngFor="let amenity of accommodation.amenities">
+          <div class="amenity">
+            <img class="amenity-image" [src]="amenity.image_path">
+            <p>{{amenity.name}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-box">
+      <b class="address-title">Address:</b><br>
+      <i class="address">{{accommodation.address.city}}, {{accommodation.address.street}}</i>
+      <app-map id="non-clickable"></app-map>
+    </div>
+
+    <div class="btn-section">
+      <button class="btn-more-update" (click)="updatePriceAndAvailability()">price & availability</button>
+    </div>
+
+    <div class="description-box">
+      <b class="title">Comments:</b><br><br><br>
+      <div class="rating-container">
+        <p><b>Rating: </b></p><p class="rating">4.8</p><p>/5.0</p>
+      </div>
+      <div class="comment">
+        <img class="profile" src="../../../assets/images/profile_image.jpg">
+        <div class="right-part">
+          <p class="commenter-name">Annie Smith</p>
+          <br><br>
+          <p class="comment-text">This is a very lovely apartment and I enjoyed my stay very much!</p>
+        </div>
+      </div>
+      <div class="comment">
+        <img class="profile" src="../../../assets/images/profile_image.jpg">
+        <div class="right_part">
+          <p class="commenter_name">Annie Smith</p>
+          <br><br>
+          <p class="comment-text">This is a very lovely apartment and I enjoyed my stay very much!</p>
+        </div>
+      </div>
+      <div class="comment">
+        <img class="profile" src="../../../assets/images/profile_image.jpg">
+        <div class="right-part">
+          <p class="commenter-name">Annie Smith</p>
+          <br><br>
+          <p class="comment-text">This is a very lovely apartment and I enjoyed my stay very much!</p>
+        </div>
+      </div>
+    </div>
+    <br>
+
+  </div>
+  <br>
+</div>
+

@@ -14,6 +14,7 @@ import {UpdateAvailabilityComponent} from "./accommodation/update-availability/u
 import {
   OwnerAccommodationListingComponent
 } from "./accommodation/owner-accommodation-listing/owner-accommodation-listing.component";
+import {UpdateAccommodationComponent} from "./accommodation/update-accommodation/update-accommodation.component";
 
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path: 'create_accommodation', component: CreateAccommodationComponent},
   {path: 'activate_profile/:activationLink', component: ActivationViewComponent},
   {path: 'update_availability/:id', component: UpdateAvailabilityComponent},
+  {path: 'accommodation/:id/update', component: UpdateAccommodationComponent},
   {path: 'owner/accommodations', component: OwnerAccommodationListingComponent},
   {path: 'activate_profile/:activationLink', component: ActivationViewComponent}
 ];
