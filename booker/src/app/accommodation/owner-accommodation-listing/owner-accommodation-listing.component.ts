@@ -11,6 +11,7 @@ export class OwnerAccommodationListingComponent implements OnInit{
   accommodations: AccommodationListingDto[] = [];
   clickedAcc: string = ''
   loggedInId : number = 0;
+  acceptedAccommodations: AccommodationListingDto[] = [];
 
   constructor(private service: AccommodationService) {}
 
@@ -21,7 +22,15 @@ export class OwnerAccommodationListingComponent implements OnInit{
         this.accommodations = data
       },
       error: (_) => {
-        console.log("Greska!")
+        console.log("Error with all accommodation for owner " + this.loggedInId + " !")
+      }
+    });
+    this.service.getAcceptedForOwner(this.loggedInId).subscribe({
+      next: (data: AccommodationListingDto[]) => {
+        this.acceptedAccommodations = data
+      },
+      error: (_) => {
+        console.log("Error with accepted accommodation for owner " + this.loggedInId + " !")
       }
     })
   }

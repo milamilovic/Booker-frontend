@@ -1,8 +1,17 @@
 <div class="background">
   <div class="container">
     <div class="placeholder">
+      <h2>Accepted accommodation</h2>
+      <div *ngFor="let accommodation of acceptedAccommodations" class="card_div">
+        <app-accommodation-card (clicked)="onAccommodationClick($event)" [accommodation]="accommodation"></app-accommodation-card>
+      </div>
+    </div>
+    <div class="placeholder">
+      <br>
+      <h2>My accommodation</h2>
       <div *ngFor="let accommodation of accommodations" class="card_div">
         <app-accommodation-card (clicked)="onAccommodationClick($event)" [accommodation]="accommodation"></app-accommodation-card>
       </div>
+    </div>
   </div>
 </div>
