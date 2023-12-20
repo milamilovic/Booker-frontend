@@ -8,11 +8,10 @@ import {AccommodationService} from "../accommodation.service";
 import {Price} from "../accommodation/model/price.model";
 import {PriceType} from "../../enums/price-type.enum";
 import {Image} from "../accommodation/model/Image";
-import {environment} from "../../../env/env";
 import {PhotoUploadService} from "../../photo-upload/photo-upload.service";
 import {Address} from "../accommodation/model/address.model";
 import {AmenityService} from "../../amenity/amenity.service";
-import {AmenityDTO} from "../../amenity/AmenityDTO";
+import {HttpClient} from "@angular/common/http";
 
 
 @Component({
@@ -31,6 +30,7 @@ export class CreateAccommodationComponent implements OnInit{
   formGroupNameDescType = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
+      shortDescription: new FormControl('', [Validators.required]),
       accommodation_type: new FormControl("Studio", [Validators.required])
   })
 
@@ -68,11 +68,32 @@ export class CreateAccommodationComponent implements OnInit{
 
   constructor(private fb : FormBuilder, private renderer: Renderer2, private accommodationService: AccommodationService,
               private snackBar : SnackBarComponent, private map: MapComponent, private photoUploadService : PhotoUploadService,
-              private amenityService: AmenityService) {
+              private amenityService: AmenityService,
+              private http: HttpClient) {
   }
 
 
+  onFilesSelected(event: any): void {
+    const files = event.target.files as File[];
+    this.selectedFiles = [...this.selectedFiles, ...files];
+  }
 
+  onSubmit(): void {
+    if (this.selectedFiles.length > 0) {
+      const formData = new FormData();
+
+      for (const file of this.selectedFiles) {
+        formData.append('files', file);
+      }
+
+      this.http.post('http://localhost:8080/api/images/upload-multiple', formData)
+        .subscribe(response => {
+          console.log('Files uploaded successfully:', response);
+        }, error => {
+          console.error('Error uploading files:', error);
+        });
+    }
+  }
 
 
 
@@ -115,7 +136,12 @@ export class CreateAccommodationComponent implements OnInit{
       accType = AccommodationType.STUDIO;
     }else if(this.formGroupNameDescType.value.accommodation_type === "Room"){
       accType = AccommodationType.ROOM;
+    } else if(this.formGroupNameDescType.value.accommodation_type === "Hotel") {
+      accType = AccommodationType.HOTEL;
+    } else if(this.formGroupNameDescType.value.accommodation_type === "Villa") {
+      accType = AccommodationType.VILLA;
     }
+
 
 
 
@@ -124,18 +150,16 @@ export class CreateAccommodationComponent implements OnInit{
     // console.log(typeof(selectedImages));
     // this.photos = this.convertFilesToImages(selectedImages);
 
-    const image: Image = {
-      path: 'asd',
-    }
-    let imgs : Image[] = []
-    imgs.push(image)
+    const imageNames = this.selectedFiles.map(file => file.name);
+
     const accommodation: CreateAccommodation = {
       title: this.formGroupNameDescType.value.name!,
       description: this.formGroupNameDescType.value.description!,
+      shortDescription: this.formGroupNameDescType.value.shortDescription!,
       type: accType,
       address: address,
       amenities: selectedAmenities,
-      // images: this.photos,
+      images: imageNames,
       startDate: this.formGroupAvailability.value.startDate!,
       endDate: this.formGroupAvailability.value.endDate!,
       price: price,
@@ -144,10 +168,10 @@ export class CreateAccommodationComponent implements OnInit{
     };
 
 
-    this.accommodationService.createAccommodationWithPhotos(accommodation).subscribe(
+    this.accommodationService.add(accommodation).subscribe(
         (response) => {
           console.log("Acccommodation created with photos: ", response);
-          this.uploadPhotos(response.id!);
+          //this.uploadPhotos(response.id!);
           this.openSnackBar("Success!", "Close");
 
         },

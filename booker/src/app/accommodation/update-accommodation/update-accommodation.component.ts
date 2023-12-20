@@ -66,7 +66,8 @@ export class UpdateAccommodationComponent implements OnInit{
 
   updatePriceAndAvailability(){
     // TODO set route for price & availability update component
-    this.router.navigate(['']);
+    localStorage.setItem("accommodationId", this.id.toString())
+    this.router.navigate(['/update_availability']);
   }
 
   autoSize(event: any) {

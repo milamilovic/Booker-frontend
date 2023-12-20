@@ -16,6 +16,7 @@ import {MatStepperModule} from "@angular/material/stepper";
 import {MatOptionModule} from "@angular/material/core";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatSelectModule} from "@angular/material/select";
 
 
 
@@ -39,6 +40,7 @@ import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
     MatOptionModule,
     MatGridListModule,
     MatSnackBarModule,
+    MatSelectModule
   ],
   exports: [
     MatToolbarModule,
@@ -57,7 +59,8 @@ import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
     MatStepperModule,
     MatOptionModule,
     MatGridListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSelectModule
   ]
 })
 export class MaterialModule { }

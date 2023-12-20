@@ -11,9 +11,10 @@ export interface CreateAccommodation {
   id?: number;
   title: string;
   description: string;
+  shortDescription: string;
   address: Address;
   amenities: string[];
-  // images: Image[];
+  images: string[];
   type: AccommodationType;
   startDate: object;
   endDate: object;

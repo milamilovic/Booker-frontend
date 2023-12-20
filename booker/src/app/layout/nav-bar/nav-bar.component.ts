@@ -38,6 +38,8 @@ export class NavBarComponent{
     );
   }
 
+
+
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
