@@ -7,7 +7,7 @@
         <ul class="right-menu" [ngClass]="{'show-menu': isMenuOpen}" id="menu">
           <li class="menu-item" *ngIf="loginRole!='admins'"><button type="button" (click)="toggleMenu()">Reservations</button></li>
           <li class="menu-item" *ngIf="loginRole!='admins'"><button type="button" (click)="toggleMenu()">Notifications</button></li>
-          <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()">My accommodations</button></li>
+          <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['owner/accommodations']">My accommodations</button></li>
           <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()">Reservation requests</button></li>
           <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()">Approve comments</button></li>
           <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()">Approve blocking</button></li>

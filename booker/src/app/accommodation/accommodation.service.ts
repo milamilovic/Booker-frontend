@@ -85,4 +85,8 @@ export class AccommodationService {
   getRatings(id: number | undefined) {
     return this.http.get<AccommodationRating[]>(environment.apiHost + 'api/accommodation_ratings/all/' + id + '/ratings');
   }
+
+  getAllForOwner(id: number): Observable<AccommodationListingDto[]>{
+    return this.http.get<AccommodationListingDto[]>(environment.apiHost + 'api/accommodations/owner/' + id);
+  }
 }

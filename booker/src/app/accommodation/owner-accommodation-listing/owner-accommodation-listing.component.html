@@ -1,0 +1,8 @@
+<div class="background">
+  <div class="container">
+    <div class="placeholder">
+      <div *ngFor="let accommodation of accommodations" class="card_div">
+        <app-accommodation-card (clicked)="onAccommodationClick($event)" [accommodation]="accommodation"></app-accommodation-card>
+      </div>
+  </div>
+</div>

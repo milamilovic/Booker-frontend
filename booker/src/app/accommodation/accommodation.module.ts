@@ -10,6 +10,7 @@ import {RouterLink} from "@angular/router";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {FormsModule} from "@angular/forms";
+import { OwnerAccommodationListingComponent } from './owner-accommodation-listing/owner-accommodation-listing.component';
 
 
 
@@ -17,7 +18,8 @@ import {FormsModule} from "@angular/forms";
   declarations: [
     AccommodationListingComponent,
     AccommodationCardComponent,
-    AccommodationCardComponent
+    AccommodationCardComponent,
+    OwnerAccommodationListingComponent
   ],
   imports: [
     CommonModule,
