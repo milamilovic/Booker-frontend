@@ -39,15 +39,7 @@ export class OwnerAccommodationCardComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    //TODO: add checking if acc is favourite for user
-    let isFavourite = Math.round(Math.random()) == 1;
-    if(isFavourite) {
-      this.favourite = "../../../assets/images/icons8-heart-30.png"
-    } else {
-      this.favourite = "../../../assets/images/icons8-heart-30 (1).png"
-    }
-    PriceType
-    let priceType = this.service.getPriceType(this.accommodation.id).subscribe({
+    this.service.getPriceType(this.accommodation.id).subscribe({
       next: (data: PriceType) => {
         if(data == PriceType.PER_ACCOMMODATION) {
           this.type = "day";
@@ -56,11 +48,11 @@ export class OwnerAccommodationCardComponent implements OnInit{
         }
       },
       error: (_) => {
-        console.log("Greska!")
+        console.log("Error with prices!")
       }
     })
     //TODO: enter average rating
-    let ratings = this.service.getRatings(this.accommodation.id).subscribe({
+    this.service.getRatings(this.accommodation.id).subscribe({
       next: (data: AccommodationRating[]) => {
         let sum = 0;
         for(let index in data ) {
@@ -74,8 +66,16 @@ export class OwnerAccommodationCardComponent implements OnInit{
         }
       },
       error: (_) => {
-        console.log("Greska!")
+        console.log("Error with ratings!")
       }
     })
+  }
+
+  updateAcc(){
+
+  }
+
+  deleteAcc(){
+
   }
 }

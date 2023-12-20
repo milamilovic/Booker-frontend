@@ -14,10 +14,10 @@
       <p class="description">{{accommodation.description}}</p>
       <div class="right-part-bottom">
         <div class="buttons">
-          <button class="btn">
+          <button class="btn" (click)="updateAcc()">
             <img class="icon-image" src="assets/images/icons8-edit-32.png" alt="Edit">
           </button>
-          <button class="btn">
+          <button class="btn" (click)="deleteAcc()">
             <img class="icon-image" src="assets/images/icons8-delete-24.png" alt="Delete">
           </button>
         </div>
