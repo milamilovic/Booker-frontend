@@ -13,6 +13,8 @@ import {Filter} from "./accommodation/model/Filter";
 import {Amenity} from "./accommodation/model/Amenity";
 import {PriceType} from "../enums/price-type.enum";
 import {AccommodationRating} from "./accommodation/model/AccommodationRating";
+import {UpdateAccommodationViewDTO} from "./dto/UpdateAccommodationViewDTO";
+import {UpdateAddressDTO} from "./dto/UpdateAddressDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -108,5 +110,15 @@ export class AccommodationService {
       data.append("images", file);
     }
     return this.http.post(environment.apiHost + 'api/accommodations/' + id + '/upload_images', data);
+  }
+
+  saveUpdatedAcc(accommodation: UpdateAccommodationViewDTO){
+    console.log(accommodation);
+    return this.http.put<String>(environment.apiHost + 'api/accommodations/update/' + accommodation._id, accommodation);
+  }
+
+  saveUpdatedAddr(id:number, address: UpdateAddressDTO){
+    console.log(address);
+    return this.http.put<String>(environment.apiHost + 'api/accommodations/update/' + id + '/address', address);
   }
 }

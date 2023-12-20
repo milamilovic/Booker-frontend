@@ -5,6 +5,8 @@ import {AccommodationService} from "../accommodation.service";
 import {AmenityDTO} from "../../amenity/AmenityDTO";
 import {AmenityService} from "../../amenity/amenity.service";
 import {Image} from "../accommodation/model/Image";
+import {UpdateAccommodationViewDTO} from "../dto/UpdateAccommodationViewDTO";
+import {UpdateAddressDTO} from "../dto/UpdateAddressDTO";
 
 @Component({
   selector: 'app-update-accommodation',
@@ -13,11 +15,15 @@ import {Image} from "../accommodation/model/Image";
 })
 export class UpdateAccommodationComponent implements OnInit{
   accommodation!: AccommodationViewDto;
+  updateAcc: UpdateAccommodationViewDTO = {
+    _id: 0
+  };
+  updateAddress: UpdateAddressDTO = {
+    _id: 0
+  }
   allAmenities: AmenityDTO[] = [];
   amenitiesForAcc:AmenityDTO[] = [];
   id: number = 0;
-  imageUrls: string[] = [];
-  datum = new Date('2023-12-16T00:00:00.000Z').getTime();
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -30,6 +36,19 @@ export class UpdateAccommodationComponent implements OnInit{
       this.service.getAccommodation(this.id).subscribe({
         next: (data: AccommodationViewDto) => {
           this.accommodation = data;
+          this.updateAcc = {
+            _id: this.id,
+            title: data.title,
+            description: data.description,
+            images: data.images
+          }
+          this.updateAddress = {
+            _id: 0,
+            city: data.address.city,
+            street: data.address.street,
+            longitude: data.address.longitude,
+            latitude: data.address.latitude
+          }
         }
       });
       this.amenityService.getAll().subscribe({
@@ -70,7 +89,8 @@ export class UpdateAccommodationComponent implements OnInit{
   }
 
   saveChanges(){
-
+    this.service.saveUpdatedAcc(this.updateAcc).subscribe({next:(all:String)=>{location.reload();}});
+    this.service.saveUpdatedAddr(this.id, this.updateAddress).subscribe({next:(all:String)=>{location.reload();}});
   }
 
   deleteImage(image : Image){
