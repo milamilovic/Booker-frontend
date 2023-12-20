@@ -11,6 +11,9 @@ import {OwnerViewComponent} from "./user/owner-view/owner-view.component";
 import {AdminViewComponent} from "./user/admin-view/admin-view.component";
 import {ActivationViewComponent} from "./layout/activation-view/activation-view.component";
 import {UpdateAvailabilityComponent} from "./accommodation/update-availability/update-availability.component";
+import {
+  OwnerAccommodationListingComponent
+} from "./accommodation/owner-accommodation-listing/owner-accommodation-listing.component";
 
 
 const routes: Routes = [
@@ -26,7 +29,9 @@ const routes: Routes = [
   {path: 'search/:startDate/:endDate/:location/:people/filter', component: AccommodationListingComponent},
   {path: 'create_accommodation', component: CreateAccommodationComponent},
   {path: 'activate_profile/:activationLink', component: ActivationViewComponent},
-  {path: 'update_availability/:id', component: UpdateAvailabilityComponent}
+  {path: 'update_availability/:id', component: UpdateAvailabilityComponent},
+  {path: 'owner/accommodations', component: OwnerAccommodationListingComponent},
+  {path: 'activate_profile/:activationLink', component: ActivationViewComponent}
 ];
 
 @NgModule({

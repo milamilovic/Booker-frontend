@@ -15,4 +15,6 @@ export interface AccommodationViewDto {
   ratings: object;
   comments: object;
   owner_id: number;
+  min_capacity: number;
+  max_capacity: number;
 }

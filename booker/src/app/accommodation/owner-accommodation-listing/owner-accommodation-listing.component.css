@@ -1,0 +1,49 @@
+.background {
+  background-image: url("../../../assets/images/background_image.png");
+  background-size: contain;
+  background-position: center;
+  height: fit-content;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.container {
+  border-radius: 20px;
+  padding: 15px;
+  height: fit-content;
+}
+
+.placeholder {
+  height: fit-content;
+  background-color: #90A28890;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.h-background{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h2{
+  color: #3c3c3c;
+  margin: 15px 50px;
+  width: fit-content;
+}
+
+app-owner-accommodation-card {
+  margin: 2px;
+  height: fit-content;
+}
+
+card_div {
+  height: fit-content;
+  max-height: min-content;
+  margin: 2px;
+}

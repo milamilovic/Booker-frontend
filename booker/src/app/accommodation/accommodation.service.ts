@@ -48,6 +48,10 @@ export class AccommodationService {
     return this.http.get<AccommodationViewDto>(environment.apiHost + 'api/accommodations/' + id)
   }
 
+  checkDate(id: number | undefined, date: String): Observable<boolean> {
+    return this.http.get<boolean>(environment.apiHost + 'api/availability/' + id + '/' + date);
+  }
+
 
   add(createAccommodation: any) {
     return this.apiService.post(environment.apiHost + 'api/accommodations/create_accommodation', createAccommodation)
@@ -91,5 +95,13 @@ export class AccommodationService {
   }
   getRatings(id: number | undefined) {
     return this.http.get<AccommodationRating[]>(environment.apiHost + 'api/accommodation_ratings/all/' + id + '/ratings');
+  }
+
+  getAllForOwner(id: number): Observable<AccommodationListingDto[]>{
+    return this.http.get<AccommodationListingDto[]>(environment.apiHost + 'api/accommodations/owner/' + id);
+  }
+
+  getAcceptedForOwner(id: number): Observable<AccommodationListingDto[]>{
+    return this.http.get<AccommodationListingDto[]>(environment.apiHost + 'api/accommodations/owner/' + id + '/active');
   }
 }
