@@ -15,6 +15,7 @@ import {PriceType} from "../enums/price-type.enum";
 import {AccommodationRating} from "./accommodation/model/AccommodationRating";
 import {UpdateAccommodationViewDTO} from "./dto/UpdateAccommodationViewDTO";
 import {UpdateAddressDTO} from "./dto/UpdateAddressDTO";
+import {AmenityDTO} from "../amenity/AmenityDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -120,5 +121,10 @@ export class AccommodationService {
   saveUpdatedAddr(id:number, address: UpdateAddressDTO){
     console.log(address);
     return this.http.put<String>(environment.apiHost + 'api/accommodations/update/' + id + '/address', address);
+  }
+
+  saveUpdateAmenities(id: number, amenities: AmenityDTO[]){
+    console.log(amenities);
+    return this.http.put<String>(environment.apiHost + 'api/amenities/update/' + id + '/amenities', amenities);
   }
 }

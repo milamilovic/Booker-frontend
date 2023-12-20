@@ -81,7 +81,16 @@ export class UpdateAccommodationComponent implements OnInit{
 
   toggleAmenity(event: any, amenity: any) {
     const isChecked = event.target.checked;
-
+    if (isChecked) {
+      if (!this.amenitiesForAcc.includes(amenity)) {
+        this.amenitiesForAcc.push(amenity);
+      }
+    } else {
+      const index = this.amenitiesForAcc.indexOf(amenity);
+      if (index !== -1) {
+        this.amenitiesForAcc.splice(index, 1);
+      }
+    }
   }
 
   cancel(){
@@ -91,6 +100,8 @@ export class UpdateAccommodationComponent implements OnInit{
   saveChanges(){
     this.service.saveUpdatedAcc(this.updateAcc).subscribe({next:(all:String)=>{location.reload();}});
     this.service.saveUpdatedAddr(this.id, this.updateAddress).subscribe({next:(all:String)=>{location.reload();}});
+    this.amenitiesForAcc = [...this.amenitiesForAcc];
+    this.service.saveUpdateAmenities(this.id, this.amenitiesForAcc).subscribe({next:(all:String)=>{location.reload();}});
   }
 
   deleteImage(image : Image){
