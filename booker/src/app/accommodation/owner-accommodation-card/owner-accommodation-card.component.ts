@@ -16,9 +16,9 @@ export class OwnerAccommodationCardComponent implements OnInit{
   @Output()
   clicked: EventEmitter<AccommodationListingDto> = new EventEmitter<AccommodationListingDto>();
 
-  favourite: string = "";
   type: string = "";
   rating: string = "";
+  
   onAccommodationClick(): void {
     this.clicked.emit(this.accommodation);
   }
