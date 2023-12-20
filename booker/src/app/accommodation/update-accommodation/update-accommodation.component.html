@@ -1,39 +1,52 @@
 <div class="background">
 
   <div class="dialog1">
-    <div  class="photo-box">
-      <div *ngFor="let image of accommodation.images">
-        <img
-          alt=""
-          [src]="image.path"
-        />
+    <div class="photo-box-wrapper">
+      <div  class="photo-box">
+        <div *ngFor="let image of accommodation.images">
+          <div class="img-and-icon">
+            <img class="acc-image" alt="" [src]="image.path" />
+            <button class="btn">
+              <img class="icon-image" src="assets/images/icons8-delete-24.png" alt="Delete">
+            </button>
+          </div>
+        </div>
       </div>
+      <input class="more-img" type="file" accept="image/*" multiple>
     </div>
     <div class="description-box">
-      <div class="title"><b>{{accommodation.title}}</b></div>
+      <div >
+        <input class="acc-title" type="text" [(ngModel)]="accommodation.title" placeholder="title">
+      </div>
       <br>
       <br>
-      <p class="description">{{accommodation.description}}</p>
+      <textarea class="description" id="description-ta" placeholder="description"  (input)="autoSize($event)" [(ngModel)]="accommodation.description"></textarea>
     </div>
 
     <div class="container">
-      <b class="title">Amenities: </b>
+      <p class="title">Amenities: </p>
       <br>
       <br>
       <div class="amenity-container">
-        <div *ngFor="let amenity of accommodation.amenities">
+        <div *ngFor="let amenity of allAmenities">
           <div class="amenity">
+            <input class="amenity-checkbox" type="checkbox" [checked]="isAvailable(amenity)" (change)="toggleAmenity($event, amenity)">
             <img class="amenity-image" [src]="amenity.image_path">
-            <p>{{amenity.name}}</p>
+            <p class="amenity-name">{{amenity.name}}</p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="map-box">
-      <b class="address-title">Address:</b><br>
-      <i class="address">{{accommodation.address.city}}, {{accommodation.address.street}}</i>
-      <app-map id="non-clickable"></app-map>
+    <div class="container">
+      <p class="title">Address:</p><br>
+      <div class="map-box-wrapper">
+        <div class="half">
+          <input class="address-input" placeholder="city" type="text" [(ngModel)]="accommodation.address.city">
+          <input class="address-input" placeholder="street & number" type="text" [(ngModel)]="accommodation.address.street">
+        </div>
+        <app-map id="non-clickable"></app-map>
+      </div>
     </div>
 
     <div class="btn-section">
@@ -55,8 +68,8 @@
       </div>
       <div class="comment">
         <img class="profile" src="../../../assets/images/profile_image.jpg">
-        <div class="right_part">
-          <p class="commenter_name">Annie Smith</p>
+        <div class="right-part">
+          <p class="commenter-name">Annie Smith</p>
           <br><br>
           <p class="comment-text">This is a very lovely apartment and I enjoyed my stay very much!</p>
         </div>
@@ -71,6 +84,11 @@
       </div>
     </div>
     <br>
+
+    <div class="btn-section">
+      <button class="btn-done" (click)="cancel()">Discard changes</button>
+      <button class="btn-done" (click)="saveChanges()">Apply changes</button>
+    </div>
 
   </div>
   <br>
