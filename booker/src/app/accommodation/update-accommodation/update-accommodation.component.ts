@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AccommodationService} from "../accommodation.service";
 import {AmenityDTO} from "../../amenity/AmenityDTO";
 import {AmenityService} from "../../amenity/amenity.service";
+import {Image} from "../accommodation/model/Image";
 
 @Component({
   selector: 'app-update-accommodation',
@@ -15,6 +16,8 @@ export class UpdateAccommodationComponent implements OnInit{
   allAmenities: AmenityDTO[] = [];
   amenitiesForAcc:AmenityDTO[] = [];
   id: number = 0;
+  imageUrls: string[] = [];
+  datum = new Date('2023-12-16T00:00:00.000Z').getTime();
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -69,6 +72,32 @@ export class UpdateAccommodationComponent implements OnInit{
   saveChanges(){
 
   }
+
+  deleteImage(image : Image){
+    console.log(image.id);
+    this.service.removeImage(this.id, image).subscribe({next:(all:void)=>{location.reload();}});
+
+  }
+
+  handleFileInput(event: any) {
+    const files = event.target.files;
+    if (files.length === 0) {
+      return;
+    }
+
+    console.log(files);
+
+    this.service.uploadFile(this.id, files).subscribe(
+      (response:any) => {
+        console.log('Files uploaded successfully', response);
+        location.reload();
+      },
+      (error) => {
+        location.reload();
+      }
+    );
+  }
+
 
 
 }

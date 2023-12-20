@@ -7,12 +7,12 @@
           <div class="img-and-icon">
             <img class="acc-image" alt="" [src]="image.path" />
             <button class="btn">
-              <img class="icon-image" src="assets/images/icons8-delete-24.png" alt="Delete">
+              <img class="icon-image" src="assets/images/icons8-delete-24.png" alt="Delete" (click)="deleteImage(image)">
             </button>
           </div>
         </div>
       </div>
-      <input class="more-img" type="file" accept="image/*" multiple>
+      <input class="more-img" type="file" accept="image/*" multiple (change)="handleFileInput($event)">
     </div>
     <div class="description-box">
       <div >

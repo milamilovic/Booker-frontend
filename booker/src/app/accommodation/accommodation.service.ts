@@ -97,4 +97,16 @@ export class AccommodationService {
   getAcceptedForOwner(id: number): Observable<AccommodationListingDto[]>{
     return this.http.get<AccommodationListingDto[]>(environment.apiHost + 'api/accommodations/owner/' + id + '/active');
   }
+
+  removeImage(id: number, image: Image){
+    return this.http.delete<void>(environment.apiHost + 'api/accommodations/' + id + '/remove_image/' + image.id);
+  }
+
+  uploadFile(id:number, files: File[]) {
+    const data : FormData = new FormData();
+    for (let file of files){
+      data.append("images", file);
+    }
+    return this.http.post(environment.apiHost + 'api/accommodations/' + id + '/upload_images', data);
+  }
 }

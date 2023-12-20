@@ -75,6 +75,13 @@
   margin: 0;
 }
 
+.icon-image:hover{
+  box-shadow: 0 0 10px #3c3c3c;
+  width: 30px;
+  height: 30px;
+  transition: 300ms;
+}
+
 .more-img{
   margin: 10px 0 10px 50px;
 }
