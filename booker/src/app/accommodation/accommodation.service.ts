@@ -134,4 +134,9 @@ export class AccommodationService {
     return this.http.get<AccommodationListingDto[]>(environment.apiHost + 'api/accommodations/admin/unapproved');
   }
 
+  approveAccommodation(id: number | undefined): Observable<String>{
+    console.log(environment.apiHost + 'approve/' + id);
+    return this.http.put<String>(environment.apiHost + 'api/accommodations/approve/' + id, null);
+  }
+
 }

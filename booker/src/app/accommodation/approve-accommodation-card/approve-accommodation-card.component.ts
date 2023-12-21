@@ -23,7 +23,7 @@ export class ApproveAccommodationCardComponent  implements OnInit{
 
   constructor(private router: Router, private service: AccommodationService) {
     this.accommodation = {
-      id: undefined,
+      id: 0,
       title: '',
       description: '',
       totalPrice: 0,
@@ -37,7 +37,7 @@ export class ApproveAccommodationCardComponent  implements OnInit{
   }
 
   approve(): void {
-    this.router.navigate(['approve']);
+    this.service.approveAccommodation(this.accommodation.id).subscribe({next: (data:String)=>{}})
   }
 
   ngOnInit(): void {

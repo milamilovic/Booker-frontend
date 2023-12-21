@@ -114,6 +114,7 @@ mat-card-content {
   padding: 20px;
   background-color: #3c3c3c;
   border-color: #3c3c3c;
+  border-radius: 7px;
   height: fit-content;
   color: #e5e5e5;
   width: fit-content;
