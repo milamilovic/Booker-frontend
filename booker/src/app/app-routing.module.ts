@@ -33,9 +33,7 @@ const routes: Routes = [
   {path: 'activate_profile/:activationLink', component: ActivationViewComponent},
   {path: 'update_availability', component: UpdateAvailabilityComponent},
   {path: 'accommodation/:id/update', component: UpdateAccommodationComponent},
-  {path: 'owner/accommodations', component: OwnerAccommodationListingComponent},
-  {path: 'activate_profile/:activationLink', component: ActivationViewComponent},
-  {path: 'approve', component: ApproveAccommodationComponent}
+  {path: 'approve', component: ApproveAccommodationComponent},
   {path: 'accommodations/owner', component: OwnerAccommodationListingComponent}
 ];
 
