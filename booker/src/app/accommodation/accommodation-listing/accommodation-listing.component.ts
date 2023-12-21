@@ -47,14 +47,15 @@ export class AccommodationListingComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.startDate = String(params['startDate']);
-      this.endDate = String(params['endDate']);
+      this.startDate = this.formatDateToString(new Date(params['startDate']));
+      this.endDate = this.formatDateToString(new Date(params['endDate']));
       this.location = String(params['location']);
       this.people = +params['people'];
-      console.log("parametri: " + this.startDate + ", " + this.endDate + ", " + this.location + ", " + this.people)
-      this.service.searchAccommodations(this.startDate, this.endDate, this.location, this.people).subscribe({
+      console.log("parametri: " + this.formatDateToString(new Date(this.startDate)) + ", " + this.formatDateToString(new Date(this.endDate)) + ", " + this.location + ", " + this.people)
+      this.service.searchAccommodations(this.formatDateToString(new Date(this.startDate)), this.formatDateToString(new Date(this.endDate)), this.location, this.people).subscribe({
         next: (data: AccommodationListingDto[]) => {
           this.accommodations = data
+          console.log(data)
         },
         error: (_) => {
           console.log("Greska!")
@@ -87,72 +88,84 @@ export class AccommodationListingComponent implements OnInit {
     this.clickedAcc = accommodation.title + " " + accommodation.id;
   }
 
+  formatDateToString(date: Date): string {
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 to month because it is zero-based
+    const day = date.getDate().toString().padStart(2, '0');
+    const year = date.getFullYear().toString();
+
+    return `${month}-${day}-${year}`;
+  }
+
   search(where_input: HTMLInputElement, from_date: HTMLInputElement, to_date: HTMLInputElement, people_input: HTMLInputElement) {
     if (this.form.valid
     && (new Date(this.startDate) > new Date() && new Date(this.endDate) > new Date() && new Date(this.endDate) > new Date(this.startDate))) {
       let location = where_input.value;
       let start_date = from_date.value;
       let end_date = to_date.value;
-      let people_search = Number(people_input.value);
-      let filters: Filter[] = [];
-      for (let key in this.amenities) {
-        console.log('amenity: ' + this.amenities[key]);
-        let isSelected = this.selectedAmenities[this.amenities[key]];
-        console.log(isSelected);
-        if (isSelected) {
-          filters.push({
-            "name": this.amenities[key],
-            "value": {
-              "checked": true
-            }
-          });
-        }
-      }
-
-      let accTypes: boolean[] = [this.hotel, this.room, this.villa, this.studio];
-      let accTypeNames: string[] = ['hotel', 'room', 'villa', 'studio'];
-      for (let type in accTypes) {
-        if (accTypes[type]) {
-          filters.push({
-            "name": accTypeNames[type],
-            "value": {
-              "checked": true
-            }
-          });
-        }
-      }
-
-      if (this.minPrice) {
-        filters.push({
-          "name": "minPrice",
-          "value": {
-            "price": this.minPrice
-          }
-        });
-      }
-      if (this.maxPrice) {
-        filters.push({
-          "name": "maxPrice",
-          "value": {
-            "price": this.maxPrice
-          }
-        });
-      }
-      if (filters.length != 0) {
-        this.service.searchAndFilterAccommodations(start_date, end_date, location, people_search, filters).subscribe({
-          next: (data: AccommodationListingDto[]) => {
-            this.accommodations = data
-          },
-          error: (_) => {
-            console.log("Greska!")
-          }
-        })
+      if(!from_date.value || !to_date.value) {
+        alert("Please fill all required fields (location, dates and number of guests)")
       } else {
-        //if there are no filtering params, then we are searching
-        this.route.params.subscribe((params) => {
-          console.log("parametri: " + start_date + ", " + end_date + ", " + location + ", " + people_search)
-          this.router.navigate(['/search', start_date, end_date, location, people_search]);
-        })
+        let people_search = Number(people_input.value);
+        let filters: Filter[] = [];
+        for (let key in this.amenities) {
+          console.log('amenity: ' + this.amenities[key]);
+          let isSelected = this.selectedAmenities[this.amenities[key]];
+          console.log(isSelected);
+          if (isSelected) {
+            filters.push({
+              "name": this.amenities[key],
+              "value": {
+                "checked": true
+              }
+            });
+          }
+        }
+
+        let accTypes: boolean[] = [this.hotel, this.room, this.villa, this.studio];
+        let accTypeNames: string[] = ['hotel', 'room', 'villa', 'studio'];
+        for (let type in accTypes) {
+          if (accTypes[type]) {
+            filters.push({
+              "name": accTypeNames[type],
+              "value": {
+                "checked": true
+              }
+            });
+          }
+        }
+
+        if (this.minPrice) {
+          filters.push({
+            "name": "minPrice",
+            "value": {
+              "price": this.minPrice
+            }
+          });
+        }
+        if (this.maxPrice) {
+          filters.push({
+            "name": "maxPrice",
+            "value": {
+              "price": this.maxPrice
+            }
+          });
+        }
+        if (filters.length != 0) {
+          this.service.searchAndFilterAccommodations(start_date, end_date, location, people_search, filters).subscribe({
+            next: (data: AccommodationListingDto[]) => {
+              this.accommodations = data
+            },
+            error: (_) => {
+              console.log("Greska!")
+            }
+          })
+        } else {
+          //if there are no filtering params, then we are searching
+          this.route.params.subscribe((params) => {
+            console.log("parametri: " + start_date + ", " + end_date + ", " + location + ", " + people_search)
+            this.router.navigate(['/search', start_date, end_date, location, people_search]);
+          })
+        }
       }
     } else {
       if(this.people < 1) {
