@@ -14,7 +14,9 @@ import {Amenity} from "./accommodation/model/Amenity";
 import {PriceType} from "../enums/price-type.enum";
 import {ApiService, ConfigService} from "../service";
 import {AccommodationRating} from "./accommodation/model/AccommodationRating";
+// @ts-ignore
 import {UpdateAccommodationViewDTO} from "./dto/UpdateAccommodationViewDTO";
+// @ts-ignore
 import {UpdateAddressDTO} from "./dto/UpdateAddressDTO";
 import {AmenityDTO} from "../amenity/AmenityDTO";
 
@@ -134,4 +136,14 @@ export class AccommodationService {
     console.log(amenities);
     return this.http.put<String>(environment.apiHost + 'api/amenities/update/' + id + '/amenities', amenities);
   }
+
+  getAllUnAccepted() : Observable<AccommodationListingDto[]>{
+    return this.http.get<AccommodationListingDto[]>(environment.apiHost + 'api/accommodations/admin/unapproved');
+  }
+
+  approveAccommodation(id: number | undefined): Observable<String>{
+    console.log(environment.apiHost + 'approve/' + id);
+    return this.http.put<String>(environment.apiHost + 'api/accommodations/approve/' + id, null);
+  }
+
 }
