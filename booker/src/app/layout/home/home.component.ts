@@ -37,8 +37,8 @@ export class HomeComponent implements OnInit{
     if (this.form.valid
       && (new Date(this.startDate) > new Date() && new Date(this.endDate) > new Date() && new Date(this.endDate) > new Date(this.startDate))) {
 
-      console.log("parametri: " + startDate.value + ", " + endDate.value + ", " + location.value + ", " + people.value)
-      this.router.navigate(['/search', startDate.value, endDate.value, location.value, Number(people.value)]);
+      console.log("parametri: " + this.formatDateToString(new Date(this.startDate)) + ", " + this.formatDateToString(new Date(this.endDate)) + ", " + location.value + ", " + people.value)
+      this.router.navigate(['/search', this.formatDateToString(new Date(this.startDate)), this.formatDateToString(new Date(this.endDate)), location.value, Number(people.value)]);
     } else {
         if(new Date(this.startDate) < new Date() || new Date(this.endDate) < new Date()) {
           alert("You can not search past dates")
@@ -63,5 +63,13 @@ export class HomeComponent implements OnInit{
     start: ['', [Validators.required]],
     end: ['', [Validators.required]]
   });
+  }
+
+  formatDateToString(date: Date): string {
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 to month because it is zero-based
+    const day = date.getDate().toString().padStart(2, '0');
+    const year = date.getFullYear().toString();
+
+    return `${month}-${day}-${year}`;
   }
 }

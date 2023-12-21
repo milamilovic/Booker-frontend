@@ -61,8 +61,9 @@ export class AccommodationComponent implements OnInit  {
   ngOnInit(): void {
     //getting the user - if not guest hide reservation request div
     const loggedIn = localStorage.getItem("loggedId");
+    const loggedRole = localStorage.getItem("loggedRole");
     console.log(loggedIn)
-    if(loggedIn) {
+    if(loggedRole === 'guests') {
       this.userService.getGuestById(Number(loggedIn)).subscribe( {
         next: (result: Guest) => {
           this.loggedInGuest = Number(loggedIn);
@@ -71,6 +72,8 @@ export class AccommodationComponent implements OnInit  {
           this.loggedInGuest = 0;
         }
       })
+    } else {
+      this.loggedInGuest = 0;
     }
     //initializing accommodation
     this.route.params.subscribe((params) => {

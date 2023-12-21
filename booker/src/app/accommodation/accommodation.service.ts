@@ -30,6 +30,7 @@ export class AccommodationService {
               private configService: ConfigService) { }
 
   searchAccommodations(startDate: string, endDate: string, location: string, people: number): Observable<AccommodationListingDto[]> {
+    console.log(startDate + ', ' + startDate + ', ' + location + ', ' + people)
     return this.http.get<AccommodationListingDto[]>(environment.apiHost + 'api/accommodations/' + 'search/' + startDate + '/' + endDate + '/' + location + '/' + people);
   }
 
