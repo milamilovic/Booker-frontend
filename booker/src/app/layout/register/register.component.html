@@ -44,7 +44,7 @@
         <mat-form-field>
           <mat-label>Select</mat-label>
           <mat-select formControlName="role">
-            <mat-option *ngFor="let userType of userTypes" [value]="userType" >
+            <mat-option *ngFor="let userType of userTypesToDisplay" [value]="userType" >
               {{ userType }}
             </mat-option>
           </mat-select>

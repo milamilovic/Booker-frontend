@@ -120,11 +120,8 @@ export class UserService {
   }
 
   activateProfile(activationLink:string) {
-    const signupHeaders = new HttpHeaders({
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    });
-    return this.apiService.put(this.config.users_url + `/activate_profile/${activationLink}`, signupHeaders)
+
+    return this.apiService.put(this.config.user_url + `/activate_profile/${activationLink}`, null)
       .pipe(map(() => {
         console.log('Sign up success');
       }));
@@ -225,5 +222,7 @@ export class UserService {
       })
     );
   }
+
+
 }
 

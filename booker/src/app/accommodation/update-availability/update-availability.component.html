@@ -1,0 +1,79 @@
+<div class="background">
+
+  <div class="container">
+    <div class="logo-container">
+      <img src="../../../assets/images/big-logo.png" alt="logo" class="logo">
+      <input id="duration" value="2000" type="number" min="0" step="100" style="display: none" #duration>
+    </div>
+    <form>
+      <mat-vertical-stepper [linear]="false" [animationDuration]="duration.value" #stepper>
+
+        <mat-step [stepControl]="formGroupAvailability">
+          <form [formGroup]="formGroupAvailability">
+            <ng-template matStepLabel>Accommodation availability</ng-template>
+            <mat-form-field>
+              <mat-label>Enter a date range</mat-label>
+              <mat-date-range-input [rangePicker]="picker" >
+                <input formControlName="startDate" matStartDate placeholder="Start date">
+                <input formControlName="endDate" matEndDate placeholder="End date">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matIconPrefix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+            <button mat-button matStepperPrevious type="button">Back</button>
+            <button mat-button matStepperNext type="button">Next</button>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="formGroupPrice">
+          <form [formGroup]="formGroupPrice">
+            <ng-template matStepLabel>Accommodation price</ng-template>
+            <mat-form-field>
+              <mat-label>Enter period</mat-label>
+              <mat-date-range-input [rangePicker]="picker_price">
+                <input formControlName="priceStartDate" matStartDate placeholder="Start date" required>
+                <input formControlName="priceEndDate" matEndDate placeholder="End date" required>
+
+              </mat-date-range-input>
+              <mat-datepicker-toggle matPrefix [for]="picker_price"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker_price></mat-date-range-picker>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Enter amount</mat-label>
+              <input type="number" matInput required formControlName="amount">
+              <mat-icon matPrefix>attach_money</mat-icon>
+            </mat-form-field>
+            <mat-card>
+              <mat-card-content>
+                <mat-radio-group formControlName="price_type">
+                  <mat-radio-button>Per guest</mat-radio-button>
+                  <mat-radio-button>Per accommodation</mat-radio-button>
+                </mat-radio-group>
+              </mat-card-content>
+            </mat-card>
+            <button mat-button matStepperPrevious type="button">Back</button>
+            <button mat-button matStepperNext type="button">Next</button>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="formGroupDeadline">
+          <form [formGroup]="formGroupDeadline">
+            <ng-template matStepLabel>Cancellation deadline</ng-template>
+            <mat-form-field>
+              <mat-label>Enter deadline</mat-label>
+              <input type="number" matInput required formControlName="deadline">
+              <mat-icon matPrefix>free_cancellation</mat-icon>
+            </mat-form-field>
+            <button mat-button matStepperPrevious type="button">Back</button>
+            <button mat-button matStepperNext type="button">Next</button>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Submit data</ng-template>
+          <div id="buttons">
+            <button type="submit" mat-raised-button (click)="submitForm()">Submit</button>
+            <button type="reset" mat-raised-button>Reset</button>
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>
+    </form>
+  </div>
+</div>

@@ -39,6 +39,9 @@ export class ConfigService {
     return this._users_url;
   }
 
+  get user_url(): string {
+    return this._user_url;
+  }
   get guests_url(): string{
     return this._guests_url;
   }
@@ -55,5 +58,10 @@ export class ConfigService {
 
   get signup_url(): string {
     return this._signup_url;
+  }
+
+  private _accommodations_url = this._api_url + "/accommodations";
+  get accommodations_url(): string {
+    return this._accommodations_url;
   }
 }

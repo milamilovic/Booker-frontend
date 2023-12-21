@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
   notification!: DisplayMessage;
   returnUrl!: string;
   userTypes = Object.keys(UserType);
+  userTypesToDisplay = [UserType.GUEST, UserType.OWNER];
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   form = new FormGroup({
     name: new FormControl('', [Validators.required]),
