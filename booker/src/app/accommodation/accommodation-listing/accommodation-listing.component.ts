@@ -93,15 +93,16 @@ export class AccommodationListingComponent implements OnInit {
     const day = date.getDate().toString().padStart(2, '0');
     const year = date.getFullYear().toString();
 
-    return `${month}-${day}-${year}`;
+    return `${year}-${month}-${day}`;
+    
   }
 
   search(where_input: HTMLInputElement, from_date: HTMLInputElement, to_date: HTMLInputElement, people_input: HTMLInputElement) {
     if (this.form.valid
     && (new Date(this.startDate) > new Date() && new Date(this.endDate) > new Date() && new Date(this.endDate) > new Date(this.startDate))) {
       let location = where_input.value;
-      let start_date = from_date.value;
-      let end_date = to_date.value;
+      let start_date = this.formatDateToString(new Date(from_date.value));
+      let end_date =this.formatDateToString(new Date(to_date.value));
       if(!from_date.value || !to_date.value) {
         alert("Please fill all required fields (location, dates and number of guests)")
       } else {
