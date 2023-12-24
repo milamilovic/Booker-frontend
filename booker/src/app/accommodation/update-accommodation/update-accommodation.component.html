@@ -5,7 +5,7 @@
       <div  class="photo-box">
         <div *ngFor="let image of updateAcc?.images">
           <div class="img-and-icon">
-            <img class="acc-image" alt="" [src]="image.path" />
+            <img class="acc-image" alt="" [src]="image.path_front" />
             <button class="btn">
               <img class="icon-image" src="assets/images/icons8-delete-24.png" alt="Delete" (click)="deleteImage(image)">
             </button>

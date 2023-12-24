@@ -1,5 +1,6 @@
 export interface Image {
   id?: number;
-  path: string;
+  path_front: string;
+  path_mobile: string;
   accommodation?: object;
 }

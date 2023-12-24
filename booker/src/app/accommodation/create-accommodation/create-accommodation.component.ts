@@ -211,7 +211,8 @@ export class CreateAccommodationComponent implements OnInit{
     convertFileToImage(file: File): Image {
       const blob = new Blob([file], { type: file.type });
       return {
-        path: URL.createObjectURL(blob),
+        path_mobile: URL.createObjectURL(blob),
+        path_front: ''
       };
     }
 
