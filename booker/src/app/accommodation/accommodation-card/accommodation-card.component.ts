@@ -32,7 +32,8 @@ export class AccommodationCardComponent implements OnInit{
       pricePerDay: 0,
       rating: 0,
       image: {
-        path: '',
+        path_front: '',
+        path_mobile: '',
         accommodation: {}
       }
     }
