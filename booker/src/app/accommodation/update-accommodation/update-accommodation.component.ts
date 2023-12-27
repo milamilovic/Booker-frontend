@@ -7,6 +7,7 @@ import {AmenityService} from "../../amenity/amenity.service";
 import {Image} from "../accommodation/model/Image";
 import {UpdateAccommodationViewDTO} from "../dto/UpdateAccommodationViewDTO";
 import {UpdateAddressDTO} from "../dto/UpdateAddressDTO";
+import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-update-accommodation',
@@ -16,7 +17,8 @@ import {UpdateAddressDTO} from "../dto/UpdateAddressDTO";
 export class UpdateAccommodationComponent implements OnInit{
   accommodation!: AccommodationViewDto;
   updateAcc: UpdateAccommodationViewDTO = {
-    _id: 0
+    _id: 0,
+    manual_accepting: true
   };
   updateAddress: UpdateAddressDTO = {
     _id: 0
@@ -40,7 +42,8 @@ export class UpdateAccommodationComponent implements OnInit{
             _id: this.id,
             title: data.title,
             description: data.description,
-            images: data.images
+            images: data.images,
+            manual_accepting: data.manual_accepting
           }
           this.updateAddress = {
             _id: 0,
@@ -131,5 +134,9 @@ export class UpdateAccommodationComponent implements OnInit{
   }
 
 
-
+  onToggle($event: MatSlideToggleChange) {
+    // @ts-ignore
+    console.log('toggle ', $event.checked)
+    this.updateAcc.manual_accepting = $event.checked;
+  }
 }

@@ -16,6 +16,7 @@ import { UpdateAccommodationComponent } from './update-accommodation/update-acco
 import {MapModule} from "../map/map.module";
 import { ApproveAccommodationComponent } from './approve-accommodation/approve-accommodation.component';
 import { ApproveAccommodationCardComponent } from './approve-accommodation-card/approve-accommodation-card.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 
 
@@ -41,7 +42,8 @@ import { ApproveAccommodationCardComponent } from './approve-accommodation-card/
     AccommodationComponent,
     FormsModule,
     ReactiveFormsModule,
-    MapModule
+    MapModule,
+    MatSlideToggleModule
   ],
   exports: [
     AccommodationComponent

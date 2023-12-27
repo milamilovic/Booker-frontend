@@ -39,6 +39,17 @@
     </div>
 
     <div class="container">
+      <p class="title">Way of accepting reservation requests: </p>
+      <br>
+      <br>
+      <div class="accepting-requests">
+        <p class="check_option">Automatic accepting</p>
+        <mat-slide-toggle name="manual_check" [checked]="updateAcc.manual_accepting" (change)="onToggle($event)"></mat-slide-toggle>
+        <p class="check_option">Manual accepting</p>
+      </div>
+    </div>
+
+    <div class="container">
       <p class="title">Address:</p><br>
       <div class="map-box-wrapper">
         <div class="half">
