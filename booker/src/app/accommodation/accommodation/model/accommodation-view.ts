@@ -17,4 +17,5 @@ export interface AccommodationViewDto {
   owner_id: number;
   min_capacity: number;
   max_capacity: number;
+  manual_accepting: boolean;
 }

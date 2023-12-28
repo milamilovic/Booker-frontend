@@ -318,3 +318,19 @@ input[type=checkbox] {
   margin-left: 20px;
 }
 
+.accepting-requests {
+  display: flex;
+}
+
+mat-slide-toggle{
+  display: block;
+  width: fit-content;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 12px;
+}
+
+.check_option {
+  display: block;
+  width: fit-content;
+}

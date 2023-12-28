@@ -15,11 +15,13 @@ interface DisplayMessage {
   msgBody: string;
 }
 
+
 @Component({
   selector: 'app-owner-profile',
   templateUrl: './owner-profile.component.html',
   styleUrls: ['./owner-profile.component.css']
 })
+
 
 export class OwnerProfileComponent implements OnInit{
   owner! : Owner;
@@ -40,6 +42,9 @@ export class OwnerProfileComponent implements OnInit{
               private formBuilder: FormBuilder,
               private ownerCommentService: OwnerCommentService,
               private snackBar : SnackBarComponent) { }
+
+  constructor(private AccommodationService: AccommodationService,
+              private service : UserService) { }
   ngOnInit(): void {
     this.accommodationId = Number(localStorage.getItem("accommodationId"));
     this.AccommodationService.getAccommodation(this.accommodationId).subscribe({
@@ -65,6 +70,7 @@ export class OwnerProfileComponent implements OnInit{
   report():void{
 
   }
+
 
   openSnackBar(message: string, action: string) {
     this.snackBar.openSnackBar(message, action);

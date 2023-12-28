@@ -7,4 +7,5 @@ export interface UpdateAccommodationViewDTO{
   title?: string;
   description?: string;
   images?: Image[];
+  manual_accepting: boolean;
 }
