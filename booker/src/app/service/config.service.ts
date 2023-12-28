@@ -64,4 +64,9 @@ export class ConfigService {
   get accommodations_url(): string {
     return this._accommodations_url;
   }
+
+  private _add_owner_comment_url = this._api_url + "/owner_comments/add_comment";
+  get add_owner_comment_url(): string {
+    return this._add_owner_comment_url;
+  }
 }
