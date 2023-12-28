@@ -51,6 +51,7 @@ export class AccommodationService {
   }
 
   getAccommodation(id: number): Observable<AccommodationViewDto> {
+    localStorage.setItem("accommodationId", id.toString());
     return this.http.get<AccommodationViewDto>(environment.apiHost + 'api/accommodations/' + id)
   }
 
