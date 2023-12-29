@@ -254,3 +254,48 @@ h2.section-title{
   background-color: #e5e5e5;
   color: #3c3c3c;
 }
+
+.add-comment-section {
+  width: 95%;
+  border-radius: 10px;
+  background-color: #d9d9d9;
+  margin-bottom: 10px;
+  height: auto; /* Set height to auto to allow dynamic sizing based on content */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 20px;
+  position: relative; /* Added to set the positioning context for absolute positioning */
+}
+
+.comment-textarea {
+  width: 100%;
+  margin-bottom: 20px; /* Adjust the margin as needed */
+}
+
+#buttons {
+  position: absolute;
+  bottom: 10px;
+  right: 10px; /* Adjust the right value as needed */
+  display: flex;
+  flex-direction: row;
+}
+
+#btnAdd {
+  color: #E5E5E5;
+  background-color: #3C3C3C;
+  width: 100px;
+  height: 45px;
+  font-size: 15px;
+  margin-right: 10px; /* Adjust the margin as needed */
+}
+
+#btnCancel {
+  color: #E5E5E5;
+  background-color: #3C3C3C;
+  width: 100px;
+  height: 45px;
+  font-size: 15px;
+}
+

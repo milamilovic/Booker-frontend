@@ -9,20 +9,24 @@ import {MaterialModule} from "../infrastructure/material/material.module";
 import {FormsModule} from "@angular/forms";
 import { OwnerViewComponent } from './owner-view/owner-view.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
+import {RouterLink} from "@angular/router";
+import {OwnerProfileComponent} from "./owner-profile/owner-profile.component";
 import { OwnerProfileComponent } from './owner-profile/owner-profile.component';
 
 
 
+
 @NgModule({
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MaterialModule,
-    FormsModule
-  ],
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MaterialModule,
+        FormsModule,
+        RouterLink
+    ],
   declarations: [
     GuestViewComponent,
     OwnerViewComponent,
