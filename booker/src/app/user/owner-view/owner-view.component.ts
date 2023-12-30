@@ -2,6 +2,8 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UpdateUserDTO} from "../dto/UpdateUserDTO";
 import {Owner} from "./model/owner.model";
 import {UserService} from "../user.service";
+import {OwnerCommentDTO} from "../dto/OwnerCommentDTO";
+import {OwnerCommentService} from "../owner-comment.service";
 
 @Component({
   selector: 'app-owner-view',
@@ -21,8 +23,12 @@ export class OwnerViewComponent implements OnInit{
   confirmPassword: string = '';
   @ViewChild('fileInput') fileInput!: ElementRef;
   loggedIn : number = 0;
+  ownerComments: OwnerCommentDTO[] = [];
+  isReportClicked = false;
+  averageRating: number = 0;
 
-  constructor(private service: UserService) { }
+  constructor(private service: UserService,
+              private ownerCommentService: OwnerCommentService) { }
 
   ngOnInit(): void {
     this.loggedIn = Number(localStorage.getItem("loggedId"));
@@ -44,6 +50,7 @@ export class OwnerViewComponent implements OnInit{
               console.log(err);
           }
       })
+    this.loadOwnerComments();
   }
 
   onFileSelected(event: any) {
@@ -106,6 +113,29 @@ export class OwnerViewComponent implements OnInit{
     if (dialogOverlayById) {
       dialogOverlayById.style.display = "none";
     }
+  }
+
+  loadOwnerComments(): void {
+    this.ownerCommentService.findAllNotDeletedForOwner(this.loggedIn).subscribe(
+      (response) => {
+        this.ownerComments = response;
+        this.calculateOwnerRate();
+        console.log("Owner comments successfully loaded!", response);
+      },
+      (error) => {
+        console.log("Error in loading owner comments!");
+      }
+    );
+  }
+
+
+  calculateOwnerRate() {
+    let totalRatings: number = 0;
+    let numberOfComments: number = this.ownerComments.length;
+    for (const comment of this.ownerComments) {
+      totalRatings += comment.rating;
+    }
+    this.averageRating = totalRatings / numberOfComments;
   }
 
 }

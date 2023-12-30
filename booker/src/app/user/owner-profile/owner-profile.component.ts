@@ -43,8 +43,6 @@ export class OwnerProfileComponent implements OnInit{
               private ownerCommentService: OwnerCommentService,
               private snackBar : SnackBarComponent) { }
 
-  constructor(private AccommodationService: AccommodationService,
-              private service : UserService) { }
   ngOnInit(): void {
     this.accommodationId = Number(localStorage.getItem("accommodationId"));
     this.AccommodationService.getAccommodation(this.accommodationId).subscribe({

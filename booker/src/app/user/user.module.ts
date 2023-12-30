@@ -10,7 +10,6 @@ import {FormsModule} from "@angular/forms";
 import { OwnerViewComponent } from './owner-view/owner-view.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import {RouterLink} from "@angular/router";
-import {OwnerProfileComponent} from "./owner-profile/owner-profile.component";
 import { OwnerProfileComponent } from './owner-profile/owner-profile.component';
 
 
