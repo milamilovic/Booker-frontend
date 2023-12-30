@@ -255,7 +255,7 @@ h2.section-title{
   color: #3c3c3c;
 }
 
-.add-comment-section {
+.add-comment-section, .add-ratings-section {
   width: 95%;
   border-radius: 10px;
   background-color: #d9d9d9;
@@ -274,7 +274,7 @@ h2.section-title{
   margin-bottom: 20px; /* Adjust the margin as needed */
 }
 
-#buttons {
+.buttons {
   position: absolute;
   bottom: 10px;
   right: 10px; /* Adjust the right value as needed */
@@ -282,7 +282,7 @@ h2.section-title{
   flex-direction: row;
 }
 
-#btnAdd {
+.btnAdd {
   color: #E5E5E5;
   background-color: #3C3C3C;
   width: 100px;
@@ -291,11 +291,51 @@ h2.section-title{
   margin-right: 10px; /* Adjust the margin as needed */
 }
 
-#btnCancel {
+.btnCancel {
   color: #E5E5E5;
   background-color: #3C3C3C;
   width: 100px;
   height: 45px;
   font-size: 15px;
 }
+
+.star-rating {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.star-rating span {
+  margin: 0 5px;
+}
+
+.star-rating .filled, .star-rating .half-filled {
+  color: #90A288;
+}
+
+.star-rating .active {
+  color: #90A288;
+  transform: scale(1.2);
+}
+
+.selected-rating {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #3C3C3C;
+  display: inline-flex;
+}
+
+.delete-comment {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-icon {
+  color: #3C3C3C; /* Adjust the color as needed */
+}
+
+.delete-comment:hover .delete-icon {
+  color: #90A288;
+}
+
 
