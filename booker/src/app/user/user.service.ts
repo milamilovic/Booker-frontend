@@ -10,6 +10,7 @@ import {Owner} from "./owner-view/model/owner.model";
 import {Admin} from "./admin-view/model/admin.model";
 import {ApiService, ConfigService} from "../service";
 import {Router} from "@angular/router";
+import {UserDTO} from "./dto/UserDTO";
 
 
 const USERS = [
@@ -222,6 +223,7 @@ export class UserService {
       })
     );
   }
+
 
 
 }
