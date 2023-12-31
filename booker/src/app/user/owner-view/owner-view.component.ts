@@ -4,6 +4,12 @@ import {Owner} from "./model/owner.model";
 import {UserService} from "../user.service";
 import {OwnerCommentDTO} from "../dto/OwnerCommentDTO";
 import {OwnerCommentService} from "../owner-comment.service";
+import {SnackBarComponent} from "../../shared/snack-bar/snack-bar.component";
+
+interface DisplayMessage {
+  msgType: string;
+  msgBody: string;
+}
 
 @Component({
   selector: 'app-owner-view',
@@ -28,7 +34,8 @@ export class OwnerViewComponent implements OnInit{
   averageRating: number = 0;
 
   constructor(private service: UserService,
-              private ownerCommentService: OwnerCommentService) { }
+              private ownerCommentService: OwnerCommentService,
+              private snackBar: SnackBarComponent) { }
 
   ngOnInit(): void {
     this.loggedIn = Number(localStorage.getItem("loggedId"));
@@ -128,6 +135,23 @@ export class OwnerViewComponent implements OnInit{
     );
   }
 
+  openSnackBar(message: string, action: string) {
+    this.snackBar.openSnackBar(message, action);
+  }
+
+  reportComment(comment: OwnerCommentDTO) {
+    this.ownerCommentService.reportComment(comment.id).subscribe(
+      (response) => {
+        console.log("Owner comment successfully reported!", response);
+        this.isReportClicked = !this.isReportClicked;
+        this.openSnackBar("Owner comment successfully reported!", "CLOSE")
+      },
+      (error) => {
+        console.log("Error in reporting owner comment!", error);
+        this.openSnackBar("Error in reporting owner comment!", "CLOSE")
+      }
+    );
+  }
 
   calculateOwnerRate() {
     let totalRatings: number = 0;

@@ -35,4 +35,10 @@ export class OwnerCommentService {
     console.log(environment.apiHost + `api/owner_comments/all/${ownerId}/not_deleted`);
     return this.http.get<OwnerCommentDTO[]>(environment.apiHost + `api/owner_comments/all/${ownerId}/not_deleted`);
   }
+
+  reportComment(comment_id: number) {
+    console.log(comment_id);
+    console.log(environment.apiHost + `api/owner_comments/report/${comment_id}`);
+    return this.apiService.put(environment.apiHost + `api/owner_comments/report/${comment_id}`, comment_id);
+  }
 }

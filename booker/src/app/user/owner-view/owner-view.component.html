@@ -20,7 +20,7 @@
           <div class="commenter-wrapper">
             <img class="profile" src="{{comment.guestProfilePicture.path}}">
             <p class="commenter-name">{{comment.guestName + " " + comment.guestSurname}}</p>
-            <button class="report-comment" *ngIf="comment.ownerId === loggedIn" [style.color]="isReportClicked ? '#90A288' : '#3C3C3C'"><mat-icon class="report-icon">report</mat-icon></button>
+            <button class="report-comment" *ngIf="comment.ownerId === loggedIn" (click)="reportComment(comment)" [style.color]="isReportClicked ? '#90A288' : '#3C3C3C'"><mat-icon class="report-icon">report</mat-icon></button>
             <p class="comment-date">{{comment.date}}</p>
             <img class="more" src="../../../assets/images/more_32.png">
           </div>
