@@ -11,7 +11,7 @@
         </div>
         <div class="rating-container">
           <img class="user-star" src="../../../assets/images/icons8-star-26.png">
-          <p class="user-rate">4.8 / 5.0</p>
+          <p class="user-rate">{{averageRating}} / 5.0</p>
         </div>
       </div>
       <div class="info-section">
@@ -42,14 +42,45 @@
               <mat-label>Enter your comment...</mat-label>
               <textarea matInput type="text" class="comment-textarea" formControlName="content"></textarea>
             </mat-form-field>
-            <div id="buttons">
-              <button type="submit" mat-raised-button id="btnAdd" (click)="submitForm()">Add comment</button>
-              <button type="reset" mat-raised-button id="btnCancel" routerLink="/">Cancel</button>
+            <div class="add-ratings-section">
+              <div class="star-rating">
+            <span *ngFor="let _ of stars; let i = index"
+                  (click)="rate(i + (hoverIndex === 0.5 ? 0.5 : 1))"
+                  [ngClass]="{'filled': i + 1 <= selectedRating, 'half-filled': i + 0.5 === selectedRating, 'active': i + 1 <= hoverIndex || i + 0.5 === hoverIndex}"
+                  (mouseenter)="hover(i + 1)"
+                  (mouseleave)="reset()">
+                    &#9733;
+            </span>
+                <p *ngIf="selectedRating > 0" class="selected-rating">{{ selectedRating.toFixed(1) }} / 5.0</p>
+              </div>
+            </div>
+            <div class="buttons">
+              <button type="submit" mat-raised-button class="btnAdd" (click)="submitForm()">Add comment</button>
+              <button type="reset" mat-raised-button class="btnCancel" routerLink="/">Cancel</button>
             </div>
           </form>
         </div>
+
+        </div>
+
       <div class="comments-section">
         <h2 class="section-title">Comments: </h2>
+        <div *ngFor="let comment of ownerComments" class="comment">
+          <div class="commenter-wrapper">
+            <img class="profile" src="{{comment.guestProfilePicture.path}}">
+            <p class="commenter-name">{{comment.guestName + " " + comment.guestSurname}}</p>
+            <button class="delete-comment" *ngIf="comment.guestId === loggedIn" (click)="deleteComment(comment)"><mat-icon class="delete-icon">delete</mat-icon></button>
+            <p class="comment-date">{{comment.date}}</p>
+            <img class="more" src="../../../assets/images/more_32.png">
+          </div>
+          <p class="comment-text">{{comment.content}}</p>
+          <div class="rating-helper">
+            <div class="rating-wrapper">
+              <p class="comment-rate">{{comment.rating | number:'1.1-1'}} / 5.0</p>
+              <img class="comment-star" src="../../../assets/images/icons8-star-26.png">
+            </div>
+          </div>
+        </div>
         <div class="comment">
           <div class="commenter-wrapper">
             <img class="profile" src="../../../assets/images/profile_image.jpg">
