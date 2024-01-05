@@ -1,1 +1,26 @@
-<p>guest-requests works!</p>
+<div class="background">
+  <div class="container">
+    <form>
+      <div class="searching">
+        <input type="text" id="where_input" name="where_input" placeholder="  Accommodation name?" #where_input required>
+        <input type="date" id="searchDate" name="searchDate" placeholder="When?" #searchDate required>
+        <input type="submit" class="search-button" value="Search!"/>
+      </div>
+      <div class="filters">
+        <div class="left_part_accommodations">
+          <p class="filter_text">Filters: </p>
+          <mat-checkbox class="amenities" (change)="onCheckboxChange('waiting')"><p class="filter-text">waiting</p></mat-checkbox>
+          <mat-checkbox class="amenities" (change)="onCheckboxChange('accepted')"><p class="filter-text">accepted</p></mat-checkbox>
+          <mat-checkbox class="amenities" (change)="onCheckboxChange('denied')"><p class="filter-text">denied</p></mat-checkbox>
+        </div>
+        <input type="submit" class="filter-button" value="Filter!"/>
+      </div>
+    </form>
+    <br>
+    <div class="placeholder">
+      <div class="card_div" *ngFor="let req of requests">
+        <app-guest-card [request]="req"></app-guest-card>
+      </div>
+    </div>
+  </div>
+</div>

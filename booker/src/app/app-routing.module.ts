@@ -17,6 +17,8 @@ import {
 import {UpdateAccommodationComponent} from "./accommodation/update-accommodation/update-accommodation.component";
 import {ApproveAccommodationComponent} from "./accommodation/approve-accommodation/approve-accommodation.component";
 import {OwnerProfileComponent} from "./user/owner-profile/owner-profile.component";
+import {GuestRequestsComponent} from "./requests/guest-requests/guest-requests.component";
+import {OwnerRequestsComponent} from "./requests/owner-requests/owner-requests.component";
 
 
 const routes: Routes = [
@@ -36,7 +38,9 @@ const routes: Routes = [
   {path: 'accommodation/:id/update', component: UpdateAccommodationComponent},
   {path: 'approve', component: ApproveAccommodationComponent},
   {path: 'accommodations/owner', component: OwnerAccommodationListingComponent},
-  {path: 'owner', component: OwnerProfileComponent}
+  {path: 'owner', component: OwnerProfileComponent},
+  {path: 'requests/guest', component: GuestRequestsComponent},
+  {path: 'requests/owner', component: OwnerRequestsComponent}
 ];
 
 @NgModule({
