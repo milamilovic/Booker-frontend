@@ -7,7 +7,7 @@ import { OwnerRequestsComponent } from './owner-requests/owner-requests.componen
 import {MatCardModule} from "@angular/material/card";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MaterialModule} from "../infrastructure/material/material.module";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -23,7 +23,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatCheckboxModule,
     MaterialModule,
     ReactiveFormsModule,
-    MatCardModule
+    MatCardModule,
+    FormsModule
   ],
   exports: [
     GuestRequestsComponent,
