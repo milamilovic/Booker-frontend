@@ -1,0 +1,23 @@
+<mat-card>
+  <mat-card-content>
+    <div class="left_part">
+      <img class="image" src="/{{accommodation.images[0].path_front}}/">
+    </div>
+    <div class="right_part">
+      <div class="name_and_price">
+        <b class="acc_name">{{accommodation.title}}</b>
+        <div class="prices">
+          <p class="full_price"><b>{{request.price + "$"}}</b></p>
+        </div>
+      </div>
+      <div class="right_part_bottom">
+        <div class="description">
+          <div class="dates">{{request.fromDate.toString() + "  -  " + request.toDate.toString()}}</div>
+          <div class="status">{{"status: " + status}}</div>
+          <button>Cancel request</button>
+        </div>
+        <p class="rating">INSERT RATING HERE</p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
