@@ -225,6 +225,8 @@ export class UserService {
   }
 
 
-
+  getCancelled(guestId: number) {
+    return this.http.get<number>(environment.apiHost + 'api/guests/' + guestId + '/cancelled');
+  }
 }
 

@@ -51,13 +51,6 @@ export class GuestRequestsComponent implements OnInit{
     console.log("filter change: " + status);
     let isSelected = this.selectedAmenities[status];
     this.selectedAmenities[status] = isSelected;
-    // if(status==='waiting') {
-    //   //waiting
-    // } else if(status==='accepted') {
-    //   //accepted
-    // } else {
-    //   //denied
-    // }
   }
 
   formatDateToString(date: Date): string {

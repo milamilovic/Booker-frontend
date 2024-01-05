@@ -51,4 +51,40 @@ export class RequestService {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': 'http://localhost:4200'}});
   }
+
+  getAllForOwner(ownerId: number) {
+    return this.http.get<ReservationRequest[]>(environment.apiHost + 'api/requests/owner/' + ownerId);
+  }
+
+  searchOwnerRequests(searchDate: string, accName: string, ownerId: number): Observable<ReservationRequest[]> {
+    return this.http.get<ReservationRequest[]>(environment.apiHost + 'api/requests/owner/' + ownerId + '/search/' + searchDate + '/' + accName);
+  }
+
+  searchAndFilterOwnerRequests(searchDate: string, accName: string, ownerId: number, filters: Filter[]): Observable<ReservationRequest[]> {
+    const requestBody = JSON.stringify(filters);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.post<ReservationRequest[]>(environment.apiHost + 'api/requests/owner/' + ownerId + '/search/' + searchDate + '/' + accName + '/filter',
+      requestBody,
+      {headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': 'http://localhost:4200'}});
+  }
+
+  filterOwnerRequests(ownerId: number, filters: Filter[]): Observable<ReservationRequest[]> {
+    const requestBody = JSON.stringify(filters);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.post<ReservationRequest[]>(environment.apiHost + 'api/requests/owner/' + ownerId + '/filter',
+      requestBody,
+      {headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': 'http://localhost:4200'}});
+  }
 }
