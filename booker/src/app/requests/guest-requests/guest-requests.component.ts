@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ReservationRequest} from "../../accommodation/accommodation/model/ReservationRequest";
 import {RequestsModule} from "../requests.module";
 import { CommonModule } from '@angular/common';
+import {RequestService} from "../request.service";
+import {AccommodationService} from "../../accommodation/accommodation.service";
 
 @Component({
   selector: 'app-guest-requests',
@@ -9,43 +11,21 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./guest-requests.component.css']
 })
 export class GuestRequestsComponent implements OnInit{
-  requests: ReservationRequest[] = [
-    {
-      "guestId": 1,
-      "accommodationId": 101,
-      "id": 1001,
-      "fromDate": "2023-01-01",
-      "toDate": "2023-01-07",
-      "numberOfGuests": 2,
-      "status": 1,
-      "deleted": false,
-      "price": 150.0
-    },
-    {
-      "guestId": 2,
-      "accommodationId": 102,
-      "id": 1002,
-      "fromDate": "2023-02-01",
-      "toDate": "2023-02-14",
-      "numberOfGuests": 1,
-      "status": 2,
-      "deleted": false,
-      "price": 200.0
-    },
-    {
-      "guestId": 3,
-      "accommodationId": 103,
-      "id": 1003,
-      "fromDate": "2023-03-01",
-      "toDate": "2023-03-10",
-      "numberOfGuests": 4,
-      "status": 0,
-      "deleted": false,
-      "price": 300.0
-    }];
+  requests: ReservationRequest[] = [];
+
+  constructor(private service: RequestService) {
+  }
 
   ngOnInit(): void {
-
+    const loggedId = Number(localStorage.getItem("loggedId"));
+    this.service.getAllForGuest(loggedId).subscribe({
+      next: (data: ReservationRequest[]) => {
+        this.requests = data
+      },
+      error: (_) => {
+        console.log("Greska!")
+      }
+    })
   }
 
   onCheckboxChange(status: string) {
