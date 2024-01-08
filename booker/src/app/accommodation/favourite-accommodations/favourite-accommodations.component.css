@@ -1,0 +1,33 @@
+.background {
+  background-image: url("../../../assets/images/background_image.png");
+  background-size: contain;
+  background-position: center;
+  height: fit-content;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.container {
+  border-radius: 20px;
+  padding: 15px;
+  height: fit-content;
+}
+.placeholder {
+  height: fit-content;
+  background-color: #90A28880;
+  padding: 10px;
+  border-radius: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+app-favourite-card {
+  margin: 2px;
+  height: fit-content;
+}
+card_div {
+  height: fit-content;
+  max-height: min-content;
+  margin: 2px;
+}
+.title {
+  font-size: 20px;
+}

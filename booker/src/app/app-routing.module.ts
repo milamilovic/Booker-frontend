@@ -19,6 +19,9 @@ import {ApproveAccommodationComponent} from "./accommodation/approve-accommodati
 import {OwnerProfileComponent} from "./user/owner-profile/owner-profile.component";
 import {GuestRequestsComponent} from "./requests/guest-requests/guest-requests.component";
 import {OwnerRequestsComponent} from "./requests/owner-requests/owner-requests.component";
+import {
+  FavouriteAccommodationsComponent
+} from "./accommodation/favourite-accommodations/favourite-accommodations.component";
 
 
 const routes: Routes = [
@@ -40,7 +43,8 @@ const routes: Routes = [
   {path: 'accommodations/owner', component: OwnerAccommodationListingComponent},
   {path: 'owner', component: OwnerProfileComponent},
   {path: 'requests/guest', component: GuestRequestsComponent},
-  {path: 'requests/owner', component: OwnerRequestsComponent}
+  {path: 'requests/owner', component: OwnerRequestsComponent},
+  {path: 'favourites', component: FavouriteAccommodationsComponent}
 ];
 
 @NgModule({
