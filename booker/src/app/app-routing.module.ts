@@ -22,6 +22,8 @@ import {OwnerRequestsComponent} from "./requests/owner-requests/owner-requests.c
 import {
   FavouriteAccommodationsComponent
 } from "./accommodation/favourite-accommodations/favourite-accommodations.component";
+import {DateIntervalReportComponent} from "./reports/date-interval-report/date-interval-report.component";
+import {AccommodationReportComponent} from "./reports/accommodation-report/accommodation-report.component";
 
 
 const routes: Routes = [
@@ -44,7 +46,9 @@ const routes: Routes = [
   {path: 'owner', component: OwnerProfileComponent},
   {path: 'requests/guest', component: GuestRequestsComponent},
   {path: 'requests/owner', component: OwnerRequestsComponent},
-  {path: 'favourites', component: FavouriteAccommodationsComponent}
+  {path: 'favourites', component: FavouriteAccommodationsComponent},
+  {path: 'report/accommodation', component: AccommodationReportComponent},
+  {path: 'report/date', component: DateIntervalReportComponent}
 ];
 
 @NgModule({
