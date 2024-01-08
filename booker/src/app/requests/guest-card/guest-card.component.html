@@ -13,10 +13,10 @@
       <div class="right_part_bottom">
         <div class="description">
           <div class="dates">{{request.fromDate.toString() + "  -  " + request.toDate.toString()}}</div>
-          <div class="status">{{"status: " + status}}</div>
+          <div class="status">{{"status: " + request.status}}</div>
           <button>Cancel request</button>
         </div>
-        <p class="rating">INSERT RATING HERE</p>
+        <p class="rating">{{rating}}</p>
       </div>
     </div>
   </mat-card-content>

@@ -3,19 +3,18 @@
   background-size: contain;
   background-position: center;
   height: fit-content;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 20px;
+  min-height: 480px;
 }
 .container {
   border-radius: 20px;
   padding: 15px;
   height: fit-content;
+  background-color: #90A28880;
 }
 form {
   border-radius: 20px;
-  height: 7%;
   padding: 1%;
-  background-color: #90A28880;
 }
 #where_input{
   width: 30%;
@@ -26,7 +25,7 @@ form {
   min-height: 50px;
 }
 
-#searchDate,
+#search_date,
 #to_date {
   width: 30%;
   background-color: #e5e5e5;
@@ -98,8 +97,6 @@ form {
 
 .placeholder {
   height: fit-content;
-  background-color: #90A28880;
-  padding: 10px;
   border-radius: 10px;
   white-space: nowrap;
   overflow: hidden;
