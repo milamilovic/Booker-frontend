@@ -1,0 +1,11 @@
+<div class="background">
+  <div class="container">
+    <br>
+    <div class="placeholder">
+      <p class="title"><b>Favourite accommodations</b></p>
+      <div *ngFor="let accommodation of accommodations" class="card_div">
+        <app-favourite-card [accommodation]="accommodation"></app-favourite-card>
+      </div>
+    </div>
+  </div>
+</div>

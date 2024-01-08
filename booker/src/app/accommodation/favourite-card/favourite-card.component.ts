@@ -1,75 +1,47 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {AccommodationListingDto} from "../accommodation/model/accommodation-listing.model";
-import {PriceType} from "../../enums/price-type.enum";
+import {FavouriteAccommodation} from "../accommodation/model/favourite-accommodation";
 import {AccommodationService} from "../accommodation.service";
+import {PriceType} from "../../enums/price-type.enum";
 import {AccommodationRating} from "../accommodation/model/AccommodationRating";
 
 @Component({
-  selector: 'app-accommodation-card',
-  templateUrl: './accommodation-card.component.html',
-  styleUrls: ['./accommodation-card.component.css']
+  selector: 'app-favourite-card',
+  templateUrl: './favourite-card.component.html',
+  styleUrls: ['./favourite-card.component.css']
 })
-export class AccommodationCardComponent implements OnInit{
+export class FavouriteCardComponent {
   @Input()
-  accommodation: AccommodationListingDto;
+  accommodation: FavouriteAccommodation;
 
-  @Output()
-  clicked: EventEmitter<AccommodationListingDto> = new EventEmitter<AccommodationListingDto>();
-
-  favourite: string = "";
-  isFavourite: boolean = false;
-  type: string = "";
   rating: string = "";
-  onAccommodationClick(): void {
-    this.clicked.emit(this.accommodation);
-  }
-  loggedRole: string | null = '';
 
   constructor(private service: AccommodationService) {
     this.accommodation = {
-      id: undefined,
+      id: 0,
       title: '',
-      description: '',
-      totalPrice: 0,
-      pricePerDay: 0,
-      rating: 0,
+      shortDescription: '',
+      avgPrice: 0,
+      avgRating: 0,
       image: {
         path_front: '',
         path_mobile: '',
         accommodation: {}
+      },
+      address: {
+        city: '',
+        street: '',
+        latitude: 0,
+        longitude: 0
       }
     }
   }
+  favourite: string = "";
+  isFavourite: boolean = false;
+  loggedRole: string | null = '';
 
   ngOnInit(): void {
-    this.loggedRole = localStorage.getItem("loggedRole");
-    const loggedIn = localStorage.getItem("loggedId");
-    this.service.checkFavourite(Number(loggedIn), this.accommodation.id).subscribe({
-      next: (data: boolean) => {
-        this.isFavourite = data;
-        if(data) {
-          this.favourite = "../../../assets/images/icons8-heart-30.png"
-        } else {
-          this.favourite = "../../../assets/images/icons8-heart-30 (1).png"
-        }
-      },
-      error: (_) => {
-        console.log("Greska!")
-      }
-    })
-    this.service.getPriceType(this.accommodation.id).subscribe({
-      next: (data: PriceType) => {
-        if(data == PriceType.PER_ACCOMMODATION) {
-          this.type = "day";
-        } else {
-          this.type = "person per day";
-        }
-      },
-      error: (_) => {
-        console.log("Greska!")
-      }
-    })
-    this.service.getRatings(this.accommodation.id).subscribe({
+    let ratings = this.service.getRatings(this.accommodation.id).subscribe({
       next: (data: AccommodationRating[]) => {
         let sum = 0;
         for(let index in data ) {
@@ -80,6 +52,22 @@ export class AccommodationCardComponent implements OnInit{
           this.rating = "No ratings yet     "
         } else {
           this.rating = '                 ' + ratingNum.toString() + ' / 5.0';
+        }
+      },
+      error: (_) => {
+        console.log("Greska!")
+      }
+    })
+
+    this.loggedRole = localStorage.getItem("loggedRole");
+    const loggedIn = localStorage.getItem("loggedId");
+    this.service.checkFavourite(Number(loggedIn), this.accommodation.id).subscribe({
+      next: (data: boolean) => {
+        this.isFavourite = data;
+        if(data) {
+          this.favourite = "../../../assets/images/icons8-heart-30.png"
+        } else {
+          this.favourite = "../../../assets/images/icons8-heart-30 (1).png"
         }
       },
       error: (_) => {

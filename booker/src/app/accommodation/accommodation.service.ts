@@ -19,6 +19,7 @@ import {UpdateAccommodationViewDTO} from "./dto/UpdateAccommodationViewDTO";
 // @ts-ignore
 import {UpdateAddressDTO} from "./dto/UpdateAddressDTO";
 import {AmenityDTO} from "../amenity/AmenityDTO";
+import {FavouriteAccommodation} from "./accommodation/model/favourite-accommodation";
 
 @Injectable({
   providedIn: 'root'
@@ -148,4 +149,19 @@ export class AccommodationService {
     return this.http.put<String>(environment.apiHost + 'api/accommodations/approve/' + id, null);
   }
 
+  getFavourites(loggedIn: number | undefined) {
+    return this.http.get<FavouriteAccommodation[]>(environment.apiHost + 'api/guests/' + loggedIn + '/favouriteAccommodations/all');
+  }
+
+  checkFavourite(loggedIn: number | undefined, accId: number | undefined) {
+    return this.http.get<boolean>(environment.apiHost + 'api/guests/favourites/check/' + loggedIn + '/' + accId);
+  }
+
+  removeFavourite(loggedIn: number, accId: number | undefined) {
+    return this.http.put<boolean>(environment.apiHost + 'api/guests/favouriteAccommodations/remove/' + loggedIn + '/' + accId, null);
+  }
+
+  addFavourite(loggedIn: number, accId: number | undefined) {
+    return this.http.put<boolean>(environment.apiHost + 'api/guests/favouriteAccommodations/add/' + loggedIn + '/' + accId, null);
+  }
 }
