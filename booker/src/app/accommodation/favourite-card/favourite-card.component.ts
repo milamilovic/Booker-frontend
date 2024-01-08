@@ -36,6 +36,9 @@ export class FavouriteCardComponent {
       }
     }
   }
+  favourite: string = "";
+  isFavourite: boolean = false;
+  loggedRole: string | null = '';
 
   ngOnInit(): void {
     let ratings = this.service.getRatings(this.accommodation.id).subscribe({
@@ -55,5 +58,46 @@ export class FavouriteCardComponent {
         console.log("Greska!")
       }
     })
+
+    this.loggedRole = localStorage.getItem("loggedRole");
+    const loggedIn = localStorage.getItem("loggedId");
+    this.service.checkFavourite(Number(loggedIn), this.accommodation.id).subscribe({
+      next: (data: boolean) => {
+        this.isFavourite = data;
+        if(data) {
+          this.favourite = "../../../assets/images/icons8-heart-30.png"
+        } else {
+          this.favourite = "../../../assets/images/icons8-heart-30 (1).png"
+        }
+      },
+      error: (_) => {
+        console.log("Greska!")
+      }
+    })
+  }
+
+  favouriteClick() {
+    const loggedIn = localStorage.getItem("loggedId");
+    if(this.isFavourite) {
+      this.service.removeFavourite(Number(loggedIn), this.accommodation.id).subscribe({
+        next: (data: boolean) => {
+          this.favourite = '../../../assets/images/icons8-heart-30 (1).png';
+          this.isFavourite = false;
+        },
+        error: (_) => {
+          console.log("Greska!")
+        }
+      });
+    } else {
+      this.service.addFavourite(Number(loggedIn), this.accommodation.id).subscribe({
+        next: (data: boolean) => {
+          this.favourite = '../../../assets/images/icons8-heart-30.png';
+          this.isFavourite = true;
+        },
+        error: (_) => {
+          console.log("Greska!")
+        }
+      });
+    }
   }
 }

@@ -1,12 +1,12 @@
 <mat-card>
-  <mat-card-content [routerLink]="['/accommodation', accommodation.id]">
+  <mat-card-content>
     <div class="left_part">
-      <img class="image" src="/{{accommodation.image.path_front}}/">
+      <img class="image" src="/{{accommodation.image.path_front}}/" [routerLink]="['/accommodation', accommodation.id]">
       <div class="favourite_container">
-        <img class="fav_icon" src="/../../../assets/images/icons8-heart-30.png/">
+        <img class="fav_icon" (click)="favouriteClick()" src="/../../../assets/images/icons8-heart-30.png/">
       </div>
     </div>
-    <div class="right_part">
+    <div class="right_part" [routerLink]="['/accommodation', accommodation.id]">
       <div class="name_and_price">
         <b class="acc_name">{{accommodation.title}}</b>
       </div>

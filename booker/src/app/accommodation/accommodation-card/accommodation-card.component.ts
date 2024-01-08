@@ -17,11 +17,13 @@ export class AccommodationCardComponent implements OnInit{
   clicked: EventEmitter<AccommodationListingDto> = new EventEmitter<AccommodationListingDto>();
 
   favourite: string = "";
+  isFavourite: boolean = false;
   type: string = "";
   rating: string = "";
   onAccommodationClick(): void {
     this.clicked.emit(this.accommodation);
   }
+  loggedRole: string | null = '';
 
   constructor(private service: AccommodationService) {
     this.accommodation = {
@@ -40,15 +42,22 @@ export class AccommodationCardComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    //TODO: add checking if acc is favourite for user
-    let isFavourite = Math.round(Math.random()) == 1;
-    if(isFavourite) {
-      this.favourite = "../../../assets/images/icons8-heart-30.png"
-    } else {
-      this.favourite = "../../../assets/images/icons8-heart-30 (1).png"
-    }
-    PriceType
-    let priceType = this.service.getPriceType(this.accommodation.id).subscribe({
+    this.loggedRole = localStorage.getItem("loggedRole");
+    const loggedIn = localStorage.getItem("loggedId");
+    this.service.checkFavourite(Number(loggedIn), this.accommodation.id).subscribe({
+      next: (data: boolean) => {
+        this.isFavourite = data;
+        if(data) {
+          this.favourite = "../../../assets/images/icons8-heart-30.png"
+        } else {
+          this.favourite = "../../../assets/images/icons8-heart-30 (1).png"
+        }
+      },
+      error: (_) => {
+        console.log("Greska!")
+      }
+    })
+    this.service.getPriceType(this.accommodation.id).subscribe({
       next: (data: PriceType) => {
         if(data == PriceType.PER_ACCOMMODATION) {
           this.type = "day";
@@ -60,8 +69,7 @@ export class AccommodationCardComponent implements OnInit{
         console.log("Greska!")
       }
     })
-    //TODO: enter average rating
-    let ratings = this.service.getRatings(this.accommodation.id).subscribe({
+    this.service.getRatings(this.accommodation.id).subscribe({
       next: (data: AccommodationRating[]) => {
         let sum = 0;
         for(let index in data ) {
@@ -78,5 +86,30 @@ export class AccommodationCardComponent implements OnInit{
         console.log("Greska!")
       }
     })
+  }
+
+  favouriteClick() {
+    const loggedIn = localStorage.getItem("loggedId");
+    if(this.isFavourite) {
+      this.service.removeFavourite(Number(loggedIn), this.accommodation.id).subscribe({
+        next: (data: boolean) => {
+          this.favourite = '../../../assets/images/icons8-heart-30 (1).png';
+          this.isFavourite = false;
+        },
+        error: (_) => {
+          console.log("Greska!")
+        }
+      });
+    } else {
+      this.service.addFavourite(Number(loggedIn), this.accommodation.id).subscribe({
+        next: (data: boolean) => {
+          this.favourite = '../../../assets/images/icons8-heart-30.png';
+          this.isFavourite = true;
+        },
+        error: (_) => {
+          console.log("Greska!")
+        }
+      });
+    }
   }
 }

@@ -11,67 +11,20 @@ import {FavouriteAccommodation} from "../accommodation/model/favourite-accommoda
   styleUrls: ['./favourite-accommodations.component.css']
 })
 export class FavouriteAccommodationsComponent {
-  accommodations: FavouriteAccommodation[] = [
-    {
-      id: 123,
-      title: 'Luxurious Beachfront Villa',
-      shortDescription: 'Experience luxury and comfort by the sea.',
-      avgPrice: 350.50,
-      avgRating: 4.8,
-      image: {
-        path_front: '../../assets/images/living-room.jpg',
-        path_mobile: 'images/mobile_view.jpg',
-        accommodation: {}
-      },
-      address: {
-        city: 'Paradise City',
-        street: 'Oceanfront Avenue',
-        latitude: 34.0522,
-        longitude: -118.2437
-      }
-    },
-    {
-      id: 123,
-      title: 'Luxurious Beachfront Villa',
-      shortDescription: 'Experience luxury and comfort by the sea.',
-      avgPrice: 350.50,
-      avgRating: 4.8,
-      image: {
-        path_front: '../../assets/images/kitchen-2165756_640.jpg',
-        path_mobile: 'images/mobile_view.jpg',
-        accommodation: {}
-      },
-      address: {
-        city: 'Paradise City',
-        street: 'Oceanfront Avenue',
-        latitude: 34.0522,
-        longitude: -118.2437
-      }
-    },
-    {
-      id: 123,
-      title: 'Luxurious Beachfront Villa',
-      shortDescription: 'Experience luxury and comfort by the sea.',
-      avgPrice: 350.50,
-      avgRating: 4.8,
-      image: {
-        path_front: '../../assets/images/living-room.jpg',
-        path_mobile: 'images/mobile_view.jpg',
-        accommodation: {}
-      },
-      address: {
-        city: 'Paradise City',
-        street: 'Oceanfront Avenue',
-        latitude: 34.0522,
-        longitude: -118.2437
-      }
-    }
-  ];
+  accommodations: FavouriteAccommodation[] = [];
 
   constructor(private service: AccommodationService) {
   }
 
   ngOnInit(): void {
-
+    let loggedIn = Number(localStorage.getItem("loggedId"));
+    this.service.getFavourites(loggedIn).subscribe({
+      next: (data: FavouriteAccommodation[]) => {
+        this.accommodations = data;
+      },
+      error: (_) => {
+        console.log("Greska!")
+      }
+    })
   }
 }
