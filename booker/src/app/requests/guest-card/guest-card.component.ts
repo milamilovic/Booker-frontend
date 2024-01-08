@@ -60,4 +60,20 @@ export class GuestCardComponent implements OnInit{
       }
     })
   }
+
+  cancelRequest() {
+    if(new Date(this.request.fromDate) < new Date()) {
+      alert("this request has a past date so you can't cancel it")
+    } else {
+      this.service.cancelRequest(this.request).subscribe({
+        next: (data: null) => {
+          alert("reservation is cancelled!")
+          location.reload();
+        },
+        error: (_) => {
+          console.log("Greska!")
+        }
+      });
+    }
+  }
 }

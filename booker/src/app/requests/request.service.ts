@@ -87,4 +87,8 @@ export class RequestService {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': 'http://localhost:4200'}});
   }
+
+  cancelRequest(request: ReservationRequest) {
+    return this.http.delete<null>(environment.apiHost + 'api/requests/guest/' + request.guestId + '/cancel-request/' + request.id);
+  }
 }
