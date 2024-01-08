@@ -14,7 +14,7 @@
         <div class="description">
           <div class="dates">{{request.fromDate.toString() + "  -  " + request.toDate.toString()}}</div>
           <div class="status">{{"status: " + request.status}}</div>
-          <button>Cancel request</button>
+          <button (click)="cancelRequest()" *ngIf="request.status.toString()==='WAITING'">Cancel request</button>
         </div>
         <p class="rating">{{rating}}</p>
       </div>
