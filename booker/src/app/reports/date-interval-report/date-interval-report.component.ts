@@ -11,6 +11,11 @@ import {ReportsService} from "../reports.service";
 import {AccommodationName} from "../model/AccommodationName";
 import {AccommodationListingDto} from "../../accommodation/accommodation/model/accommodation-listing.model";
 import {ReportDataUnit} from "../model/ReportDataUnit";
+import html2canvas from "html2canvas";
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+// @ts-ignore
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
   selector: 'app-date-interval-report',
   templateUrl: './date-interval-report.component.html',
@@ -208,5 +213,20 @@ export class DateIntervalReportComponent {
 
   reloadData() {
     this.loadData();
+  }
+
+  async takeSS() {
+    const canvas = await html2canvas(document.body);
+    const data = canvas.toDataURL();
+    const docDefinition = {
+      content: [{
+        image: data,
+        width: 800,
+      }],
+      pageOrientation: "landscape",
+    };
+    // @ts-ignore
+    const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+    pdfDocGenerator.download("date-interval-report.pdf");
   }
 }

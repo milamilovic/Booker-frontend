@@ -9,7 +9,7 @@
         <p class="text">Enter year: </p>
         <input type="number" class="year-picker" value="Enter year!" [valueAsNumber]="year">
         <input type="submit" class="search-button" value="View report!"/>
-        <button class="pdf">Generate PDF</button>
+        <button class="pdf" (click)="takeSS()">Generate PDF</button>
       </div>
     </form>
     <br>

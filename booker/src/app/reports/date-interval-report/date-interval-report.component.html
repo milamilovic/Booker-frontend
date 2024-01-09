@@ -5,7 +5,7 @@
         <input type="date" id="from_date" name="from_date" [(ngModel)]="startDate" [value]="startDate">
         <input type="date" id="to_date" name="to_date"  [(ngModel)]="endDate" [value]="endDate">
         <input type="submit" class="search-button" value="View report!"/>
-        <button class="pdf">Generate PDF</button>
+        <button class="pdf" (click)="takeSS()">Generate PDF</button>
       </div>
     </form>
     <br>

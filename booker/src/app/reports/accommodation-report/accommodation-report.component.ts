@@ -11,6 +11,8 @@ import {ReportsService} from "../reports.service";
 import {AccommodationName} from "../model/AccommodationName";
 import {AccommodationListingDto} from "../../accommodation/accommodation/model/accommodation-listing.model";
 import {ReportDataUnit} from "../model/ReportDataUnit";
+import html2canvas from "html2canvas";
+import * as pdfMake from "pdfmake/build/pdfmake";
 
 @Component({
   selector: 'app-accommodation-report',
@@ -237,5 +239,20 @@ export class AccommodationReportComponent implements OnInit{
 
   reloadData() {
     this.loadData();
+  }
+
+  async takeSS() {
+    const canvas = await html2canvas(document.body);
+    const data = canvas.toDataURL();
+    const docDefinition = {
+      content: [{
+        image: data,
+        width: 800,
+      }],
+      pageOrientation: "landscape",
+    };
+    // @ts-ignore
+    const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+    pdfDocGenerator.download("accommodation-report.pdf");
   }
 }
