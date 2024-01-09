@@ -15,6 +15,10 @@ export class ReportsService {
     return this.http.get<ReportDataUnit[]>(environment.apiHost + 'api/report/owner/' + ownerId + '/accommodation/' + year + '/' + accId);
   }
 
+  getIntervalReport(from: string, ownerId: number, to: string) {
+    return this.http.get<ReportDataUnit[]>(environment.apiHost + 'api/report/owner/' + ownerId + '/interval/' + from + '/' + to);
+  }
+
   getAccommodationNames(ownerId: number) {
     return this.http.get<AccommodationName[]>(environment.apiHost + 'api/accommodations/owner/' + ownerId + '/accommodationNames');
   }

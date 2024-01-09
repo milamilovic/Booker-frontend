@@ -1,9 +1,9 @@
 <div class="background">
   <div class="container">
-    <form >
+    <form   (ngSubmit)="reloadData()">
       <div>
-        <input type="date" id="from_date" name="from_date" placeholder="Start date" required formControlName="start">
-        <input type="date" id="to_date" name="to_date" placeholder="To date" required formControlName="end">
+        <input type="date" id="from_date" name="from_date" [(ngModel)]="startDate" [value]="startDate">
+        <input type="date" id="to_date" name="to_date"  [(ngModel)]="endDate" [value]="endDate">
         <input type="submit" class="search-button" value="View report!"/>
         <button class="pdf">Generate PDF</button>
       </div>
