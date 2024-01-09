@@ -2,6 +2,10 @@
   <div class="container">
     <form >
       <div>
+        <p class="text">Select accommodation: </p>
+        <select id="dropdown">
+          <option *ngFor="let option of accommodations" [value]="option.value">{{ option.label }}</option>
+        </select>
         <p class="text">Enter year: </p>
         <input type="number" class="year-picker" value="Enter year!">
         <input type="submit" class="search-button" value="View report!"/>

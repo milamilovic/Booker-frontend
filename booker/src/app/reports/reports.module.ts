@@ -8,6 +8,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatRippleModule} from "@angular/material/core";
+import { BrowserModule } from '@angular/platform-browser';
+import {MatSelectModule} from '@angular/material/select';
+import {MatRadioModule} from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -16,13 +19,16 @@ import {MatRippleModule} from "@angular/material/core";
   ],
   imports: [
     CommonModule,
+    BrowserModule,
     MatCheckboxModule,
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
     MatFormFieldModule,
-    MatRippleModule
+    MatRippleModule,
+    MatSelectModule,
+    MatRadioModule
   ]
 })
 export class ReportsModule { }

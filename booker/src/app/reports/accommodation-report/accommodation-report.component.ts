@@ -13,16 +13,29 @@ import {MatFormFieldModule} from '@angular/material/form-field';
   templateUrl: './accommodation-report.component.html',
   styleUrls: ['./accommodation-report.component.css']
 })
-export class AccommodationReportComponent {
+export class AccommodationReportComponent implements OnInit{
   // @ts-ignore
   root: Root;
 
   // @ts-ignore
   chart;
 
+  selectedOption: string = ''; // property to store the selected option
+  accommodations = [
+    { label: 'Cozy apartment', value: 'cozy apartment' },
+    { label: 'example apartment', value: 'example apartment' },
+    { label: 'la la la', value: 'la la la' }
+  ];
+
+  public ngOnInit() {
+
+    //TODO: dynamically load accommodations
+  }
+
   //TODO: add form validations for year picker
 
   ngAfterViewInit(): void {
+
     this.root = am5.Root.new('chartdiv');
     this.root.setThemes([
       am5themes_Animated.new(this.root)
