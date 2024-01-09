@@ -22,6 +22,7 @@ import {MapComponent} from "./map/map.component";
 import {TokenInterceptor} from "./interceptor/TokenInterceptor";
 import { ActivationViewComponent } from './layout/activation-view/activation-view.component';
 import { UpdateAvailabilityComponent } from './accommodation/update-availability/update-availability.component';
+import {ReportsModule} from "./reports/reports.module";
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { UpdateAvailabilityComponent } from './accommodation/update-availability
     MapModule,
     FormsModule,
     SharedModule,
+    ReportsModule
   ],
   providers: [MapService, MapComponent,{
     provide: HTTP_INTERCEPTORS,
