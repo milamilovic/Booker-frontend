@@ -1,13 +1,13 @@
 <div class="background">
   <div class="container">
-    <form >
+    <form  (ngSubmit)="reloadData()">
       <div>
         <p class="text">Select accommodation: </p>
-        <select id="dropdown">
-          <option *ngFor="let option of accommodations" [value]="option.value">{{ option.label }}</option>
+        <select id="dropdown" [(ngModel)]="selectedAccommodation" [ngModelOptions]="{standalone: true}">
+          <option *ngFor="let option of accommodations" [selected]="selectedAccommodation">{{ option.title }}</option>
         </select>
         <p class="text">Enter year: </p>
-        <input type="number" class="year-picker" value="Enter year!">
+        <input type="number" class="year-picker" value="Enter year!" [valueAsNumber]="year">
         <input type="submit" class="search-button" value="View report!"/>
         <button class="pdf">Generate PDF</button>
       </div>

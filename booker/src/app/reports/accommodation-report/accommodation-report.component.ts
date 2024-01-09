@@ -7,6 +7,10 @@ import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {ReportsService} from "../reports.service";
+import {AccommodationName} from "../model/AccommodationName";
+import {AccommodationListingDto} from "../../accommodation/accommodation/model/accommodation-listing.model";
+import {ReportDataUnit} from "../model/ReportDataUnit";
 
 @Component({
   selector: 'app-accommodation-report',
@@ -20,23 +24,33 @@ export class AccommodationReportComponent implements OnInit{
   // @ts-ignore
   chart;
 
-  selectedOption: string = ''; // property to store the selected option
-  accommodations = [
-    { label: 'Cozy apartment', value: 'cozy apartment' },
-    { label: 'example apartment', value: 'example apartment' },
-    { label: 'la la la', value: 'la la la' }
-  ];
+  selectedAccommodation: AccommodationName = {"title": "", id: 0}; // property to store the selected option
+  accommodations: AccommodationName[] = [];
+  year: number = new Date().getFullYear();
+
+  constructor(private service: ReportsService) {
+  }
 
   public ngOnInit() {
-
-    //TODO: dynamically load accommodations
+    this.root = am5.Root.new('chartdiv');
+    let loggedId: number = Number(localStorage.getItem("loggedId"));
+    this.service.getAccommodationNames(loggedId).subscribe( {
+      next: (data: AccommodationName[]) => {
+        this.accommodations = data;
+        // @ts-ignore
+        this.selectedAccommodation = this.accommodations.at(0).title;
+        console.log("Ucitan smestaj: " + this.selectedAccommodation)
+        this.generateReport()
+      },
+      error: (_) => {
+        console.log("Greska!")
+      }
+    })
   }
 
   //TODO: add form validations for year picker
 
-  ngAfterViewInit(): void {
-
-    this.root = am5.Root.new('chartdiv');
+  generateReport(): void {
     this.root.setThemes([
       am5themes_Animated.new(this.root)
     ]);
@@ -58,134 +72,170 @@ export class AccommodationReportComponent implements OnInit{
       })
     );
 
-    let data = [{
-      "name": "Cozy Apartment",
-      "profit": 2.5,
-      "reservations": 2.5
-    }, {
-      "name": "Example Hotel",
-      "profit": 2.6,
-      "reservations": 2.7
-    }, {
-      "name": "La",
-      "profit": 2.4,
-      "reservations": 0.3
-    }, {
-      "name": "La La",
-      "profit": 2.4,
-      "reservations": 0.3
-    }, {
-      "name": "La La La",
-      "profit": 2.4,
-      "reservations": 0.3
-    }, {
-      "name": "La La La La",
-      "profit": 2.4,
-      "reservations": 0.3
-    }]
+    let data : ReportDataUnit[] = []
+    let loggedId = Number(localStorage.getItem("loggedId"));
+    let accId = 0;
+    console.log(this.selectedAccommodation)
+    // @ts-ignore
+    this.service.getAccommodationId(this.selectedAccommodation).subscribe({
+      next: (id: number) => {
+        accId = id;
+        console.log("Dobavljen id "+accId+" za smestaj sa imenom " + this.selectedAccommodation + ", sada se dobavlja izvestaj: ")
+        this.service.getAccommodationReport(this.year, loggedId, accId).subscribe({
+          next: (serviceData: ReportDataUnit[]) => {
+            data = serviceData;
+            let xRenderer = am5xy.AxisRendererX.new(this.root, {
+              cellStartLocation: 0.1,
+              cellEndLocation: 0.3,
+              minorGridEnabled: true
+            })
+
+            let xAxis = this.chart.xAxes.push(am5xy.CategoryAxis.new(this.root, {
+              categoryField: "name",
+              renderer: xRenderer,
+              tooltip: am5.Tooltip.new(this.root, {})
+            }));
+
+            xRenderer.grid.template.setAll({
+              location: 1
+            })
+
+            xAxis.data.setAll(data);
+
+            let yAxis = this.chart.yAxes.push(am5xy.ValueAxis.new(this.root, {
+              renderer: am5xy.AxisRendererY.new(this.root, {
+                strokeOpacity: 0.1
+              })
+            }));
+
+            let that = this;
+
+            function makeSeries(name: string, fieldName: string, color: string) {
+              let series = that.chart.series.push(am5xy.ColumnSeries.new(that.root, {
+                name: name,
+                xAxis: xAxis,
+                yAxis: yAxis,
+                valueYField: fieldName,
+                categoryXField: "name"
+              }));
+
+              if(fieldName!=="reservations") {
+                series.columns.template.setAll({
+                  tooltipText: fieldName+" : {valueY}",
+                  width: am5.percent(90),
+                  tooltipY: 0,
+                  strokeOpacity: 0
+                });
+              } else {
+                series.columns.template.setAll({
+                  tooltipText: fieldName+" : {valueY} / 100",
+                  width: am5.percent(90),
+                  tooltipY: 0,
+                  strokeOpacity: 0
+                });
+              }
+
+              series.data.setAll(data);
+
+              // Make stuff animate on load
+              // https://www.amcharts.com/docs/v5/concepts/animations/
+              series.appear();
+
+              series.bullets.push(function () {
+                return am5.Bullet.new(that.root, {
+                  locationY: 0,
+                  sprite: am5.Label.new(that.root, {
+                    text: "{valueY}",
+                    fill: am5.color(color),
+                    centerY: 0,
+                    centerX: am5.p50,
+                    populateText: true
+                  })
+                });
+              });
+
+              series.bullets.push(function (root: am5.Root, series: any, dataItem: any) {
+                let bulletContainer = am5.Container.new(root, {});
+
+                let maskCircle = bulletContainer.children.push(
+                  am5.Circle.new(root, { radius: 27 })
+                );
+
+                // only containers can be masked, so we add image to another container
+                let imageContainer = bulletContainer.children.push(
+                  am5.Container.new(root, {
+                    mask: maskCircle
+                  })
+                );
+
+                return am5.Bullet.new(root, {
+                  locationY: 0,
+                  sprite: bulletContainer
+                });
+              });
 
 
-// Create axes
-// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-    let xRenderer = am5xy.AxisRendererX.new(this.root, {
-      cellStartLocation: 0.1,
-      cellEndLocation: 0.5,
-      minorGridEnabled: true
-    })
+              series.set("heatRules", [
+                {
+                  dataField: "valueY",
+                  min: am5.color(color),
+                  max: am5.color(color),
+                  target: series.columns.template,
+                  key: "fill"
+                }
+              ]);
 
-    let xAxis = this.chart.xAxes.push(am5xy.CategoryAxis.new(this.root, {
-      categoryField: "name",
-      renderer: xRenderer,
-      tooltip: am5.Tooltip.new(this.root, {})
-    }));
+              series.set("fill", am5.color(color));
+              legend.data.push(series);
+            }
 
-    xRenderer.grid.template.setAll({
-      location: 1
-    })
+            makeSeries("Profit", "profit", "#81917a");
+            makeSeries("Reservations", "reservations", "#566151");
 
-    xAxis.data.setAll(data);
-
-    let yAxis = this.chart.yAxes.push(am5xy.ValueAxis.new(this.root, {
-      renderer: am5xy.AxisRendererY.new(this.root, {
-        strokeOpacity: 0.1
-      })
-    }));
-
-    let that = this;
-
-    function makeSeries(name: string, fieldName: string, color: string) {
-      let series = that.chart.series.push(am5xy.ColumnSeries.new(that.root, {
-        name: name,
-        xAxis: xAxis,
-        yAxis: yAxis,
-        valueYField: fieldName,
-        categoryXField: "name"
-      }));
-
-      series.columns.template.setAll({
-        tooltipText: "{name}, {categoryX}:{valueY}",
-        width: am5.percent(90),
-        tooltipY: 0,
-        strokeOpacity: 0
-      });
-
-      series.data.setAll(data);
-
-      // Make stuff animate on load
-      // https://www.amcharts.com/docs/v5/concepts/animations/
-      series.appear();
-
-      series.bullets.push(function () {
-        return am5.Bullet.new(that.root, {
-          locationY: 0,
-          sprite: am5.Label.new(that.root, {
-            text: "{valueY}",
-            fill: am5.color(color),
-            centerY: 0,
-            centerX: am5.p50,
-            populateText: true
-          })
+            this.chart.appear(1000, 100);
+          },
+          error: (_) => {
+            console.log("Greska!")
+          }
         });
-      });
+      },
+      error: (_) => {
+        console.log("Greska!")
+      }
+    });
 
-      series.bullets.push(function (root: am5.Root, series: any, dataItem: any) {
-        let bulletContainer = am5.Container.new(root, {});
+  }
 
-        let maskCircle = bulletContainer.children.push(
-          am5.Circle.new(root, { radius: 27 })
-        );
-
-        // only containers can be masked, so we add image to another container
-        let imageContainer = bulletContainer.children.push(
-          am5.Container.new(root, {
-            mask: maskCircle
-          })
-        );
-
-        return am5.Bullet.new(root, {
-          locationY: 0,
-          sprite: bulletContainer
+  loadData() {
+    var newData : ReportDataUnit[] = []
+    let loggedId = Number(localStorage.getItem("loggedId"));
+    let accId = 0;
+    console.log(this.selectedAccommodation)
+    // @ts-ignore
+    this.service.getAccommodationId(this.selectedAccommodation).subscribe({
+      next: (id: number) => {
+        accId = id;
+        console.log("Dobavljen id "+accId+" za smestaj sa imenom " + this.selectedAccommodation + ", sada se dobavlja izvestaj: ")
+        this.service.getAccommodationReport(this.year, loggedId, accId).subscribe({
+          next: (serviceData: ReportDataUnit[]) => {
+            if (this.chart) {
+              this.chart.dispose();
+              this.generateReport();
+            }
+          },
+          error: (_) => {
+            console.log("Greska!")
+          }
         });
-      });
+      },
+      error: (_) => {
+        console.log("Greska!")
+      }
+    });
+    return newData;
+  }
 
-
-      series.set("heatRules", [
-        {
-          dataField: "valueY",
-          min: am5.color(color),
-          max: am5.color(color),
-          target: series.columns.template,
-          key: "fill"
-        }
-      ]);
-
-      series.set("fill", am5.color(color));
-      legend.data.push(series);
-    }
-
-    makeSeries("Profit", "profit", "#81917a");
-    makeSeries("Reservations", "reservations", "#566151");
-
-    this.chart.appear(1000, 100);
+  reloadData() {
+    this.loadData();
   }
 }
