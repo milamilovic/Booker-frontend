@@ -21,8 +21,8 @@
           <p class="guest">{{"Number of cancelled reservations: " + cancelled}}</p>
         </div>
         <div class="buttons">
-          <button>Approve request</button>
-          <button>Deny requests</button>
+          <button (click)="approveRequest()" *ngIf="request.status.toString()==='WAITING'">Approve request</button>
+          <button (click)="denyRequest()" *ngIf="request.status.toString()==='WAITING'">Deny requests</button>
         </div>
       </div>
     </div>

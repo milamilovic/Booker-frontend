@@ -7,6 +7,7 @@ import {UserType} from "../../enums/user-type.enum";
 import {AccommodationRating} from "../../accommodation/accommodation/model/AccommodationRating";
 import {AccommodationService} from "../../accommodation/accommodation.service";
 import {UserService} from "../../user/user.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-owner-card',
@@ -66,5 +67,67 @@ export class OwnerCardComponent {
         console.log("Greska!")
       }
     })
+  }
+
+  approveRequest() {
+    if(new Date(this.request.fromDate) < new Date()) {
+      alert("this request has a past date so you can't approve it")
+    } else {
+      this.service.acceptOrDeclineReservationRequest(this.request, true).subscribe({
+        next: (data: string) => {
+          console.log(data);
+          if (data === "OK"){
+            alert("reservation request is approved!\nreservation created!")
+          }
+          else {
+            alert(data);
+          }
+          location.reload();
+        },
+        error: (error: HttpErrorResponse) => {
+          if (error.error instanceof ErrorEvent) {
+            alert('Error occurred:' + error.error.message);
+          } else {
+            alert(error.error.text);
+          }
+          location.reload();
+          console.log("Greška:", error);
+        }
+      });
+      /*this.service.acceptOrDeclineReservationRequest(this.request, true).subscribe(
+        response => {
+          if (response.body === "OK") {
+            alert("reservation request is approved!\nreservation created!");
+          } else {
+            alert(response.body);
+          }
+          location.reload();
+        },
+        error => {
+          console.log('Error: ', error);
+        }
+      );*/
+    }
+  }
+
+  denyRequest() {
+    if(new Date(this.request.fromDate) < new Date()) {
+      alert("this request has a past date so you can't deny it")
+    } else {
+      this.service.acceptOrDeclineReservationRequest(this.request, false).subscribe({
+        next: (data: String) => {
+          if (data === "OK"){
+            alert("reservation request is denied!")
+          }
+          else {
+            alert(data);
+          }
+          location.reload();
+        },
+        error: (_) => {
+          console.log("Greska!")
+        }
+      });
+    }
   }
 }

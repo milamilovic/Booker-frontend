@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs";
+import {catchError, map, Observable} from "rxjs";
 import {AccommodationListingDto} from "../accommodation/accommodation/model/accommodation-listing.model";
 import {environment} from "../../env/env";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
@@ -90,5 +90,14 @@ export class RequestService {
 
   cancelRequest(request: ReservationRequest) {
     return this.http.delete<null>(environment.apiHost + 'api/requests/guest/' + request.guestId + '/cancel-request/' + request.id);
+  }
+
+  acceptOrDeclineReservationRequest(request: ReservationRequest, accepted: boolean):Observable<any> {
+    return this.http.put(environment.apiHost + 'api/requests/owner/accept_reservation/' + accepted, request).pipe(
+      map(response => {
+        console.log("servis: ", response)
+        return response;
+      })
+    );
   }
 }
