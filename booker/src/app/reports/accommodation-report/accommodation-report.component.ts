@@ -28,168 +28,151 @@ export class AccommodationReportComponent {
       am5themes_Animated.new(this.root)
     ]);
     this.chart = this.root.container.children.push(am5xy.XYChart.new(this.root, {
-      panX: true,
-      panY: true,
+      panX: false,
+      panY: false,
+      paddingLeft: 0,
       wheelX: "panX",
       wheelY: "zoomX",
-      pinchZoomX: true,
-      paddingLeft:0,
-      paddingRight:1
+      layout: this.root.verticalLayout
     }));
-    let cursor = this.chart.set("cursor", am5xy.XYCursor.new(this.root, {}));
-    cursor.lineY.set("visible", false);
+
+    let legend = this.chart.children.push(
+      am5.Legend.new(this.root, {
+        centerX: am5.p50,
+        x: am5.p50,
+        fillField: "color",
+        lineFill: "color"
+      })
+    );
+
+    let data = [{
+      "name": "Cozy Apartment",
+      "profit": 2.5,
+      "reservations": 2.5
+    }, {
+      "name": "Example Hotel",
+      "profit": 2.6,
+      "reservations": 2.7
+    }, {
+      "name": "La",
+      "profit": 2.4,
+      "reservations": 0.3
+    }, {
+      "name": "La La",
+      "profit": 2.4,
+      "reservations": 0.3
+    }, {
+      "name": "La La La",
+      "profit": 2.4,
+      "reservations": 0.3
+    }, {
+      "name": "La La La La",
+      "profit": 2.4,
+      "reservations": 0.3
+    }]
 
 
 // Create axes
 // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
     let xRenderer = am5xy.AxisRendererX.new(this.root, {
-      minGridDistance: 30,
+      cellStartLocation: 0.1,
+      cellEndLocation: 0.5,
       minorGridEnabled: true
-    });
+    })
 
-    xRenderer.labels.template.setAll({
-      rotation: -90,
-      centerY: am5.p50,
-      centerX: am5.p100,
-      paddingRight: 15
-    });
+    let xAxis = this.chart.xAxes.push(am5xy.CategoryAxis.new(this.root, {
+      categoryField: "name",
+      renderer: xRenderer,
+      tooltip: am5.Tooltip.new(this.root, {})
+    }));
 
     xRenderer.grid.template.setAll({
       location: 1
     })
 
-    let xAxis = this.chart.xAxes.push(am5xy.CategoryAxis.new(this.root, {
-      maxDeviation: 0.3,
-      categoryField: "country",
-      renderer: xRenderer,
-      tooltip: am5.Tooltip.new(this.root, {})
-    }));
-
-    let yRenderer = am5xy.AxisRendererY.new(this.root, {
-      strokeOpacity: 0.1
-    })
+    xAxis.data.setAll(data);
 
     let yAxis = this.chart.yAxes.push(am5xy.ValueAxis.new(this.root, {
-      maxDeviation: 0.3,
-      renderer: yRenderer
-    }));
-
-    let series = this.chart.series.push(am5xy.ColumnSeries.new(this.root, {
-      name: "Series 1",
-      xAxis: xAxis,
-      yAxis: yAxis,
-      valueYField: "value",
-      sequencedInterpolation: true,
-      categoryXField: "country",
-      tooltip: am5.Tooltip.new(this.root, {
-        labelText: "{valueY}"
+      renderer: am5xy.AxisRendererY.new(this.root, {
+        strokeOpacity: 0.1
       })
     }));
 
+    let that = this;
 
-    let circleTemplate = am5.Template.new({}) as Template<Circle>;
+    function makeSeries(name: string, fieldName: string, color: string) {
+      let series = that.chart.series.push(am5xy.ColumnSeries.new(that.root, {
+        name: name,
+        xAxis: xAxis,
+        yAxis: yAxis,
+        valueYField: fieldName,
+        categoryXField: "name"
+      }));
 
-    series.bullets.push(function (root: am5.Root, series: any, dataItem: any) {
-      let bulletContainer = am5.Container.new(root, {});
-      let circle = bulletContainer.children.push(
-        am5.Circle.new(
-          root,
-          {
-            radius: 34
-          },
-          circleTemplate
-        )
-      );
-
-      let maskCircle = bulletContainer.children.push(
-        am5.Circle.new(root, { radius: 27 })
-      );
-
-      // only containers can be masked, so we add image to another container
-      let imageContainer = bulletContainer.children.push(
-        am5.Container.new(root, {
-          mask: maskCircle
-        })
-      );
-
-      let image = imageContainer.children.push(
-        am5.Picture.new(root, {
-          templateField: "pictureSettings",
-          centerX: am5.p50,
-          centerY: am5.p50,
-          width: 60,
-          height: 60
-        })
-      );
-
-      return am5.Bullet.new(root, {
-        locationY: 0,
-        sprite: bulletContainer
+      series.columns.template.setAll({
+        tooltipText: "{name}, {categoryX}:{valueY}",
+        width: am5.percent(90),
+        tooltipY: 0,
+        strokeOpacity: 0
       });
-    });
+
+      series.data.setAll(data);
+
+      // Make stuff animate on load
+      // https://www.amcharts.com/docs/v5/concepts/animations/
+      series.appear();
+
+      series.bullets.push(function () {
+        return am5.Bullet.new(that.root, {
+          locationY: 0,
+          sprite: am5.Label.new(that.root, {
+            text: "{valueY}",
+            fill: am5.color(color),
+            centerY: 0,
+            centerX: am5.p50,
+            populateText: true
+          })
+        });
+      });
+
+      series.bullets.push(function (root: am5.Root, series: any, dataItem: any) {
+        let bulletContainer = am5.Container.new(root, {});
+
+        let maskCircle = bulletContainer.children.push(
+          am5.Circle.new(root, { radius: 27 })
+        );
+
+        // only containers can be masked, so we add image to another container
+        let imageContainer = bulletContainer.children.push(
+          am5.Container.new(root, {
+            mask: maskCircle
+          })
+        );
+
+        return am5.Bullet.new(root, {
+          locationY: 0,
+          sprite: bulletContainer
+        });
+      });
 
 
-    series.set("heatRules", [
-      {
-        dataField: "valueY",
-        min: am5.color(0x90A288),
-        max: am5.color(0x90A288),
-        target: series.columns.template,
-        key: "fill"
-      },
-      {
-        dataField: "valueY",
-        min: am5.color(0x90A288),
-        max: am5.color(0x90A288),
-        target: circleTemplate,
-        key: "fill"
-      }
-    ]);
+      series.set("heatRules", [
+        {
+          dataField: "valueY",
+          min: am5.color(color),
+          max: am5.color(color),
+          target: series.columns.template,
+          key: "fill"
+        }
+      ]);
 
+      series.set("fill", am5.color(color));
+      legend.data.push(series);
+    }
 
-// Set data
-    let data = [{
-      country: "January",
-      value: 1040
-    }, {
-      country: "February",
-      value: 1882
-    }, {
-      country: "March",
-      value: 1809
-    }, {
-      country: "April",
-      value: 880
-    }, {
-      country: "May",
-      value: 512
-    }, {
-      country: "June",
-      value: 1114
-    }, {
-      country: "July",
-      value: 367
-    }, {
-      country: "August",
-      value: 711
-    }, {
-      country: "September",
-      value: 1912
-    }, {
-      country: "October",
-      value: 443
-    }, {
-      country: "November",
-      value: 441
-    }, {
-      country: "December",
-      value: 1500
-    }];
+    makeSeries("Profit", "profit", "#81917a");
+    makeSeries("Reservations", "reservations", "#566151");
 
-    xAxis.data.setAll(data);
-    series.data.setAll(data);
-
-    series.appear(1000);
     this.chart.appear(1000, 100);
   }
 }
