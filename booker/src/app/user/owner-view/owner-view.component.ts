@@ -139,11 +139,28 @@ export class OwnerViewComponent implements OnInit{
     this.snackBar.openSnackBar(message, action);
   }
 
+  // reportComment(comment: OwnerCommentDTO) {
+  //   this.ownerCommentService.reportComment(comment.id).subscribe(
+  //     (response) => {
+  //       console.log("Owner comment successfully reported!", response);
+  //       this.isReportClicked = !this.isReportClicked;
+  //       this.openSnackBar("Owner comment successfully reported!", "CLOSE")
+  //     },
+  //     (error) => {
+  //       console.log("Error in reporting owner comment!", error);
+  //       this.openSnackBar("Error in reporting owner comment!", "CLOSE")
+  //     }
+  //   );
+  // }
+
   reportComment(comment: OwnerCommentDTO) {
     this.ownerCommentService.reportComment(comment.id).subscribe(
       (response) => {
         console.log("Owner comment successfully reported!", response);
-        this.isReportClicked = !this.isReportClicked;
+
+        // Update the isReportClicked property for the clicked comment
+        comment.reported = !comment.reported;
+
         this.openSnackBar("Owner comment successfully reported!", "CLOSE")
       },
       (error) => {
@@ -152,6 +169,7 @@ export class OwnerViewComponent implements OnInit{
       }
     );
   }
+
 
   calculateOwnerRate() {
     let totalRatings: number = 0;
