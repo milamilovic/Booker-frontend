@@ -12,8 +12,8 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./guest-reservation-card.component.css']
 })
 export class GuestReservationCardComponent implements OnInit{
-  reservation!: Reservation;
-  accommodation!: AccommodationViewDto;
+  @Input() reservation: Reservation;
+  accommodation!: AccommodationViewDto | undefined;
   rating: string = "";
   deadline: string = "";
 
@@ -72,6 +72,8 @@ export class GuestReservationCardComponent implements OnInit{
   }
 
   openAccommodation():void{
-    this.router.navigate(['accommodation', this.accommodation.id]);
+    if (this.accommodation){
+      this.router.navigate(['accommodation', this.accommodation.id]);
+    }
   }
 }
