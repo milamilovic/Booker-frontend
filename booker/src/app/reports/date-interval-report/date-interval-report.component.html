@@ -1,0 +1,14 @@
+<div class="background">
+  <div class="container">
+    <form   (ngSubmit)="reloadData()">
+      <div>
+        <input type="date" id="from_date" name="from_date" [(ngModel)]="startDate" [value]="startDate">
+        <input type="date" id="to_date" name="to_date"  [(ngModel)]="endDate" [value]="endDate">
+        <input type="submit" class="search-button" value="View report!"/>
+        <button class="pdf" (click)="takeSS()">Generate PDF</button>
+      </div>
+    </form>
+    <br>
+    <div id='chartdiv2'></div>
+  </div>
+</div>

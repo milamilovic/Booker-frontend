@@ -17,6 +17,8 @@ import {MapModule} from "../map/map.module";
 import { ApproveAccommodationComponent } from './approve-accommodation/approve-accommodation.component';
 import { ApproveAccommodationCardComponent } from './approve-accommodation-card/approve-accommodation-card.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { FavouriteCardComponent } from './favourite-card/favourite-card.component';
+import { FavouriteAccommodationsComponent } from './favourite-accommodations/favourite-accommodations.component';
 
 
 
@@ -29,7 +31,9 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     OwnerAccommodationCardComponent,
     UpdateAccommodationComponent,
     ApproveAccommodationComponent,
-    ApproveAccommodationCardComponent
+    ApproveAccommodationCardComponent,
+    FavouriteCardComponent,
+    FavouriteAccommodationsComponent
   ],
   imports: [
     CommonModule,

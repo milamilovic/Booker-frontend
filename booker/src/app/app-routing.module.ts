@@ -17,6 +17,13 @@ import {
 import {UpdateAccommodationComponent} from "./accommodation/update-accommodation/update-accommodation.component";
 import {ApproveAccommodationComponent} from "./accommodation/approve-accommodation/approve-accommodation.component";
 import {OwnerProfileComponent} from "./user/owner-profile/owner-profile.component";
+import {GuestRequestsComponent} from "./requests/guest-requests/guest-requests.component";
+import {OwnerRequestsComponent} from "./requests/owner-requests/owner-requests.component";
+import {
+  FavouriteAccommodationsComponent
+} from "./accommodation/favourite-accommodations/favourite-accommodations.component";
+import {DateIntervalReportComponent} from "./reports/date-interval-report/date-interval-report.component";
+import {AccommodationReportComponent} from "./reports/accommodation-report/accommodation-report.component";
 
 
 const routes: Routes = [
@@ -36,7 +43,12 @@ const routes: Routes = [
   {path: 'accommodation/:id/update', component: UpdateAccommodationComponent},
   {path: 'approve', component: ApproveAccommodationComponent},
   {path: 'accommodations/owner', component: OwnerAccommodationListingComponent},
-  {path: 'owner', component: OwnerProfileComponent}
+  {path: 'owner', component: OwnerProfileComponent},
+  {path: 'requests/guest', component: GuestRequestsComponent},
+  {path: 'requests/owner', component: OwnerRequestsComponent},
+  {path: 'favourites', component: FavouriteAccommodationsComponent},
+  {path: 'report/accommodation', component: AccommodationReportComponent},
+  {path: 'report/date', component: DateIntervalReportComponent}
 ];
 
 @NgModule({

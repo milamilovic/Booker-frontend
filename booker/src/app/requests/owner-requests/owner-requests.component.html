@@ -1,0 +1,26 @@
+<div class="background">
+  <div class="container">
+    <form   #request="ngForm" (ngSubmit)="search(where_input, search_date)" *ngIf="!submitted" [formGroup]="form" >
+      <div class="searching">
+        <input type="text" id="where_input" name="where_input" placeholder="  Accommodation name?"  #where_input [(ngModel)]="accName" [value]="accName" required formControlName="accName">
+        <input type="date" id="search_date" name="search_date" placeholder="When?" #search_date [(ngModel)]="searchDate" [value]="searchDate" required formControlName="searchDate">
+        <input type="submit" class="search-button" value="Search!"/>
+      </div>
+    </form>
+    <div class="filters">
+      <div class="left_part_accommodations">
+        <p class="filter_text">Filters: </p>
+        <mat-checkbox class="amenities"  [(ngModel)]="selectedAmenities['waiting']" [ngModelOptions]="{standalone: true}" (change)="onCheckboxChange('waiting')"><p class="filter-text">waiting</p></mat-checkbox>
+        <mat-checkbox class="amenities"  [(ngModel)]="selectedAmenities['accepted']" [ngModelOptions]="{standalone: true}" (change)="onCheckboxChange('accepted')"><p class="filter-text">accepted</p></mat-checkbox>
+        <mat-checkbox class="amenities"  [(ngModel)]="selectedAmenities['denied']" [ngModelOptions]="{standalone: true}" (change)="onCheckboxChange('denied')"><p class="filter-text">denied</p></mat-checkbox>
+      </div>
+      <button class="filter-button" (click)="filter()">Filter!</button>
+    </div>
+    <br>
+    <div class="placeholder">
+      <div class="card_div" *ngFor="let req of requests">
+        <app-owner-card [request]="req"></app-owner-card>
+      </div>
+    </div>
+  </div>
+</div>
