@@ -232,3 +232,105 @@ img {
   text-align: left;
   float: left;
 }
+
+/* Add this CSS to your component's styles */
+.star-rating {
+  font-size: 24px; /* Adjust the font-size as needed */
+}
+
+.star-rating span {
+  cursor: pointer;
+}
+
+.star-rating .filled {
+  color: #90A288;
+}
+
+.star-rating .half-filled {
+  position: relative;
+  display: inline-block;
+  color: #90A288;
+  overflow: hidden;
+}
+
+.star-rating .half-filled::before {
+  content: "\2605"; /* Unicode character for a filled star */
+  position: absolute;
+  left: 0;
+  width: 50%;
+  overflow: hidden;
+}
+
+.btnAdd {
+  color: #E5E5E5;
+  background-color: #3C3C3C;
+  width: 100px;
+  height: 45px;
+  font-size: 15px;
+  margin-right: 10px; /* Adjust the margin as needed */
+}
+
+.btnCancel {
+  color: #E5E5E5;
+  background-color: #3C3C3C;
+  width: 100px;
+  height: 45px;
+  font-size: 15px;
+}
+
+.add-comment-section, .add-ratings-section {
+  width: 95%;
+  border-radius: 10px;
+  background-color: #d9d9d9;
+  margin-bottom: 10px;
+  height: auto; /* Set height to auto to allow dynamic sizing based on content */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 20px;
+  position: relative; /* Added to set the positioning context for absolute positioning */
+}
+
+.comment-textarea {
+  width: 100%;
+  margin-bottom: 20px; /* Adjust the margin as needed */
+}
+
+.rating-helper{
+  display: flex;
+  justify-content: right;
+}
+
+.rating-wrapper{
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.comment-rate{
+  margin: 5px;
+  font-size: 13px;
+  font-family: 'Roboto';
+  color: #3c3c3c;
+}
+
+.comment-star{
+  width: 18px;
+  height: auto;
+}
+
+.delete-comment {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-icon {
+  color: #3C3C3C; /* Adjust the color as needed */
+}
+
+.delete-comment:hover .delete-icon {
+  color: #90A288;
+}
