@@ -11,6 +11,8 @@ import { OwnerViewComponent } from './owner-view/owner-view.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import {RouterLink} from "@angular/router";
 import {OwnerProfileComponent} from "./owner-profile/owner-profile.component";
+import { GuestTableComponent } from './guest-table/guest-table.component';
+import { GuestProfilesComponent } from './guest-profiles/guest-profiles.component';
 
 
 
@@ -30,7 +32,9 @@ import {OwnerProfileComponent} from "./owner-profile/owner-profile.component";
     GuestViewComponent,
     OwnerViewComponent,
     AdminViewComponent,
-    OwnerProfileComponent
+    OwnerProfileComponent,
+    GuestTableComponent,
+    GuestProfilesComponent
   ]
 })
 export class UserModule { }
