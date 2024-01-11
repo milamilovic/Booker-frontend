@@ -228,5 +228,9 @@ export class UserService {
   getCancelled(guestId: number) {
     return this.http.get<number>(environment.apiHost + 'api/guests/' + guestId + '/cancelled');
   }
+
+  getGuestsForOwner(ownerId: number) {
+    return this.http.get<Guest[]>(environment.apiHost + 'api/owners/' + ownerId + '/guests');
+  }
 }
 
