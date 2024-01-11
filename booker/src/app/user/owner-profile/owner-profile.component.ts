@@ -15,6 +15,7 @@ import {OwnerCommentDTO} from "../dto/OwnerCommentDTO";
 import {UserDTO} from "../dto/UserDTO";
 import {OwnerRatingDTO} from "../dto/OwnerRatingDTO";
 import {DatePipe} from "@angular/common";
+import {ReportUserService} from "../report-user.service";
 
 interface DisplayMessage {
   msgType: string;
@@ -70,7 +71,8 @@ export class OwnerProfileComponent implements OnInit{
               private formBuilder: FormBuilder,
               private ownerCommentService: OwnerCommentService,
               private snackBar : SnackBarComponent,
-              private ownerRatingService: OwnerRatingService) { }
+              private ownerRatingService: OwnerRatingService,
+              private reportUserService: ReportUserService) { }
 
 
   ngOnInit(): void {
@@ -214,6 +216,12 @@ export class OwnerProfileComponent implements OnInit{
       totalRatings += comment.rating;
     }
     this.averageRating = totalRatings / numberOfComments;
+  }
+
+  openPopup(): void {
+    this.reportUserService.openPopupForm(this.ownerId).subscribe((result) => {
+      console.log('Popup closed with result: ', result);
+    });
   }
 
 }
