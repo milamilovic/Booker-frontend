@@ -4,7 +4,7 @@ import {ReservationStatus} from "../../enums/reservation-status-enum";
 
 export interface Reservation {
   guestId: number;
-  accommodation?: AccommodationViewDto;
+  accommodationId: number;
   id: number;
   fromDate: string;
   toDate: string;

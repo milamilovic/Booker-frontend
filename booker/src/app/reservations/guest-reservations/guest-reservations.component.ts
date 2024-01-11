@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Reservation} from "../model/Reservation";
 import {ReservationService} from "../reservation.service";
 import {Router} from "@angular/router";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-guest-reservations',
@@ -19,6 +20,7 @@ export class GuestReservationsComponent implements OnInit{
     const loggedId = Number(localStorage.getItem("loggedId"));
     this.service.getAllForGuest(loggedId).subscribe({
       next: (data: Reservation[]) => {
+        console.log(data);
         this.reservations = data
       },
       error: (_) => {

@@ -23,6 +23,9 @@ import {TokenInterceptor} from "./interceptor/TokenInterceptor";
 import { ActivationViewComponent } from './layout/activation-view/activation-view.component';
 import { UpdateAvailabilityComponent } from './accommodation/update-availability/update-availability.component';
 import {ReportsModule} from "./reports/reports.module";
+import {ReservationsModule} from "./reservations/reservations.module";
+import {GuestReservationCardComponent} from "./reservations/guest-reservation-card/guest-reservation-card.component";
+import {GuestReservationsComponent} from "./reservations/guest-reservations/guest-reservations.component";
 
 @NgModule({
   declarations: [
@@ -48,7 +51,8 @@ import {ReportsModule} from "./reports/reports.module";
     MapModule,
     FormsModule,
     SharedModule,
-    ReportsModule
+    ReportsModule,
+    ReservationsModule
   ],
   providers: [MapService, MapComponent,{
     provide: HTTP_INTERCEPTORS,

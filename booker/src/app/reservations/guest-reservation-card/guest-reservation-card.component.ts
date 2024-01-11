@@ -5,6 +5,7 @@ import {AccommodationService} from "../../accommodation/accommodation.service";
 import {ReservationService} from "../reservation.service";
 import {AccommodationRating} from "../../accommodation/accommodation/model/AccommodationRating";
 import {ActivatedRoute, Router} from "@angular/router";
+import { format, parseISO } from 'date-fns';
 
 @Component({
   selector: 'app-guest-reservation-card',
@@ -12,17 +13,20 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./guest-reservation-card.component.css']
 })
 export class GuestReservationCardComponent implements OnInit{
-  @Input() reservation: Reservation;
-  accommodation!: AccommodationViewDto | undefined;
+  @Input()
+  reservation: Reservation;
+  // @ts-ignore
+  accommodation: AccommodationViewDto;
   rating: string = "";
   deadline: string = "";
 
   constructor(private router: Router,
               private service: ReservationService,
               private accommodationService: AccommodationService) {
+    console.log("dunja");
     this.reservation = {
       "guestId": NaN,
-      "accommodation": undefined,
+      "accommodationId": 0,
       "id": 0,
       "fromDate": "2024-03-01",
       "toDate": "2024-03-10",
@@ -35,10 +39,13 @@ export class GuestReservationCardComponent implements OnInit{
   }
 
   ngOnInit() {
-    const accommodationId = this.reservation.accommodation?.id;
+    console.log()
+    const accommodationId = this.reservation.accommodationId;
+    console.log(accommodationId);
     if (accommodationId !== undefined) {
       this.accommodationService.getAccommodation(accommodationId).subscribe({
         next: (data: AccommodationViewDto) => {
+          console.log(data);
           this.accommodation = data;
         },
         error: (_) => {
@@ -63,7 +70,7 @@ export class GuestReservationCardComponent implements OnInit{
         }
       })
       let deadlineDate = new Date(this.reservation.toDate);
-      this.deadline = new Date(deadlineDate.getTime() - (15 * 24 * 60 * 60 * 1000)).toString();
+      this.deadline = format(new Date(deadlineDate.getTime() - (15 * 24 * 60 * 60 * 1000)), "dd.MM.yyyy.");
     }
   }
 
@@ -72,8 +79,6 @@ export class GuestReservationCardComponent implements OnInit{
   }
 
   openAccommodation():void{
-    if (this.accommodation){
       this.router.navigate(['accommodation', this.accommodation.id]);
-    }
   }
 }
