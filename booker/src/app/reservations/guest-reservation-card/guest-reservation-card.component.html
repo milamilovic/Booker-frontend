@@ -15,7 +15,7 @@
           <div class="dates">{{reservation.fromDate.toString() + "  -  " + reservation.toDate.toString()}}</div>
           <div class="status">{{"status: " + reservation.status}}</div>
           <div class="deadline">{{"free cancellation due: " + deadline}}</div>
-          <button (click)="cancelReservation()" *ngIf="reservation.status.toString()==='ACCEPTED'">Cancel reservation</button>
+          <button [disabled]="isCancelDisabled" id="cancelBtn" (click)="cancelReservation()" *ngIf="reservation.status.toString()==='ACCEPTED'">Cancel reservation</button>
         </div>
         <p class="rating">{{rating}}</p>
       </div>

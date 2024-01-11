@@ -4,8 +4,9 @@ import {Reservation} from "../model/Reservation";
 import {AccommodationService} from "../../accommodation/accommodation.service";
 import {ReservationService} from "../reservation.service";
 import {AccommodationRating} from "../../accommodation/accommodation/model/AccommodationRating";
-import {ActivatedRoute, Router} from "@angular/router";
-import { format, parseISO } from 'date-fns';
+import {Router} from "@angular/router";
+import {format} from 'date-fns';
+import {ReservationStatus} from "../../enums/reservation-status-enum";
 
 @Component({
   selector: 'app-guest-reservation-card',
@@ -18,7 +19,9 @@ export class GuestReservationCardComponent implements OnInit{
   // @ts-ignore
   accommodation: AccommodationViewDto;
   rating: string = "";
+  deadlineDays: number = 0;
   deadline: string = "";
+  isCancelDisabled: boolean = false;
 
   constructor(private router: Router,
               private service: ReservationService,
@@ -39,14 +42,15 @@ export class GuestReservationCardComponent implements OnInit{
   }
 
   ngOnInit() {
-    console.log()
     const accommodationId = this.reservation.accommodationId;
-    console.log(accommodationId);
     if (accommodationId !== undefined) {
       this.accommodationService.getAccommodation(accommodationId).subscribe({
         next: (data: AccommodationViewDto) => {
           console.log(data);
           this.accommodation = data;
+          this.deadlineDays = this.accommodation.deadline;
+          let deadlineDate = new Date(this.reservation.fromDate);
+          this.deadline = format(new Date(deadlineDate.getTime() - (this.deadlineDays * 24 * 60 * 60 * 1000)), "dd.MM.yyyy.");
         },
         error: (_) => {
           console.log("Greska!")
@@ -69,13 +73,35 @@ export class GuestReservationCardComponent implements OnInit{
           console.log("Greska!")
         }
       })
-      let deadlineDate = new Date(this.reservation.toDate);
-      this.deadline = format(new Date(deadlineDate.getTime() - (15 * 24 * 60 * 60 * 1000)), "dd.MM.yyyy.");
+    }
+    let startDate = new Date(this.reservation.fromDate);
+    let today = new Date();
+    if (startDate <= today){
+      this.isCancelDisabled = true;
+      const btn = document.getElementById('cancelBtn');
+      if (btn){
+        // TODO fix btn
+        btn.style.backgroundColor = '#e5e5e5';
+      }
     }
   }
 
   cancelReservation(): void{
-
+    this.service.cancelReservation(this.reservation.id).subscribe({
+      next: (response: boolean) => {
+        if (response){
+          alert("Reservation is cancelled!");
+        }
+        else{
+          alert("You can not cancel reservation because deadline for cancellation expired." +
+            "\nUnfortunately you must pay for it.");
+        }
+        location.reload();
+      },
+      error: (_) => {
+        console.log("Greska!")
+      }
+    })
   }
 
   openAccommodation():void{

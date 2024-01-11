@@ -18,4 +18,5 @@ export interface AccommodationViewDto {
   min_capacity: number;
   max_capacity: number;
   manual_accepting: boolean;
+  deadline: number;
 }
