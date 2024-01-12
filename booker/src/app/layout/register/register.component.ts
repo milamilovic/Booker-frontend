@@ -77,7 +77,7 @@ export class RegisterComponent implements OnInit {
         user: {}
       };
       const user: User = {
-        _id: Math.random(),
+        id: Math.random(),
         name: this.form.value.name ?? '',
         surname: this.form.value.surname ?? '',
         email: this.form.value.email ?? '',

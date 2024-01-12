@@ -51,8 +51,8 @@ export class CreateAccommodationComponent implements OnInit{
   })
 
   formGroupAvailability = new FormGroup({
-    startDate: new FormControl(),
-    endDate: new FormControl()
+    startDate: new FormControl(''),
+    endDate: new FormControl('')
   })
 
   formGroupPrice = new FormGroup({

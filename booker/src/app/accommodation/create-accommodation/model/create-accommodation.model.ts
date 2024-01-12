@@ -16,8 +16,8 @@ export interface CreateAccommodation {
   amenities: string[];
   images: string[];
   type: AccommodationType;
-  startDate: object;
-  endDate: object;
+  startDate: string;
+  endDate: string;
   price: Price;
   min_capacity: number;
   max_capacity: number;

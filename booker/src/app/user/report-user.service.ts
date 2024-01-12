@@ -27,4 +27,9 @@ export class ReportUserService {
   add(createUserReportDTO: any) {
     return this.apiService.post(environment.apiHost + "api/report_user/add_report", createUserReportDTO);
   }
+
+  openPopupFormGuest(guestId: number) {
+    const dialogRef = this.dialog.open(ReportUserComponent);
+    return dialogRef.afterClosed();
+  }
 }

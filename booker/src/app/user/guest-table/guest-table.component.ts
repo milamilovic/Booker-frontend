@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../user.service";
 import {Guest} from "../guest-view/model/guest.model";
+import {ReportUserService} from "../report-user.service";
 
 @Component({
   selector: 'app-guest-table',
@@ -10,7 +11,8 @@ import {Guest} from "../guest-view/model/guest.model";
 export class GuestTableComponent implements OnInit{
   guests!: Guest[];
 
-  constructor(private service: UserService) {
+  constructor(private service: UserService,
+              private reportUserService: ReportUserService) {
   }
 
   ngOnInit() {
@@ -24,5 +26,14 @@ export class GuestTableComponent implements OnInit{
       }
     })
 
+  }
+
+  openPopup(guest : Guest): void {
+    console.log(guest);
+    const guestId = guest.id;
+    this.reportUserService.openPopupForm(guestId).subscribe((result) => {
+      console.log("Guest ID: ", guestId)
+      console.log('Popup closed with result: ', result);
+    });
   }
 }
