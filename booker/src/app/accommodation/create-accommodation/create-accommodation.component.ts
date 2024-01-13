@@ -178,6 +178,7 @@ export class CreateAccommodationComponent implements OnInit{
         (error) => {
           console.error("Error creating accommodation with photos: ", error);
           this.openSnackBar("Error creating accommodation", "Close");
+          alert("Constraint violated!");
         }
     )
 

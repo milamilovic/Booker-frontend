@@ -73,6 +73,7 @@ export class UpdateAvailabilityComponent implements OnInit{
       },
       (error) => {
         console.error("Error in updating availability: ", error);
+        alert("Validation failed");
         this.openSnackBar("Error updating availability", "Close");
       }
     )

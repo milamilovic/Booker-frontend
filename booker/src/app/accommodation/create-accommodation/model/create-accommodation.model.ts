@@ -8,7 +8,6 @@ import {AmenityDTO} from "../../../amenity/AmenityDTO";
 
 
 export interface CreateAccommodation {
-  id?: number;
   title: string;
   description: string;
   shortDescription: string;

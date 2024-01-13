@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ReportUserService} from "../report-user.service";
 import {SnackBarComponent} from "../../shared/snack-bar/snack-bar.component";
 import {CreateUserReportDTO} from "../dto/CreateUserReportDTO";
@@ -12,7 +12,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 })
 export class ReportUserComponent implements OnInit{
   report_user_form = new FormGroup({
-    reason: new FormControl('')
+    reason: new FormControl('', [Validators.required])
   })
 
   constructor(private reportUserService: ReportUserService,
