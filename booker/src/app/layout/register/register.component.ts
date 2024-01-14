@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     address: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     confirm_password: new FormControl('', Validators.required),
     role: new FormControl(null, Validators.required)
     //profilePicture: new FormControl(null, Validators.required)
@@ -55,10 +55,10 @@ export class RegisterComponent implements OnInit {
       name: ['', Validators.compose([Validators.required])],
       surname: ['', Validators.compose([Validators.required])],
       email: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64), Validators.email])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])],
-      confirm_password: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(32)])],
+      confirm_password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(32)])],
       address: ['', Validators.compose([Validators.required])],
-      phone: ['', Validators.compose([Validators.required])],
+      phone: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])],
       role: [null, Validators.compose([Validators.required])]
       //profilePicture: [null, Validators.compose([Validators.required])]
     });
@@ -77,7 +77,7 @@ export class RegisterComponent implements OnInit {
         user: {}
       };
       const user: User = {
-        _id: Math.random(),
+        id: Math.random(),
         name: this.form.value.name ?? '',
         surname: this.form.value.surname ?? '',
         email: this.form.value.email ?? '',
@@ -139,6 +139,7 @@ export class RegisterComponent implements OnInit {
         }),
         catchError(error => {
           console.log(error);
+          alert("Validation failed!");
           this.submitted = false;
           this.notification = {msgType: 'error', msgBody: 'Incorrect username or password.'};
           // Returning an observable here if you want to continue the error flow

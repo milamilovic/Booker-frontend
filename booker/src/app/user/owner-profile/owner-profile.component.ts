@@ -3,7 +3,7 @@ import {Owner} from "../owner-view/model/owner.model";
 import {UserService} from "../user.service";
 import {AccommodationService} from "../../accommodation/accommodation.service";
 import {AccommodationViewDto} from "../../accommodation/accommodation/model/accommodation-view";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subject} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {OwnerCommentService} from "../owner-comment.service";
@@ -15,6 +15,7 @@ import {OwnerCommentDTO} from "../dto/OwnerCommentDTO";
 import {UserDTO} from "../dto/UserDTO";
 import {OwnerRatingDTO} from "../dto/OwnerRatingDTO";
 import {DatePipe} from "@angular/common";
+import {ReportUserService} from "../report-user.service";
 
 interface DisplayMessage {
   msgType: string;
@@ -50,8 +51,8 @@ export class OwnerProfileComponent implements OnInit{
 
 
   add_comment_form = new FormGroup({
-    content: new FormControl(''),
-    rating: new FormControl(),
+    content: new FormControl('', [Validators.required]),
+    rating: new FormControl(0, [Validators.min(1), Validators.max(5)]),
   });
 
   @Input() rating: number = 0;
@@ -70,7 +71,8 @@ export class OwnerProfileComponent implements OnInit{
               private formBuilder: FormBuilder,
               private ownerCommentService: OwnerCommentService,
               private snackBar : SnackBarComponent,
-              private ownerRatingService: OwnerRatingService) { }
+              private ownerRatingService: OwnerRatingService,
+              private reportUserService: ReportUserService) { }
 
 
   ngOnInit(): void {
@@ -214,6 +216,12 @@ export class OwnerProfileComponent implements OnInit{
       totalRatings += comment.rating;
     }
     this.averageRating = totalRatings / numberOfComments;
+  }
+
+  openPopup(): void {
+    this.reportUserService.openPopupForm(this.ownerId).subscribe((result) => {
+      console.log('Popup closed with result: ', result);
+    });
   }
 
 }

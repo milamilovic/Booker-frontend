@@ -6,6 +6,7 @@
     <th>Email</th>
     <th>Address</th>
     <th>Phone number</th>
+    <th>Report user</th>
   </tr>
   </thead>
   <tbody>
@@ -15,6 +16,7 @@
     <td>{{ g.email }}</td>
     <td>{{ g.address }}</td>
     <td>{{ g.phone }}</td>
+    <td><button mat-raised-button (click)="openPopup(g)">Report User<mat-icon>report</mat-icon></button></td>
   </tr>
   </tbody>
 </table>

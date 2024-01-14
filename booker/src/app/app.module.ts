@@ -23,6 +23,7 @@ import {TokenInterceptor} from "./interceptor/TokenInterceptor";
 import { ActivationViewComponent } from './layout/activation-view/activation-view.component';
 import { UpdateAvailabilityComponent } from './accommodation/update-availability/update-availability.component';
 import {ReportsModule} from "./reports/reports.module";
+import { ReportUserComponent } from './user/report-user/report-user.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {ReportsModule} from "./reports/reports.module";
     CreateAccommodationComponent,
     PhotoUploadComponent,
     ActivationViewComponent,
-    UpdateAvailabilityComponent
+    UpdateAvailabilityComponent,
+    ReportUserComponent
   ],
   imports: [
     BrowserModule,

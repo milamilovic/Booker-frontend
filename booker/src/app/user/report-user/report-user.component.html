@@ -1,0 +1,21 @@
+<!-- report-dialog.component.html -->
+
+<div class="report-dialog-container">
+
+  <h2>Report User</h2>
+
+
+  <form [formGroup]="report_user_form">
+    <mat-form-field>
+      <mat-label>Enter your reason here</mat-label>
+      <textarea id="reason" formControlName="reason" matInput></textarea>
+      <br>
+    </mat-form-field>
+    <div class="buttons-container">
+      <button mat-raised-button id="btnSubmit" (click)="submitReport()">Submit</button>
+      <button mat-raised-button id="btnCancel" (click)="cancel()">Cancel</button>
+    </div>
+
+  </form>
+</div>
+

@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit{
   credentials = { email: '', password: '' };
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required, Validators.minLength(8)])
   });
 
   constructor(private userService : UserService,
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit{
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.form = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64), Validators.email])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])]
+      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(32)])]
     });
   }
   ngOnDestroy() {
@@ -107,6 +107,7 @@ export class LoginComponent implements OnInit{
         }),
         catchError(error => {
           if(error.status == 400){
+            alert("Validation failed!");
             this.notification = {msgType: 'error', msgBody: 'not activated.'};
 
           }else{
