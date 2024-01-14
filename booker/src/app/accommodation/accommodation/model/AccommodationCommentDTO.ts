@@ -12,4 +12,5 @@ export interface AccommodationCommentDTO {
   date: object;
   reported: boolean;
   deleted: boolean;
+  approved: boolean;
 }

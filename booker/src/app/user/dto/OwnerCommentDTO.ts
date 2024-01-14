@@ -12,4 +12,5 @@ export interface OwnerCommentDTO {
   date: object;
   reported: boolean;
   deleted: boolean;
+  approved: boolean;
 }
