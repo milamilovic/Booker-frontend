@@ -2,6 +2,14 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UpdateUserDTO} from "../dto/UpdateUserDTO";
 import {Owner} from "./model/owner.model";
 import {UserService} from "../user.service";
+import {OwnerCommentDTO} from "../dto/OwnerCommentDTO";
+import {OwnerCommentService} from "../owner-comment.service";
+import {SnackBarComponent} from "../../shared/snack-bar/snack-bar.component";
+
+interface DisplayMessage {
+  msgType: string;
+  msgBody: string;
+}
 
 @Component({
   selector: 'app-owner-view',
@@ -21,8 +29,13 @@ export class OwnerViewComponent implements OnInit{
   confirmPassword: string = '';
   @ViewChild('fileInput') fileInput!: ElementRef;
   loggedIn : number = 0;
+  ownerComments: OwnerCommentDTO[] = [];
+  isReportClicked = false;
+  averageRating: number = 0;
 
-  constructor(private service: UserService) { }
+  constructor(private service: UserService,
+              private ownerCommentService: OwnerCommentService,
+              private snackBar: SnackBarComponent) { }
 
   ngOnInit(): void {
     this.loggedIn = Number(localStorage.getItem("loggedId"));
@@ -44,6 +57,7 @@ export class OwnerViewComponent implements OnInit{
               console.log(err);
           }
       })
+    this.loadOwnerComments();
   }
 
   onFileSelected(event: any) {
@@ -106,6 +120,64 @@ export class OwnerViewComponent implements OnInit{
     if (dialogOverlayById) {
       dialogOverlayById.style.display = "none";
     }
+  }
+
+  loadOwnerComments(): void {
+    this.ownerCommentService.findAllNotDeletedForOwner(this.loggedIn).subscribe(
+      (response) => {
+        this.ownerComments = response;
+        this.calculateOwnerRate();
+        console.log("Owner comments successfully loaded!", response);
+      },
+      (error) => {
+        console.log("Error in loading owner comments!");
+      }
+    );
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.openSnackBar(message, action);
+  }
+
+  // reportComment(comment: OwnerCommentDTO) {
+  //   this.ownerCommentService.reportComment(comment.id).subscribe(
+  //     (response) => {
+  //       console.log("Owner comment successfully reported!", response);
+  //       this.isReportClicked = !this.isReportClicked;
+  //       this.openSnackBar("Owner comment successfully reported!", "CLOSE")
+  //     },
+  //     (error) => {
+  //       console.log("Error in reporting owner comment!", error);
+  //       this.openSnackBar("Error in reporting owner comment!", "CLOSE")
+  //     }
+  //   );
+  // }
+
+  reportComment(comment: OwnerCommentDTO) {
+    this.ownerCommentService.reportComment(comment.id).subscribe(
+      (response) => {
+        console.log("Owner comment successfully reported!", response);
+
+        // Update the isReportClicked property for the clicked comment
+        comment.reported = !comment.reported;
+
+        this.openSnackBar("Owner comment successfully reported!", "CLOSE")
+      },
+      (error) => {
+        console.log("Error in reporting owner comment!", error);
+        this.openSnackBar("Error in reporting owner comment!", "CLOSE")
+      }
+    );
+  }
+
+
+  calculateOwnerRate() {
+    let totalRatings: number = 0;
+    let numberOfComments: number = this.ownerComments.length;
+    for (const comment of this.ownerComments) {
+      totalRatings += comment.rating;
+    }
+    this.averageRating = totalRatings / numberOfComments;
   }
 
 }

@@ -412,3 +412,14 @@ h2.section-title{
   background-color: #e5e5e5;
   color: #3c3c3c;
 }
+
+.report-comment {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+
+

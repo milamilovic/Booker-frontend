@@ -51,8 +51,8 @@ export class CreateAccommodationComponent implements OnInit{
   })
 
   formGroupAvailability = new FormGroup({
-    startDate: new FormControl(),
-    endDate: new FormControl()
+    startDate: new FormControl(''),
+    endDate: new FormControl('')
   })
 
   formGroupPrice = new FormGroup({
@@ -178,6 +178,7 @@ export class CreateAccommodationComponent implements OnInit{
         (error) => {
           console.error("Error creating accommodation with photos: ", error);
           this.openSnackBar("Error creating accommodation", "Close");
+          alert("Constraint violated!");
         }
     )
 

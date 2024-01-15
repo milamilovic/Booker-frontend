@@ -21,8 +21,8 @@ interface DisplayMessage {
 })
 export class UpdateAvailabilityComponent implements OnInit{
   formGroupAvailability = new FormGroup({
-    startDate: new FormControl(),
-    endDate: new FormControl()
+    startDate: new FormControl(''),
+    endDate: new FormControl('')
   })
 
   formGroupPrice = new FormGroup({
@@ -56,8 +56,8 @@ export class UpdateAvailabilityComponent implements OnInit{
     };
 
     const updateAvailability: UpdateAvailabilityDTO = {
-      startDate: this.formGroupAvailability.value.startDate,
-      endDate: this.formGroupAvailability.value.endDate,
+      startDate: this.formGroupAvailability.value.startDate!,
+      endDate: this.formGroupAvailability.value.endDate!,
       price: price,
       deadline: this.formGroupDeadline.value.deadline!
     }
@@ -73,6 +73,7 @@ export class UpdateAvailabilityComponent implements OnInit{
       },
       (error) => {
         console.error("Error in updating availability: ", error);
+        alert("Validation failed");
         this.openSnackBar("Error updating availability", "Close");
       }
     )

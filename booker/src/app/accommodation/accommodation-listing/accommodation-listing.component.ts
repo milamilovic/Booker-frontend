@@ -94,7 +94,7 @@ export class AccommodationListingComponent implements OnInit {
     const year = date.getFullYear().toString();
 
     return `${year}-${month}-${day}`;
-    
+
   }
 
   search(where_input: HTMLInputElement, from_date: HTMLInputElement, to_date: HTMLInputElement, people_input: HTMLInputElement) {

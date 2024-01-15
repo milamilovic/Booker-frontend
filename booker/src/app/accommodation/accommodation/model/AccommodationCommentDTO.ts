@@ -1,8 +1,8 @@
-import {ProfilePicture} from "../model/ProfilePicture";
+import {ProfilePicture} from "../../../user/model/ProfilePicture";
 
-export interface OwnerCommentDTO {
+export interface AccommodationCommentDTO {
   id: number;
-  ownerId: number;
+  accommodationId: number;
   guestId: number;
   guestName: string;
   guestSurname: string;

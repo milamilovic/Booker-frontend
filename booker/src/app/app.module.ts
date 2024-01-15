@@ -26,6 +26,7 @@ import {ReportsModule} from "./reports/reports.module";
 import {ReservationsModule} from "./reservations/reservations.module";
 import {GuestReservationCardComponent} from "./reservations/guest-reservation-card/guest-reservation-card.component";
 import {GuestReservationsComponent} from "./reservations/guest-reservations/guest-reservations.component";
+import { ReportUserComponent } from './user/report-user/report-user.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {GuestReservationsComponent} from "./reservations/guest-reservations/gues
     CreateAccommodationComponent,
     PhotoUploadComponent,
     ActivationViewComponent,
-    UpdateAvailabilityComponent
+    UpdateAvailabilityComponent,
+    ReportUserComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {
   DateRange,
   ExtractDateTypeFromSelection,
@@ -13,7 +13,7 @@ import {AccommodationViewDto} from "./model/accommodation-view";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {AccommodationService} from "../accommodation.service";
 import {Image} from "./model/Image";
-import {DatePipe, NgForOf, NgIf} from "@angular/common";
+import {DatePipe, DecimalPipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {ReservationRequest} from "./model/ReservationRequest";
 import {ReservationRequestStatus} from "../../enums/reservation-request-status.enum";
 import {Owner} from "../../user/owner-view/model/owner.model";
@@ -25,16 +25,23 @@ import {Guest} from "../../user/guest-view/model/guest.model";
 import {SharedService} from "../../shared/shared.service";
 import {Availability} from "./model/Availability";
 import {MatButtonModule} from "@angular/material/button";
+import {CreateAccommodationCommentDTO} from "./model/CreateAccommodationCommentDTO";
+import {AccommodationCommentService} from "../accommodation-comment.service";
+import {SnackBarComponent} from "../../shared/snack-bar/snack-bar.component";
+import {AccommodationCommentDTO} from "./model/AccommodationCommentDTO";
+import {MatIconModule} from "@angular/material/icon";
 
 @Component({
   selector: 'app-accommodation',
   templateUrl: './accommodation.component.html',
   styleUrls: ['./accommodation.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, FormsModule, NgForOf, NgIf, RouterLink, DatePipe, MapModule, ReactiveFormsModule, MatButtonModule]
+  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, FormsModule, NgForOf, NgIf, RouterLink, DatePipe, MapModule, ReactiveFormsModule, MatButtonModule, NgClass, MatIconModule, DecimalPipe]
 })
 
 export class AccommodationComponent implements OnInit  {
+  loggedIn: number = Number(localStorage.getItem('loggedId'));
+  accommodationId: number = Number(localStorage.getItem('accommodationId'));
   accommodation!: AccommodationViewDto;
   totalPrice: string = "Total price";
   owner!: Owner;
@@ -45,17 +52,32 @@ export class AccommodationComponent implements OnInit  {
   loggedInGuest: number = 0;
   invalidDateFiter: any;
   submitted: boolean = false;
+  submittedComment: boolean = false;
+  selectedRating: number = 0;
+  stars = Array(5).fill(0);
+  hoverIndex: number = 0;
+  averageRating: number = 0;
+  accommodationComments: AccommodationCommentDTO[] = [];
   form = new FormGroup({
     people: new FormControl('', [Validators.required,
       Validators.min(1)])
   });
+  add_comment_form = new FormGroup({
+    content: new FormControl('', [Validators.required]),
+    rating: new FormControl(0, [Validators.required, Validators.min(1), Validators.max(5)])
+  });
+
+  @Input() rating: number = 0;
+  @Output() ratingChange = new EventEmitter<number>();
 
   constructor(private route: ActivatedRoute,
               private sharedService: SharedService,
               private userService: UserService,
               private service: AccommodationService,
               private map: MapComponent,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private accommodationCommentService: AccommodationCommentService,
+              private snackBar: SnackBarComponent) {
   }
 
   ngOnInit(): void {
@@ -67,6 +89,7 @@ export class AccommodationComponent implements OnInit  {
       this.userService.getGuestById(Number(loggedIn)).subscribe( {
         next: (result: Guest) => {
           this.loggedInGuest = Number(loggedIn);
+          this.loadAccommodationComments();
         },
         error: (_) => {     //owner or admin
           this.loggedInGuest = 0;
@@ -214,5 +237,81 @@ export class AccommodationComponent implements OnInit  {
       }
     }
     return false;
+  }
+
+  rate(rating: number): void {
+    this.selectedRating = rating;
+  }
+
+  hover(index: number): void {
+    this.hoverIndex = index;
+  }
+
+  reset(): void {
+    this.hoverIndex = 0;
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.openSnackBar(message, action);
+  }
+
+  submitCommentForm() {
+    const accommodationComment: CreateAccommodationCommentDTO = {
+      accommodationId: this.accommodationId,
+      guestId: this.loggedIn,
+      content: this.add_comment_form.value.content!,
+      rating: this.selectedRating
+    };
+
+    this.accommodationCommentService.add(accommodationComment).subscribe(
+      (response) => {
+        console.log("Accommodation comment successfully added!");
+        this.openSnackBar("Success!", "CLOSE");
+        this.loadAccommodationComments();
+      },
+      (error) => {
+        console.log("Error in creating accommodation comment ", error);
+        this.openSnackBar("Error!", "CLOSE");
+      }
+    )
+  }
+
+  loadAccommodationComments(): void {
+    this.accommodationCommentService.findAllNotDeletedForAccommodation(this.accommodationId).subscribe(
+      (comments: AccommodationCommentDTO[]) => {
+        console.log(comments);
+        this.accommodationComments = comments;
+        this.calculateAccommodationRate();
+        console.log("Accommodation comments loaded successfully: ", comments);
+      },
+      (error) => {
+        console.log("Error in loading accommodation comments: ", error);
+      }
+    )
+  }
+
+  deleteComment(comment: AccommodationCommentDTO) {
+    this.accommodationCommentService.remove(comment.id).subscribe(
+      (response) => {
+        console.log("Comment: ", comment);
+        console.log("Comment ID: ", comment.id);
+        console.log("Accommodation comment successfully deleted!", response);
+        this.loadAccommodationComments();
+      },
+      (error) => {
+        console.log("Comment: ", comment);
+        console.log("Comment ID: ", comment.id);
+        console.log("Error in deleting accommodation comment!", error);
+      }
+    )
+  }
+
+  calculateAccommodationRate() {
+    let totalRatings: number = 0;
+    let numberOfComments: number = this.accommodationComments.length;
+    for (const comment of this.accommodationComments) {
+      totalRatings += comment.rating;
+    }
+    this.averageRating = totalRatings / numberOfComments;
   }
 }
