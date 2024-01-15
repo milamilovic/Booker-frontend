@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-card-content>
+    <div class="left_part">
+      <img (click)="openAccommodation()" class="image" src="/{{accommodation.images[0].path_front}}/">
+    </div>
+    <div class="right_part">
+      <div class="name_and_price">
+        <b class="acc_name" (click)="openAccommodation()">{{accommodation.title}}</b>
+        <div class="prices">
+          <p class="full_price"><b>{{reservation.price + "$"}}</b></p>
+        </div>
+      </div>
+      <div class="right_part_bottom">
+        <div class="description">
+          <div class="dates">{{reservation.fromDate.toString() + "  -  " + reservation.toDate.toString()}}</div>
+          <div class="status">{{"status: " + reservation.status}}</div>
+          <div class="deadline">{{"free cancellation due: " + deadline}}</div>
+          <button id="cancelBtn" (click)="cancelReservation()" *ngIf="reservation.status.toString()==='ACCEPTED'">Cancel reservation</button>
+        </div>
+        <p class="rating">{{rating}}</p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
