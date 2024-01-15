@@ -15,6 +15,10 @@ export class ReservationService {
     return this.http.get<Reservation[]>(environment.apiHost + 'api/reservations/guest/' + guestId);
   }
 
+  getAllForAccommodation(id: number) : Observable<Reservation[]>{
+    return this.http.get<Reservation[]>(environment.apiHost + 'api/reservations/accommodation/' + id);
+  }
+
   cancelReservation(reservationId: number) : Observable<boolean>{
     return this.http.put<boolean>(environment.apiHost + 'api/reservations/guest/cancel/' + reservationId, {}).pipe(
       map(response => {

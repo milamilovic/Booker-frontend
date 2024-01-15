@@ -1,30 +1,35 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AccommodationViewDto} from "../../accommodation/accommodation/model/accommodation-view";
 import {Reservation} from "../model/Reservation";
-import {AccommodationService} from "../../accommodation/accommodation.service";
-import {ReservationService} from "../reservation.service";
-import {AccommodationRating} from "../../accommodation/accommodation/model/AccommodationRating";
+import {AccommodationViewDto} from "../../accommodation/accommodation/model/accommodation-view";
 import {Router} from "@angular/router";
-import {format} from 'date-fns';
-import {ReservationStatus} from "../../enums/reservation-status-enum";
+import {ReservationService} from "../reservation.service";
+import {AccommodationService} from "../../accommodation/accommodation.service";
+import {format} from "date-fns";
+import {AccommodationRating} from "../../accommodation/accommodation/model/AccommodationRating";
+import {Guest} from "../../user/guest-view/model/guest.model";
+import {UserService} from "../../user/user.service";
 
 @Component({
-  selector: 'app-guest-reservation-card',
-  templateUrl: './guest-reservation-card.component.html',
-  styleUrls: ['./guest-reservation-card.component.css']
+  selector: 'app-owner-reservation-card',
+  templateUrl: './owner-reservation-card.component.html',
+  styleUrls: ['./owner-reservation-card.component.css']
 })
-export class GuestReservationCardComponent implements OnInit{
+export class OwnerReservationCardComponent implements OnInit{
   @Input()
   reservation: Reservation;
   // @ts-ignore
   accommodation: AccommodationViewDto;
+  // @ts-ignore
+  guest: Guest;
+  cancelled: number = 0;
   rating: string = "";
   deadlineDays: number = 0;
   deadline: string = "";
 
   constructor(private router: Router,
               private service: ReservationService,
-              private accommodationService: AccommodationService) {
+              private accommodationService: AccommodationService,
+              private userService: UserService) {
     console.log("dunja");
     this.reservation = {
       "guestId": NaN,
@@ -45,11 +50,26 @@ export class GuestReservationCardComponent implements OnInit{
     if (accommodationId !== undefined) {
       this.accommodationService.getAccommodation(accommodationId).subscribe({
         next: (data: AccommodationViewDto) => {
-          console.log(data);
           this.accommodation = data;
           this.deadlineDays = this.accommodation.deadline;
           let deadlineDate = new Date(this.reservation.fromDate);
           this.deadline = format(new Date(deadlineDate.getTime() - (this.deadlineDays * 24 * 60 * 60 * 1000)), "dd.MM.yyyy.");
+        },
+        error: (_) => {
+          console.log("Greska!")
+        }
+      });
+      this.userService.getGuestById(this.reservation.guestId).subscribe({
+        next: (data: Guest) => {
+          this.guest = data
+        },
+        error: (_) => {
+          console.log("Greska!")
+        }
+      });
+      this.userService.getCancelled(this.reservation.guestId).subscribe({
+        next: (data: number) => {
+          this.cancelled = data
         },
         error: (_) => {
           console.log("Greska!")
@@ -75,29 +95,7 @@ export class GuestReservationCardComponent implements OnInit{
     }
   }
 
-  cancelReservation(): void{
-    if(new Date(this.reservation.fromDate) < new Date()) {
-      alert("this request has a past date so you can't cancel it")
-    }
-    else {
-      this.service.cancelReservation(this.reservation.id).subscribe({
-        next: (response: boolean) => {
-          if (response) {
-            alert("Reservation is cancelled!");
-          } else {
-            alert("You can not cancel reservation because deadline for cancellation expired." +
-              "\nUnfortunately you must pay for it.");
-          }
-          location.reload();
-        },
-        error: (_) => {
-          console.log("Greska!")
-        }
-      })
-    }
-  }
-
   openAccommodation():void{
-      this.router.navigate(['accommodation', this.accommodation.id]);
+    this.router.navigate(['accommodation', this.accommodation.id]);
   }
 }

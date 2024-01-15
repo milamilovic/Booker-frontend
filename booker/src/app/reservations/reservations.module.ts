@@ -6,13 +6,17 @@ import { GuestReservationsComponent } from './guest-reservations/guest-reservati
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MaterialModule} from "../infrastructure/material/material.module";
 import {ReactiveFormsModule} from "@angular/forms";
+import { OwnerReservationCardComponent } from './owner-reservation-card/owner-reservation-card.component';
+import { OwnerReservationsComponent } from './owner-reservations/owner-reservations.component';
 
 
 
 @NgModule({
   declarations: [
     GuestReservationCardComponent,
-    GuestReservationsComponent
+    GuestReservationsComponent,
+    OwnerReservationCardComponent,
+    OwnerReservationsComponent
   ],
   imports: [
     CommonModule,
