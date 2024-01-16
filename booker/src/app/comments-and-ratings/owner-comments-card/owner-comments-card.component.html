@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-content>
+    <div class="container">
+      <div class="left">
+        <img class="user-image" src="{{owner.profilePicture?.path}}">
+        <p class="user-name-surname">{{owner.name + " " + owner.surname}}</p>
+        <p class="user-email">{{owner.email}}</p>
+      </div>
+      <div class="right">
+        <div class="comments-area" *ngFor="let comment of comments">
+          <app-comment-card [comment]="comment"></app-comment-card>
+          <p class="reported" *ngIf="comment.reported">reported</p>
+          <button class="delete" *ngIf="comment.reported">Delete</button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
