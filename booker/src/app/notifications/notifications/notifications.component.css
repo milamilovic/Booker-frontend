@@ -1,0 +1,71 @@
+.background {
+  background-image: url("../../../assets/images/background_image.png");
+  background-size: contain;
+  background-repeat: repeat;
+  margin: 0;
+  height: fit-content;
+  padding: 30px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+.container {
+  border-radius: 20px;
+  padding: 35px;
+  margin-bottom: 30px;
+  width: 60%;
+  height: fit-content;
+  background-color: #90A28880;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container2 {
+  border-radius: 20px;
+  padding: 35px;
+  margin-bottom: 30px;
+  width: 60%;
+  height: fit-content;
+  background-color: #90A28880;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+.title{
+  color: #3c3c3c;
+  padding: 15px;
+}
+
+app-guest-table {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  color: #3c3c3c;
+}
+
+th, td {
+  border: 1px solid #3c3c3c;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #90A288;
+}
+
+.first {
+  background-color: #d9d9d9;
+}
+
+.second {
+  background-color: #90A28840;
+}
+

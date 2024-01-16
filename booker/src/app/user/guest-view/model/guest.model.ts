@@ -5,4 +5,5 @@ export interface Guest extends User {
   blocked: boolean;
   deleted: boolean;
   favouriteAccommodations: number[];
+  notificationEnabled: boolean;
 }
