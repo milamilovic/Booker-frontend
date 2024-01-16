@@ -19,4 +19,12 @@ export class CommentsAndRatingsService {
   getAllRatingsForOwner(ownerId:number) : Observable<OwnerRatingDTO[]> {
     return this.http.get<OwnerRatingDTO[]>(environment.apiHost + "api/owner_ratings/" + ownerId + "/ratings");
   }
+
+  deleteComment(commentId:number) {
+    return this.http.put<Observable<void>>(environment.apiHost + "api/owner_comments/delete/" + commentId, {});
+  }
+
+  deleteRating(ratingId:number) {
+    return this.http.put<Observable<void>>(environment.apiHost + "api/owner_ratings/delete/" + ratingId, {});
+  }
 }

@@ -18,7 +18,7 @@ export class RatingCardComponent implements OnInit {
 
   constructor(private userService: UserService) {
     this.rate = {
-      "_id": 0,
+      "id": 0,
       "ownerId": 0,
       "guestId": 0,
       "rate": 0,

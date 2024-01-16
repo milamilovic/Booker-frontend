@@ -48,4 +48,16 @@ export class OwnerRatingsCardComponent implements OnInit{
       }
     })
   }
+
+  delete(id:number){
+    this.service.deleteRating(id).subscribe({
+      next(data){
+        alert("Deleted rating!");
+        location.reload();
+      },
+      error(_){
+        console.log("Error with rating deletion!");
+      }
+    })
+  }
 }

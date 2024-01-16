@@ -10,7 +10,7 @@
         <div class="comments-area" *ngFor="let rate of ratings">
           <app-rating-card [rate]="rate"></app-rating-card>
           <p class="reported" *ngIf="rate.reported">reported</p>
-          <button class="delete" *ngIf="rate.reported">Delete</button>
+          <button class="delete" *ngIf="rate.reported" (click)="delete(rate.id)">Delete</button>
         </div>
       </div>
     </div>

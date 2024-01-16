@@ -49,4 +49,16 @@ export class OwnerCommentsCardComponent implements OnInit{
     })
   }
 
+  delete(id:number){
+    this.service.deleteComment(id).subscribe({
+      next(data){
+        alert("Deleted comment!");
+        location.reload();
+      },
+      error(_){
+        console.log("Error with comment deletion!");
+      }
+    })
+  }
+
 }

@@ -1,5 +1,5 @@
 export interface OwnerRatingDTO {
-  _id: number;
+  id: number;
   ownerId: number;
   guestId: number;
   rate: number;
