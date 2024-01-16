@@ -4,6 +4,8 @@ import {OwnerCommentDTO} from "../user/dto/OwnerCommentDTO";
 import {Observable} from "rxjs";
 import {environment} from "../../env/env";
 import {OwnerRatingDTO} from "../user/dto/OwnerRatingDTO";
+import {AccommodationCommentDTO} from "../accommodation/accommodation/model/AccommodationCommentDTO";
+import {AccommodationRating} from "../accommodation/accommodation/model/AccommodationRating";
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +28,23 @@ export class CommentsAndRatingsService {
 
   deleteRating(ratingId:number) {
     return this.http.put<Observable<void>>(environment.apiHost + "api/owner_ratings/delete/" + ratingId, {});
+  }
+
+  getAllCommentsForAccommodation(id:number):Observable<AccommodationCommentDTO[]>{
+    return this.http.get<AccommodationCommentDTO[]>(environment.apiHost + "api/accommodation_comments/" +
+    id + "/comments");
+  }
+
+  getAllRatingsForAccommodation(id:number):Observable<AccommodationRating[]>{
+    return this.http.get<AccommodationRating[]>(environment.apiHost + "api/accommodation_ratings/all/" +
+      id + "/ratings");
+  }
+
+  deleteAccommodationComment(commentId:number) {
+    return this.http.put<Observable<void>>(environment.apiHost + "api/accommodation_comments/delete/" + commentId, {});
+  }
+
+  deleteAccommodationRating(ratingId:number) {
+    return this.http.put<Observable<void>>(environment.apiHost + "api/accommodation_ratings/delete/" + ratingId, {});
   }
 }

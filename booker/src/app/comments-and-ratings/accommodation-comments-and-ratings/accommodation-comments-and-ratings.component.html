@@ -1,0 +1,20 @@
+<div class="background">
+  <div class="container">
+    <div class="part">
+      <h2 class="title">All owners comments</h2>
+      <div class="placeholder">
+        <div class="card_div" *ngFor="let acc of accommodations">
+          <app-accommodation-comments-card [accommodation]="acc"></app-accommodation-comments-card>
+        </div>
+      </div>
+    </div>
+    <div class="part">
+      <h2 class="title">All owners ratings</h2>
+      <div class="placeholder">
+        <div class="card_div" *ngFor="let acc of accommodations">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

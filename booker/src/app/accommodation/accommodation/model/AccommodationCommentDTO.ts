@@ -9,7 +9,7 @@ export interface AccommodationCommentDTO {
   guestProfilePicture: ProfilePicture;
   content: string;
   rating: number;
-  date: object;
+  date: Date;
   reported: boolean;
   deleted: boolean;
   approved: boolean;

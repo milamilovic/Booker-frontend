@@ -8,6 +8,9 @@ import { OwnerCommentsAndRatingsComponent } from './owner-comments-and-ratings/o
 import {ReservationsModule} from "../reservations/reservations.module";
 import { RatingCardComponent } from './rating-card/rating-card.component';
 import { OwnerRatingsCardComponent } from './owner-ratings-card/owner-ratings-card.component';
+import { CommentCardAccommodationComponent } from './comment-card-accommodation/comment-card-accommodation.component';
+import { AccommodationCommentsCardComponent } from './accommodation-comments-card/accommodation-comments-card.component';
+import { AccommodationCommentsAndRatingsComponent } from './accommodation-comments-and-ratings/accommodation-comments-and-ratings.component';
 
 
 
@@ -17,7 +20,10 @@ import { OwnerRatingsCardComponent } from './owner-ratings-card/owner-ratings-ca
     OwnerCommentsCardComponent,
     OwnerCommentsAndRatingsComponent,
     RatingCardComponent,
-    OwnerRatingsCardComponent
+    OwnerRatingsCardComponent,
+    CommentCardAccommodationComponent,
+    AccommodationCommentsCardComponent,
+    AccommodationCommentsAndRatingsComponent
   ],
   imports: [
     CommonModule,
