@@ -2,7 +2,6 @@
   <div class="container">
     <div class="part">
       <h2 class="title">All owners comments</h2>
-      <br>
       <div class="placeholder">
         <div class="card_div" *ngFor="let owner of owners">
           <app-owner-comments-card [owner]="owner"></app-owner-comments-card>
@@ -11,9 +10,10 @@
     </div>
     <div class="part">
       <h2 class="title">All owners ratings</h2>
-      <br>
       <div class="placeholder">
-
+        <div class="card_div" *ngFor="let owner of owners">
+          <app-owner-ratings-card [owner]="owner"></app-owner-ratings-card>
+        </div>
       </div>
     </div>
   </div>

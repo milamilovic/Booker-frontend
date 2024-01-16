@@ -3,7 +3,7 @@ export interface OwnerRatingDTO {
   ownerId: number;
   guestId: number;
   rate: number;
-  date: object;
+  date: Date;
   reported: boolean;
   deleted: boolean;
 }
