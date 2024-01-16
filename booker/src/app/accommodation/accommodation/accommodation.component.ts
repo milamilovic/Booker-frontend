@@ -1,10 +1,5 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {
-  DateRange,
-  ExtractDateTypeFromSelection,
-  MatDatepickerInputEvent,
-  MatDatepickerModule
-} from '@angular/material/datepicker';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
@@ -12,12 +7,10 @@ import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, V
 import {AccommodationViewDto} from "./model/accommodation-view";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {AccommodationService} from "../accommodation.service";
-import {Image} from "./model/Image";
 import {DatePipe, DecimalPipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {ReservationRequest} from "./model/ReservationRequest";
 import {ReservationRequestStatus} from "../../enums/reservation-request-status.enum";
 import {Owner} from "../../user/owner-view/model/owner.model";
-import {Observable} from "rxjs";
 import {MapModule} from "../../map/map.module";
 import {MapComponent} from "../../map/map.component";
 import {UserService} from "../../user/user.service";
@@ -30,6 +23,10 @@ import {AccommodationCommentService} from "../accommodation-comment.service";
 import {SnackBarComponent} from "../../shared/snack-bar/snack-bar.component";
 import {AccommodationCommentDTO} from "./model/AccommodationCommentDTO";
 import {MatIconModule} from "@angular/material/icon";
+import {Notification} from "../../notifications/model/Notification";
+import {NotificationType} from "../../enums/notification-type";
+import {NotificationService} from "../../notifications/notification.service";
+import {format} from "date-fns";
 
 @Component({
   selector: 'app-accommodation',
@@ -77,7 +74,8 @@ export class AccommodationComponent implements OnInit  {
               private map: MapComponent,
               private formBuilder: FormBuilder,
               private accommodationCommentService: AccommodationCommentService,
-              private snackBar: SnackBarComponent) {
+              private snackBar: SnackBarComponent,
+              private notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -118,6 +116,7 @@ export class AccommodationComponent implements OnInit  {
             console.log("date " + selectedDate.toString() + "is available: " + isAvailable);
             return isAvailable;
           };
+          this.sendMessageUsingRest();
         }
       })
     })
@@ -125,6 +124,21 @@ export class AccommodationComponent implements OnInit  {
     this.form = this.formBuilder.group({
       people: ['', [Validators.required, Validators.min(this.accommodation.min_capacity), Validators.max(this.accommodation.max_capacity)]]
     });
+  }
+
+  sendMessageUsingRest() {
+    if (this.form.valid) {
+      let message: Notification = {
+        userId: this.accommodation.owner_id,
+        time: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
+        content: "New reservation request for accommodation " + this.accommodation.title,
+        type: NotificationType.RESERVATION_REQUEST
+      };
+
+      this.notificationService.postRest(message).subscribe(res => {
+        console.log(res);
+      })
+    }
   }
 
   closed() {
