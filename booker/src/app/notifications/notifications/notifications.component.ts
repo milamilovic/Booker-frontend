@@ -57,5 +57,8 @@ export class NotificationsComponent implements OnInit{
 
   onToggle($event: MatSlideToggleChange) {
     //TODO saljemo zahtev za promenu podesavanja notif
+    // @ts-ignore
+    console.log('toggle ', $event.checked)
+    // this.updateAcc.manual_accepting = $event.checked;
   }
 }
