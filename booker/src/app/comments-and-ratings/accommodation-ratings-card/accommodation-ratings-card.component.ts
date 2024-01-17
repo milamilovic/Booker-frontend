@@ -3,6 +3,7 @@ import {AccommodationListingDto} from "../../accommodation/accommodation/model/a
 import {AccommodationRating} from "../../accommodation/accommodation/model/AccommodationRating";
 import {CommentsAndRatingsService} from "../comments-and-ratings.service";
 import {AccommodationCommentDTO} from "../../accommodation/accommodation/model/AccommodationCommentDTO";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-accommodation-ratings-card',
@@ -15,7 +16,8 @@ export class AccommodationRatingsCardComponent implements OnInit{
 
   ratings: AccommodationRating[] = [];
 
-  constructor(private service:CommentsAndRatingsService) {
+  constructor(private service:CommentsAndRatingsService,
+              private router: Router) {
     this.accommodation = {
       "id": 0,
         "title": "",
@@ -55,6 +57,12 @@ export class AccommodationRatingsCardComponent implements OnInit{
         console.log("Error with rating deletion!");
       }
     })
+  }
+
+  openAccommodation() {
+    if(this.accommodation && this.accommodation.id) {
+      this.router.navigate(['accommodation/', this.accommodation.id]);
+    }
   }
 
 }

@@ -76,28 +76,18 @@ export class OwnerProfileComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.accommodationId = Number(localStorage.getItem("accommodationId"));
-    this.AccommodationService.getAccommodation(this.accommodationId).subscribe({
-      next: (result: AccommodationViewDto) => {
-        this.ownerId = result.owner_id;
-        console.log(this.ownerId);
-        this.loadOwnerComments();
-        //this.calculateOwnerRate();
-        //this.loadOwnerRatings();
-        console.log(result);
-        this.service.getOwnerById(this.ownerId).subscribe({
-          next: (result: Owner) =>{
-            this.owner = result;
-          },
-          error: (err: any) => {
-            console.log(err);
-          }
-        })
-      },
-      error: (err: any) => {
-        console.log(err);
-      }
-    })
+    this.route.params.subscribe((params) => {
+      this.ownerId = +params['id'];
+      this.service.getOwnerById(this.ownerId).subscribe({
+        next: (result: Owner) =>{
+          this.owner = result;
+          this.loadOwnerComments();
+        },
+        error: (err: any) => {
+          console.log(err);
+        }
+      })
+    });
 
   }
 

@@ -2,8 +2,8 @@
   <mat-card-content>
     <div class="container">
       <div class="left">
-        <img class="user-image" src="{{accommodation.image.path_front}}">
-        <p class="accommodation-name">{{accommodation.title}}</p>
+        <img class="user-image" (click)="openAccommodation()" src="{{accommodation.image.path_front}}">
+        <p class="accommodation-name" (click)="openAccommodation()">{{accommodation.title}}</p>
       </div>
       <div class="right">
         <div class="comments-area" *ngFor="let rate of ratings">

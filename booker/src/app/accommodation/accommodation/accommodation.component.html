@@ -115,7 +115,7 @@
     <div class="description_box">
       <b class="title">Owner:</b><br>
       <i class="address">{{owner.name}}</i>
-      <p class="show_profile" [routerLink]="['/owner']"><u>Show profile</u></p>
+      <p class="show_profile" [routerLink]="['/owner/', owner.id]"><u>Show profile</u></p>
     </div>
 
     <div class="reservation" *ngIf="loggedInGuest!=0">

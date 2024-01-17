@@ -5,6 +5,7 @@ import {CommentsAndRatingsService} from "../comments-and-ratings.service";
 import {UserType} from "../../enums/user-type.enum";
 import {object} from "@amcharts/amcharts5";
 import {Owner} from "../../user/owner-view/model/owner.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-owner-ratings-card',
@@ -17,7 +18,8 @@ export class OwnerRatingsCardComponent implements OnInit{
 
   ratings: OwnerRatingDTO[] = [];
 
-  constructor(private service:CommentsAndRatingsService) {
+  constructor(private service:CommentsAndRatingsService,
+              private router: Router) {
     this.owner =  {
       "id": 0,
       "name": "",
@@ -59,5 +61,9 @@ export class OwnerRatingsCardComponent implements OnInit{
         console.log("Error with rating deletion!");
       }
     })
+  }
+
+  openOwnerProfile(id: number) {
+    this.router.navigate(['/owner/', id]);
   }
 }

@@ -6,6 +6,7 @@ import {object} from "@amcharts/amcharts5";
 import {Owner} from "../../user/owner-view/model/owner.model";
 import {UserService} from "../../user/user.service";
 import {AccommodationListingDto} from "../../accommodation/accommodation/model/accommodation-listing.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-accommodation-comments-card',
@@ -18,7 +19,8 @@ export class AccommodationCommentsCardComponent implements OnInit{
 
   comments:AccommodationCommentDTO[] = [];
 
-  constructor(private service:CommentsAndRatingsService) {
+  constructor(private service:CommentsAndRatingsService,
+              private router: Router) {
     this.accommodation = {
       "id": 0,
       "title": "",
@@ -57,6 +59,12 @@ export class AccommodationCommentsCardComponent implements OnInit{
         console.log("Error with comment deletion!");
       }
     })
+  }
+
+  openAccommodation() {
+    if(this.accommodation && this.accommodation.id) {
+      this.router.navigate(['accommodation/', this.accommodation.id]);
+    }
   }
 
 }

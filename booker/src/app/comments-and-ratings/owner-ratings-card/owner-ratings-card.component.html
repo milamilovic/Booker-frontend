@@ -2,8 +2,8 @@
   <mat-card-content>
     <div class="container">
       <div class="left">
-        <img class="user-image" src="{{owner.profilePicture?.path}}">
-        <p class="user-name-surname">{{owner.name + " " + owner.surname}}</p>
+        <img class="user-image" (click)="openOwnerProfile(owner.id)" src="{{owner.profilePicture?.path}}">
+        <p class="user-name-surname" (click)="openOwnerProfile(owner.id)">{{owner.name + " " + owner.surname}}</p>
         <p class="user-email">{{owner.email}}</p>
       </div>
       <div class="right">

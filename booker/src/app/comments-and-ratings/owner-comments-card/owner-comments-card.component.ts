@@ -5,6 +5,7 @@ import {ProfilePicture} from "../../user/model/ProfilePicture";
 import {object} from "@amcharts/amcharts5";
 import {OwnerCommentDTO} from "../../user/dto/OwnerCommentDTO";
 import {CommentsAndRatingsService} from "../comments-and-ratings.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-owner-comments-card',
@@ -17,7 +18,8 @@ export class OwnerCommentsCardComponent implements OnInit{
 
   comments: OwnerCommentDTO[] = [];
 
-  constructor(private service:CommentsAndRatingsService) {
+  constructor(private service:CommentsAndRatingsService,
+              private router: Router) {
     this.owner =  {
       "id": 0,
       "name": "",
@@ -59,6 +61,11 @@ export class OwnerCommentsCardComponent implements OnInit{
         console.log("Error with comment deletion!");
       }
     })
+  }
+
+  openOwnerProfile(id: number) {
+    console.log("owner id: " + id);
+    this.router.navigate(['/owner/', id]);
   }
 
 }

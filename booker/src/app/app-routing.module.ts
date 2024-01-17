@@ -52,7 +52,7 @@ const routes: Routes = [
   {path: 'accommodation/:id/update', component: UpdateAccommodationComponent},
   {path: 'approve', component: ApproveAccommodationComponent},
   {path: 'accommodations/owner', component: OwnerAccommodationListingComponent},
-  {path: 'owner', component: OwnerProfileComponent},
+  {path: 'owner/:id', component: OwnerProfileComponent},
   {path: 'requests/guest', component: GuestRequestsComponent},
   {path: 'requests/owner', component: OwnerRequestsComponent},
   {path: 'favourites', component: FavouriteAccommodationsComponent},
