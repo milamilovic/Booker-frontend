@@ -1,0 +1,45 @@
+<div class="background">
+  <div class="container">
+    <h2 class="title">My notifications</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>Notification type</th>
+        <th>Content</th>
+        <th>Time</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let n of notifications; let i = index" [ngClass]="{'first': i % 2 === 0, 'second': i % 2 !== 0}">
+        <td>{{n.type}}</td>
+        <td>{{n.content}}</td>
+        <td>{{n.time}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="container2">
+    <h2 class="title">Notification settings</h2>
+    <div class="wrapper"  *ngIf="loginRole==='guests'">
+      <p class="check_option">Enable notifications: </p>
+      <mat-slide-toggle name="manual_check" [checked]="guest.notificationEnabled" (change)="onToggle($event, 0)"></mat-slide-toggle>
+    </div>
+    <div class="wrapper"  *ngIf="loginRole==='owners'">
+      <p class="check_option">Enable reservation request notifications: </p>
+      <mat-slide-toggle name="manual_check" [checked]="owner.requestNotificationEnabled" (change)="onToggle($event, 1)"></mat-slide-toggle>
+    </div>
+    <div class="wrapper"  *ngIf="loginRole==='owners'">
+      <p class="check_option">Enable reservation cancellation notifications: </p>
+      <mat-slide-toggle name="manual_check" [checked]="owner.cancellationNotificationEnabled" (change)="onToggle($event, 2)"></mat-slide-toggle>
+    </div>
+    <div class="wrapper"  *ngIf="loginRole==='owners'">
+      <p class="check_option">Enable new rating notifications: </p>
+      <mat-slide-toggle name="manual_check" [checked]="owner.ratingNotificationEnabled" (change)="onToggle($event, 3)"></mat-slide-toggle>
+    </div>
+    <div class="wrapper"  *ngIf="loginRole==='owners'">
+      <p class="check_option">Enable new accommodation rating notifications: </p>
+      <mat-slide-toggle name="manual_check" [checked]="owner.accNotificationEnabled" (change)="onToggle($event, 4)"></mat-slide-toggle>
+    </div>
+  </div>
+</div>

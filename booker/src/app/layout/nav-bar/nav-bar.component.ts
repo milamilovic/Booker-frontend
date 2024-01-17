@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../user/user.service";
 import {User} from "../../user/model/user.model";
 import {UserType} from "../../enums/user-type.enum";
+import {NavbarService} from "../navbar.service";
 
 @Component({
   selector: 'app-nav-bar',
@@ -15,7 +16,12 @@ export class NavBarComponent{
     loginRole: string = localStorage.getItem("loggedRole");
   loggedInUser: User | undefined;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,
+              private navbar: NavbarService) {
+    this.navbar.myEvent.subscribe(() => {
+      this.handleEvent();
+    });
+  }
 
   setRouterLink() {
     this.userService.findById(this.loginUserId).subscribe(
@@ -47,5 +53,12 @@ export class NavBarComponent{
   logout() {
     this.toggleMenu();
     this.userService.logout();
+    this.handleEvent();
+  }
+
+  handleEvent() {
+    this.loginUserId = Number(localStorage.getItem("loggedId"));
+    // @ts-ignore
+    this.loginRole = localStorage.getItem("loggedRole");
   }
 }

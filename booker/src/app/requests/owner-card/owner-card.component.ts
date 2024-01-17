@@ -8,6 +8,10 @@ import {AccommodationRating} from "../../accommodation/accommodation/model/Accom
 import {AccommodationService} from "../../accommodation/accommodation.service";
 import {UserService} from "../../user/user.service";
 import {HttpErrorResponse} from "@angular/common/http";
+import {Notification} from "../../notifications/model/Notification";
+import {format} from "date-fns";
+import {NotificationType} from "../../enums/notification-type";
+import {NotificationService} from "../../notifications/notification.service";
 
 @Component({
   selector: 'app-owner-card',
@@ -28,7 +32,8 @@ export class OwnerCardComponent {
 
   constructor(private service: RequestService,
               private accommodationService: AccommodationService,
-              private userService: UserService) {
+              private userService: UserService,
+              private notificationService: NotificationService) {
     this.request = {
       "guestId": NaN,
       "accommodationId": 0,
@@ -69,6 +74,19 @@ export class OwnerCardComponent {
     })
   }
 
+  sendMessageUsingRest() {
+    let message: Notification = {
+      userId: this.request.guestId,
+      time: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
+      content: "You got an answer for reservation request\n for accommodation " + this.accommodation.title,
+      type: NotificationType.RESERVATION_APPROVE
+    };
+
+    this.notificationService.postRest(message).subscribe(res => {
+      console.log(res);
+    })
+  }
+
   approveRequest() {
     if(new Date(this.request.fromDate) < new Date()) {
       alert("this request has a past date so you can't approve it")
@@ -78,9 +96,11 @@ export class OwnerCardComponent {
           console.log(data);
           if (data === "OK"){
             alert("reservation request is approved!\nreservation created!")
+            this.sendMessageUsingRest();
           }
           else {
             alert(data);
+            this.sendMessageUsingRest();
           }
           location.reload();
         },
@@ -89,6 +109,7 @@ export class OwnerCardComponent {
             alert('Error occurred:' + error.error.message);
           } else {
             alert(error.error.text);
+            this.sendMessageUsingRest();
           }
           location.reload();
           console.log("Greška:", error);
@@ -117,10 +138,12 @@ export class OwnerCardComponent {
       this.service.acceptOrDeclineReservationRequest(this.request, false).subscribe({
         next: (data: String) => {
           if (data === "OK"){
-            alert("reservation request is denied!")
+            alert("reservation request is denied!");
+            this.sendMessageUsingRest();
           }
           else {
             alert(data);
+            this.sendMessageUsingRest();
           }
           location.reload();
         },

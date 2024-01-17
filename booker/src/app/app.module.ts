@@ -27,6 +27,7 @@ import {ReservationsModule} from "./reservations/reservations.module";
 import {GuestReservationCardComponent} from "./reservations/guest-reservation-card/guest-reservation-card.component";
 import {GuestReservationsComponent} from "./reservations/guest-reservations/guest-reservations.component";
 import { ReportUserComponent } from './user/report-user/report-user.component';
+import {NotificationsModule} from "./notifications/notifications.module";
 import {CommentsAndRatingsModule} from "./comments-and-ratings/comments-and-ratings.module";
 import {RatingCardComponent} from "./comments-and-ratings/rating-card/rating-card.component";
 
@@ -57,6 +58,7 @@ import {RatingCardComponent} from "./comments-and-ratings/rating-card/rating-car
     SharedModule,
     ReportsModule,
     ReservationsModule,
+    NotificationsModule,
     CommentsAndRatingsModule
   ],
   providers: [MapService, MapComponent,{

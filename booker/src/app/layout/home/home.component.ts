@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {AccommodationService} from "../../accommodation/accommodation.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {NavbarService} from "../navbar.service";
 
 @Component({
   selector: 'app-home',
@@ -22,8 +23,10 @@ export class HomeComponent implements OnInit{
   location: string = '';
   people: number = 0;
 
-  constructor(private service: AccommodationService, private router: Router,
-              private formBuilder: FormBuilder) {
+  constructor(private service: AccommodationService,
+              private router: Router,
+              private formBuilder: FormBuilder,
+              private navbarService: NavbarService) {
   }
 
   private areFormParametersValid(location: string, startDate: string, endDate: string, people: number) {
@@ -63,6 +66,7 @@ export class HomeComponent implements OnInit{
     start: ['', [Validators.required]],
     end: ['', [Validators.required]]
   });
+    this.callMethod();
   }
 
   formatDateToString(date: Date): string {
@@ -71,5 +75,9 @@ export class HomeComponent implements OnInit{
     const year = date.getFullYear().toString();
 
     return `${month}-${day}-${year}`;
+  }
+
+  callMethod() {
+    this.navbarService.triggerEvent();
   }
 }

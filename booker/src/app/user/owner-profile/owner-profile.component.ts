@@ -16,6 +16,10 @@ import {UserDTO} from "../dto/UserDTO";
 import {OwnerRatingDTO} from "../dto/OwnerRatingDTO";
 import {DatePipe} from "@angular/common";
 import {ReportUserService} from "../report-user.service";
+import {Notification} from "../../notifications/model/Notification";
+import {format} from "date-fns";
+import {NotificationType} from "../../enums/notification-type";
+import {NotificationService} from "../../notifications/notification.service";
 
 interface DisplayMessage {
   msgType: string;
@@ -72,7 +76,8 @@ export class OwnerProfileComponent implements OnInit{
               private ownerCommentService: OwnerCommentService,
               private snackBar : SnackBarComponent,
               private ownerRatingService: OwnerRatingService,
-              private reportUserService: ReportUserService) { }
+              private reportUserService: ReportUserService,
+              private notificationService: NotificationService) { }
 
 
   ngOnInit(): void {
@@ -89,6 +94,19 @@ export class OwnerProfileComponent implements OnInit{
       })
     });
 
+  }
+
+  sendMessageUsingRest() {
+    let message: Notification = {
+      userId: this.ownerId,
+      time: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
+      content: "You got a new rating!",
+      type: NotificationType.OWNER_RATING
+    };
+
+    this.notificationService.postRest(message).subscribe(res => {
+      console.log(res);
+    })
   }
 
   report():void{
@@ -128,6 +146,7 @@ export class OwnerProfileComponent implements OnInit{
       (response) => {
         console.log("Owner comment successfully added!", response);
         this.openSnackBar("Sucess!", "Close");
+        this.sendMessageUsingRest();
         this.loadOwnerComments();
       },
       (error) => {

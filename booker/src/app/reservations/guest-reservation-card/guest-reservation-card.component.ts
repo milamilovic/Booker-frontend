@@ -7,6 +7,9 @@ import {AccommodationRating} from "../../accommodation/accommodation/model/Accom
 import {Router} from "@angular/router";
 import {format} from 'date-fns';
 import {ReservationStatus} from "../../enums/reservation-status-enum";
+import {Notification} from "../../notifications/model/Notification";
+import {NotificationType} from "../../enums/notification-type";
+import {NotificationService} from "../../notifications/notification.service";
 
 @Component({
   selector: 'app-guest-reservation-card',
@@ -24,7 +27,8 @@ export class GuestReservationCardComponent implements OnInit{
 
   constructor(private router: Router,
               private service: ReservationService,
-              private accommodationService: AccommodationService) {
+              private accommodationService: AccommodationService,
+              private notificationService: NotificationService) {
     console.log("dunja");
     this.reservation = {
       "guestId": NaN,
@@ -75,6 +79,19 @@ export class GuestReservationCardComponent implements OnInit{
     }
   }
 
+  sendMessageUsingRest() {
+    let message: Notification = {
+      userId: this.accommodation.owner_id,
+      time: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
+      content: "Reservation for accommodation " + this.accommodation.title + " got cancelled!",
+      type: NotificationType.RESERVATION_CANCELLATION
+    };
+
+    this.notificationService.postRest(message).subscribe(res => {
+      console.log(res);
+    })
+  }
+
   cancelReservation(): void{
     if(new Date(this.reservation.fromDate) < new Date()) {
       alert("this request has a past date so you can't cancel it")
@@ -84,6 +101,7 @@ export class GuestReservationCardComponent implements OnInit{
         next: (response: boolean) => {
           if (response) {
             alert("Reservation is cancelled!");
+            this.sendMessageUsingRest();
           } else {
             alert("You can not cancel reservation because deadline for cancellation expired." +
               "\nUnfortunately you must pay for it.");

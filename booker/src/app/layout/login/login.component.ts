@@ -3,6 +3,11 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../user/user.service";
 import {catchError, map, of, Subject, takeUntil} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Notification} from "../../notifications/model/Notification";
+
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
+import {environment} from "../../../env/env";
 
 interface DisplayMessage {
   msgType: string;
@@ -25,6 +30,11 @@ export class LoginComponent implements OnInit{
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)])
   });
+  private stompClient: any;
+  isLoaded: boolean = false;
+  isCustomSocketOpened = false;
+
+  private serverUrl = environment.apiHost + 'socket'
 
   constructor(private userService : UserService,
               private router: Router,
@@ -126,6 +136,41 @@ export class LoginComponent implements OnInit{
         // Handle the transformed data or side effects
         //this.userService.getMyInfo().subscribe();
         this.router.navigate([this.returnUrl]);
+        this.initializeWebSocketConnection();
       });
+  }
+
+  initializeWebSocketConnection() {
+    // serverUrl je vrednost koju smo definisali u registerStompEndpoints() metodi na serveru
+    let ws = new SockJS(this.serverUrl);
+    this.stompClient = Stomp.over(ws);
+    let that = this;
+
+    this.stompClient.connect({}, function () {
+      that.isLoaded = true;
+      let id = Number(localStorage.getItem("loggedId"));
+      that.openSocket(id);
+    });
+
+  }
+
+  // Funkcija za pretplatu na topic /socket-publisher/user-id
+  // CustomSocket se otvara kada korisnik unese svoj ID u polje 'fromId' u submit callback-u forme 'userForm'
+  openSocket(id: number) {
+    if (this.isLoaded) {
+      this.isCustomSocketOpened = true;
+      console.log("Pretplatili smo se na id " + id)
+      this.stompClient.subscribe("/socket-publisher/" + id, (message: { body: string; }) => {
+        this.handleResult(message);
+      });
+    }
+  }
+
+  // Funkcija koja se poziva kada server posalje poruku na topic na koji se klijent pretplatio
+  handleResult(message: { body: string; }) {
+    if (message.body) {
+      let notification: Notification = JSON.parse(message.body);
+      alert(notification.content)
+    }
   }
 }

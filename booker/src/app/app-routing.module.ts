@@ -27,6 +27,7 @@ import {AccommodationReportComponent} from "./reports/accommodation-report/accom
 import {GuestReservationsComponent} from "./reservations/guest-reservations/guest-reservations.component";
 import {OwnerReservationsComponent} from "./reservations/owner-reservations/owner-reservations.component";
 import {GuestProfilesComponent} from "./user/guest-profiles/guest-profiles.component";
+import {NotificationsComponent} from "./notifications/notifications/notifications.component";
 import {
   OwnerCommentsAndRatingsComponent
 } from "./comments-and-ratings/owner-comments-and-ratings/owner-comments-and-ratings.component";
@@ -61,6 +62,7 @@ const routes: Routes = [
   {path: 'reservations/guest', component: GuestReservationsComponent},
   {path: 'reservations/owner', component: OwnerReservationsComponent},
   {path: 'owner/guests', component: GuestProfilesComponent},
+  {path: 'notifications', component: NotificationsComponent},
   {path: 'comments_and_ratings/owner', component: OwnerCommentsAndRatingsComponent},
   {path: 'comments_and_ratings/accommodation', component: AccommodationCommentsAndRatingsComponent}
 ];
