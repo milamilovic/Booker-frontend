@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-content>
+    <div class="container">
+      <div class="left">
+        <img class="user-image" src="{{accommodation.image.path_front}}">
+        <p class="accommodation-name">{{accommodation.title}}</p>
+      </div>
+      <div class="right">
+        <div class="comments-area" *ngFor="let rate of ratings">
+          <app-rating-card-accommodation [rate]="rate"></app-rating-card-accommodation>
+          <p class="reported" *ngIf="rate.reported">reported</p>
+          <button class="delete" *ngIf="rate.reported" (click)="delete(rate.id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -38,7 +38,8 @@
   border-radius: 10px;
 }
 
-app-accommodation-comments-card {
+app-accommodation-comments-card,
+app-accommodation-ratings-card{
   margin: 2px;
   height: fit-content;
   width: 90%;

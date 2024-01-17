@@ -12,7 +12,7 @@
       <h2 class="title">All owners ratings</h2>
       <div class="placeholder">
         <div class="card_div" *ngFor="let acc of accommodations">
-
+          <app-accommodation-ratings-card [accommodation]="acc"></app-accommodation-ratings-card>
         </div>
       </div>
     </div>

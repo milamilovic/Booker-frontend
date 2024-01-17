@@ -11,6 +11,8 @@ import { OwnerRatingsCardComponent } from './owner-ratings-card/owner-ratings-ca
 import { CommentCardAccommodationComponent } from './comment-card-accommodation/comment-card-accommodation.component';
 import { AccommodationCommentsCardComponent } from './accommodation-comments-card/accommodation-comments-card.component';
 import { AccommodationCommentsAndRatingsComponent } from './accommodation-comments-and-ratings/accommodation-comments-and-ratings.component';
+import { RatingCardAccommodationComponent } from './rating-card-accommodation/rating-card-accommodation.component';
+import { AccommodationRatingsCardComponent } from './accommodation-ratings-card/accommodation-ratings-card.component';
 
 
 
@@ -23,7 +25,9 @@ import { AccommodationCommentsAndRatingsComponent } from './accommodation-commen
     OwnerRatingsCardComponent,
     CommentCardAccommodationComponent,
     AccommodationCommentsCardComponent,
-    AccommodationCommentsAndRatingsComponent
+    AccommodationCommentsAndRatingsComponent,
+    RatingCardAccommodationComponent,
+    AccommodationRatingsCardComponent
   ],
   imports: [
     CommonModule,
