@@ -138,6 +138,19 @@ export class AccommodationComponent implements OnInit  {
       })
   }
 
+  sendMessageForCommentsUsingRest() {
+    let message: Notification = {
+      userId: this.accommodation.owner_id,
+      time: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
+      content: "New comment for accommodation " + this.accommodation.title,
+      type: NotificationType.ACCOMMODATION_RATING
+    };
+
+    this.notificationService.postRest(message).subscribe(res => {
+      console.log(res);
+    })
+  }
+
   closed() {
     // dateRangeStart.value, dateRangeEnd.value to get dates
     const year1 = this.startDate.getFullYear();
@@ -279,6 +292,7 @@ export class AccommodationComponent implements OnInit  {
       (response) => {
         console.log("Accommodation comment successfully added!");
         this.openSnackBar("Success!", "CLOSE");
+        this.sendMessageForCommentsUsingRest();
         this.loadAccommodationComments();
       },
       (error) => {
