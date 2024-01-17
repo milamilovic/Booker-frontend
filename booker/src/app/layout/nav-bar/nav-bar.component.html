@@ -12,9 +12,10 @@
           <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['owner/guests']">My guests</button> </li>
           <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['requests/owner']">Reservation requests</button></li>
           <li class="menu-item" *ngIf="loginRole==='guests'"><button type="button" (click)="toggleMenu()" [routerLink]="['requests/guest']">Reservation requests</button></li>
-          <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()">Approve comments</button></li>
           <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()">Approve blocking</button></li>
           <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()" [routerLink]="['approve']">Approve accommodations</button></li>
+          <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()" [routerLink]="['comments_and_ratings/owner']">Owner comments and ratings</button></li>
+          <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()" [routerLink]="['comments_and_ratings/accommodation']">Accommodation comments and ratings</button></li>
           <li class="menu-item" *ngIf="loginRole==='guests'"><button type="button" (click)="toggleMenu()" [routerLink]="['favourites']">Favorite accommodations</button></li>
           <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['create_accommodation']">Create accommodation</button> </li>
           <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['report/date']">Date interval report</button> </li>

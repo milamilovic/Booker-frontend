@@ -169,8 +169,8 @@ export class UserService {
     return this.http.get<Guest>(environment.apiHost + 'api/guests/' + id);
   }
 
-  getOwners(): Observable<Owner>{
-    return this.http.get<Owner>(environment.apiHost + 'api/owners/all');
+  getOwners(): Observable<Owner[]>{
+    return this.http.get<Owner[]>(environment.apiHost + 'api/owners/all');
   }
 
   getOwnerById(id: number): Observable<Owner>{

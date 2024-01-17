@@ -164,4 +164,8 @@ export class AccommodationService {
   addFavourite(loggedIn: number, accId: number | undefined) {
     return this.http.put<boolean>(environment.apiHost + 'api/guests/favouriteAccommodations/add/' + loggedIn + '/' + accId, null);
   }
+
+  getAllAccommodations() : Observable<AccommodationListingDto[]>{
+    return this.http.get<AccommodationListingDto[]>(environment.apiHost + 'api/accommodations/all');
+  }
 }

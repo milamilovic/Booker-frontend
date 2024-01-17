@@ -27,6 +27,12 @@ import {AccommodationReportComponent} from "./reports/accommodation-report/accom
 import {GuestReservationsComponent} from "./reservations/guest-reservations/guest-reservations.component";
 import {OwnerReservationsComponent} from "./reservations/owner-reservations/owner-reservations.component";
 import {GuestProfilesComponent} from "./user/guest-profiles/guest-profiles.component";
+import {
+  OwnerCommentsAndRatingsComponent
+} from "./comments-and-ratings/owner-comments-and-ratings/owner-comments-and-ratings.component";
+import {
+  AccommodationCommentsAndRatingsComponent
+} from "./comments-and-ratings/accommodation-comments-and-ratings/accommodation-comments-and-ratings.component";
 
 
 const routes: Routes = [
@@ -46,7 +52,7 @@ const routes: Routes = [
   {path: 'accommodation/:id/update', component: UpdateAccommodationComponent},
   {path: 'approve', component: ApproveAccommodationComponent},
   {path: 'accommodations/owner', component: OwnerAccommodationListingComponent},
-  {path: 'owner', component: OwnerProfileComponent},
+  {path: 'owner/:id', component: OwnerProfileComponent},
   {path: 'requests/guest', component: GuestRequestsComponent},
   {path: 'requests/owner', component: OwnerRequestsComponent},
   {path: 'favourites', component: FavouriteAccommodationsComponent},
@@ -54,7 +60,9 @@ const routes: Routes = [
   {path: 'report/date', component: DateIntervalReportComponent},
   {path: 'reservations/guest', component: GuestReservationsComponent},
   {path: 'reservations/owner', component: OwnerReservationsComponent},
-  {path: 'owner/guests', component: GuestProfilesComponent}
+  {path: 'owner/guests', component: GuestProfilesComponent},
+  {path: 'comments_and_ratings/owner', component: OwnerCommentsAndRatingsComponent},
+  {path: 'comments_and_ratings/accommodation', component: AccommodationCommentsAndRatingsComponent}
 ];
 
 @NgModule({
