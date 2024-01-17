@@ -28,6 +28,12 @@ import {GuestReservationsComponent} from "./reservations/guest-reservations/gues
 import {OwnerReservationsComponent} from "./reservations/owner-reservations/owner-reservations.component";
 import {GuestProfilesComponent} from "./user/guest-profiles/guest-profiles.component";
 import {NotificationsComponent} from "./notifications/notifications/notifications.component";
+import {
+  OwnerCommentsAndRatingsComponent
+} from "./comments-and-ratings/owner-comments-and-ratings/owner-comments-and-ratings.component";
+import {
+  AccommodationCommentsAndRatingsComponent
+} from "./comments-and-ratings/accommodation-comments-and-ratings/accommodation-comments-and-ratings.component";
 
 
 const routes: Routes = [
@@ -47,7 +53,7 @@ const routes: Routes = [
   {path: 'accommodation/:id/update', component: UpdateAccommodationComponent},
   {path: 'approve', component: ApproveAccommodationComponent},
   {path: 'accommodations/owner', component: OwnerAccommodationListingComponent},
-  {path: 'owner', component: OwnerProfileComponent},
+  {path: 'owner/:id', component: OwnerProfileComponent},
   {path: 'requests/guest', component: GuestRequestsComponent},
   {path: 'requests/owner', component: OwnerRequestsComponent},
   {path: 'favourites', component: FavouriteAccommodationsComponent},
@@ -56,7 +62,9 @@ const routes: Routes = [
   {path: 'reservations/guest', component: GuestReservationsComponent},
   {path: 'reservations/owner', component: OwnerReservationsComponent},
   {path: 'owner/guests', component: GuestProfilesComponent},
-  {path: 'notifications', component: NotificationsComponent}
+  {path: 'notifications', component: NotificationsComponent},
+  {path: 'comments_and_ratings/owner', component: OwnerCommentsAndRatingsComponent},
+  {path: 'comments_and_ratings/accommodation', component: AccommodationCommentsAndRatingsComponent}
 ];
 
 @NgModule({

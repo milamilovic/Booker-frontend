@@ -28,6 +28,8 @@ import {GuestReservationCardComponent} from "./reservations/guest-reservation-ca
 import {GuestReservationsComponent} from "./reservations/guest-reservations/guest-reservations.component";
 import { ReportUserComponent } from './user/report-user/report-user.component';
 import {NotificationsModule} from "./notifications/notifications.module";
+import {CommentsAndRatingsModule} from "./comments-and-ratings/comments-and-ratings.module";
+import {RatingCardComponent} from "./comments-and-ratings/rating-card/rating-card.component";
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import {NotificationsModule} from "./notifications/notifications.module";
     SharedModule,
     ReportsModule,
     ReservationsModule,
-    NotificationsModule
+    NotificationsModule,
+    CommentsAndRatingsModule
   ],
   providers: [MapService, MapComponent,{
     provide: HTTP_INTERCEPTORS,

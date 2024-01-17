@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-card-content>
+    <div class="commenter-wrapper">
+      <img class="profile" src="{{comment.guestProfilePicture.path}}">
+      <p class="commenter-name">{{comment.guestName + " " + comment.guestSurname}}</p>
+      <p class="comment-date">{{date}}</p>
+    </div>
+    <p class="comment-text">{{comment.content}}</p>
+    <div class="rating-helper">
+      <div class="rating-wrapper">
+        <p class="comment-rate">{{comment.rating | number:'1.1-1'}} / 5.0</p>
+        <img class="comment-star" src="../../../assets/images/icons8-star-26.png">
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

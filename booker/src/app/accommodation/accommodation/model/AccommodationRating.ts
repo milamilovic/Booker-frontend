@@ -1,10 +1,11 @@
-import {User} from "../../../user/model/user.model";
+import {Guest} from "../../../user/guest-view/model/guest.model";
 
 export interface AccommodationRating {
   id: number;
-  accommodation: object;
-  guest: object;
+  accommodationId: number;
+  guestId: number;
   rate: number;
   date: Date;
   reported: boolean;
+  deleted: boolean;
 }
