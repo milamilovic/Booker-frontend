@@ -9,7 +9,7 @@ import {Notification} from "./model/Notification";
 })
 export class NotificationService {
   url: string = environment.apiHost + "api/socket";
-  restUrl:string = environment.apiHost + "/sendMessageRest";
+  restUrl:string = environment.apiHost + "sendMessageRest";
 
   constructor(private http: HttpClient) { }
 

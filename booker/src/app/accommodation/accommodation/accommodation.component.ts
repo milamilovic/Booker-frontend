@@ -116,7 +116,6 @@ export class AccommodationComponent implements OnInit  {
             console.log("date " + selectedDate.toString() + "is available: " + isAvailable);
             return isAvailable;
           };
-          this.sendMessageUsingRest();
         }
       })
     })
@@ -127,7 +126,6 @@ export class AccommodationComponent implements OnInit  {
   }
 
   sendMessageUsingRest() {
-    if (this.form.valid) {
       let message: Notification = {
         userId: this.accommodation.owner_id,
         time: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
@@ -138,7 +136,6 @@ export class AccommodationComponent implements OnInit  {
       this.notificationService.postRest(message).subscribe(res => {
         console.log(res);
       })
-    }
   }
 
   closed() {
@@ -205,6 +202,7 @@ export class AccommodationComponent implements OnInit  {
               console.log("made reservation request: ")
               console.log(data)
               alert("You made a reservation request!");
+              this.sendMessageUsingRest();
             },
             error: (_) => {
             }

@@ -159,6 +159,7 @@ export class LoginComponent implements OnInit{
   openSocket(id: number) {
     if (this.isLoaded) {
       this.isCustomSocketOpened = true;
+      console.log("Pretplatili smo se na id " + id)
       this.stompClient.subscribe("/socket-publisher/" + id, (message: { body: string; }) => {
         this.handleResult(message);
       });
