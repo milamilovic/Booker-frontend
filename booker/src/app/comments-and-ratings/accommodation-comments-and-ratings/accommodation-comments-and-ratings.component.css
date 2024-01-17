@@ -16,9 +16,9 @@
 }
 
 .part{
-  width: 45%;
+  width: 80%;
   border-radius: 20px;
-  padding: 35px 18px 35px 18px;
+  padding: 35px;
   margin: 0 10px 0 10px;
   height: fit-content;
   background-color: #90A28880;

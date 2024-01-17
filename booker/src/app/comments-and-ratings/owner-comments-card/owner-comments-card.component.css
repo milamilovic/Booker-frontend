@@ -20,6 +20,7 @@ mat-card-content {
 
 .left {
   width: 30%;
+  padding-left: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
