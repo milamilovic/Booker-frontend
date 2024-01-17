@@ -137,8 +137,6 @@ export class LoginComponent implements OnInit{
         //this.userService.getMyInfo().subscribe();
         this.router.navigate([this.returnUrl]);
         this.initializeWebSocketConnection();
-        let id = Number(localStorage.getItem("loggedId"));
-        this.openSocket(id);
       });
   }
 
@@ -150,6 +148,8 @@ export class LoginComponent implements OnInit{
 
     this.stompClient.connect({}, function () {
       that.isLoaded = true;
+      let id = Number(localStorage.getItem("loggedId"));
+      that.openSocket(id);
     });
 
   }
@@ -170,7 +170,7 @@ export class LoginComponent implements OnInit{
   handleResult(message: { body: string; }) {
     if (message.body) {
       let notification: Notification = JSON.parse(message.body);
-      alert("You got a new notification: " + notification.type)
+      alert(notification.content)
     }
   }
 }
