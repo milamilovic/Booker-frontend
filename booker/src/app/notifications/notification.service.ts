@@ -26,4 +26,8 @@ export class NotificationService {
   getAllPersonalNotifications(id:number):Observable<Notification[]> {
     return this.http.get<Notification[]>(environment.apiHost + 'api/notifications/' + id);
   }
+
+  changePreferences(id: number, checked: boolean, userId: number){
+    return this.http.get<void>(environment.apiHost + 'api/notifications/settings/' + userId + '/' + id + '/' + checked);
+  }
 }

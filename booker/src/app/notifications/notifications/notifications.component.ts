@@ -55,10 +55,18 @@ export class NotificationsComponent implements OnInit{
   }
 
 
-  onToggle($event: MatSlideToggleChange) {
+  onToggle($event: MatSlideToggleChange, id: number) {
     //TODO saljemo zahtev za promenu podesavanja notif
+    let loginId = Number(localStorage.getItem('loggedId'));
     // @ts-ignore
     console.log('toggle ', $event.checked)
+    this.service.changePreferences(id, $event.checked, loginId).subscribe({
+      next: (data:void)=> {
+      },
+      error:(_)=>{
+        console.log("Error");
+      }
+    })
     // this.updateAcc.manual_accepting = $event.checked;
   }
 }
