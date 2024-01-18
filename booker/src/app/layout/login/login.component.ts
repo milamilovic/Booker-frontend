@@ -116,6 +116,11 @@ export class LoginComponent implements OnInit{
           return data;
         }),
         catchError(error => {
+          if (error.status == 403) {
+            alert("You can not log in because you are blocked by the admin!");
+            this.notification = {msgType: 'error', msgBody: 'blocked account.'};
+            return of();
+          }
           if(error.status == 400){
             alert("Validation failed!");
             this.notification = {msgType: 'error', msgBody: 'not activated.'};
