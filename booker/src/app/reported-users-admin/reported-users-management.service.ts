@@ -19,4 +19,8 @@ export class ReportedUsersManagementService {
   getAllReportedUsers() : Observable<User[]> {
     return this.http.get<User[]>(environment.apiHost + 'api/admin/reported');
   }
+
+  blockUser(id: number, blocked: boolean){
+    return this.http.get<void>(environment.apiHost + 'api/report_user/' + id + '/block/' + blocked);
+  }
 }

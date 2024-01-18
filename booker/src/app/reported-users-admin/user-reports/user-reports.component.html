@@ -5,7 +5,8 @@
         <img class="user-image" src="{{user.profilePicture?.path}}">
         <p class="user-name-surname" >{{user.name + " " + user.surname}}</p>
         <p class="user-email">{{"Number of reports: " + reportsNumber}}</p>
-        <button class="delete" id="delete-btn" (click)="block(user.id)">Block</button>
+        <button class="delete" [attr.id]="'delete-btn-' + user.id" (click)="block(user.id)" #deleteBtn>Block
+        </button>
       </div>
       <div class="right">
         <div class="comments-area" *ngFor="let report of reports">
