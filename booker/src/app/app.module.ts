@@ -30,6 +30,7 @@ import { ReportUserComponent } from './user/report-user/report-user.component';
 import {NotificationsModule} from "./notifications/notifications.module";
 import {CommentsAndRatingsModule} from "./comments-and-ratings/comments-and-ratings.module";
 import {RatingCardComponent} from "./comments-and-ratings/rating-card/rating-card.component";
+import {ReportedUsersAdminModule} from "./reported-users-admin/reported-users-admin.module";
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import {RatingCardComponent} from "./comments-and-ratings/rating-card/rating-car
     ReportsModule,
     ReservationsModule,
     NotificationsModule,
-    CommentsAndRatingsModule
+    CommentsAndRatingsModule,
+    ReportedUsersAdminModule
   ],
   providers: [MapService, MapComponent,{
     provide: HTTP_INTERCEPTORS,

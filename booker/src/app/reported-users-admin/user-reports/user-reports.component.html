@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-content>
+    <div class="container">
+      <div class="left">
+        <img class="user-image" src="{{user.profilePicture?.path}}">
+        <p class="user-name-surname" >{{user.name + " " + user.surname}}</p>
+        <p class="user-email">{{"Number of reports: " + reportsNumber}}</p>
+      </div>
+      <div class="right">
+        <div class="comments-area" *ngFor="let report of reports">
+          <app-reporting-card [report]="report"></app-reporting-card>
+          <button class="delete" (click)="block(user.id)">Block</button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
