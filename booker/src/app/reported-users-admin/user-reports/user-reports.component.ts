@@ -2,11 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {User} from "../../user/model/user.model";
 import {UserType} from "../../enums/user-type.enum";
 import {object} from "@amcharts/amcharts5";
-import {Guest} from "../../user/guest-view/model/guest.model";
-import {Owner} from "../../user/owner-view/model/owner.model";
 import {UserService} from "../../user/user.service";
 import {UserReport} from "../../user/model/UserReport";
 import {ReportedUsersManagementService} from "../reported-users-management.service";
+import {Guest} from "../../user/guest-view/model/guest.model";
+import {Owner} from "../../user/owner-view/model/owner.model";
 
 @Component({
   selector: 'app-user-reports',
@@ -22,7 +22,8 @@ export class UserReportsComponent implements OnInit{
   reportsNumber = this.reports.length;
 
 
-  constructor(private service: ReportedUsersManagementService) {
+  constructor(private service: ReportedUsersManagementService,
+              private userService: UserService) {
     this.user = {
       "id": 0,
       "name": "",
@@ -45,8 +46,37 @@ export class UserReportsComponent implements OnInit{
       next: (data: UserReport[]) => {
         this.reports = data;
         this.reportsNumber = data.length;
+
       }
-    })
+    });
+    if (this.user.role == UserType.GUEST){
+      this.userService.getGuestById(this.user.id).subscribe({
+        next(data: Guest) :any {
+          if (data.blocked) {
+            let btn = document.getElementById('delete-btn');
+            if (btn) {
+              btn.textContent = "Unblock";
+              btn.style.backgroundColor = "#e5e5e5";
+              btn.style.color = "#3c3c3c";
+            }
+          }
+        }
+      })
+    }
+    if (this.user.role == UserType.OWNER) {
+      this.userService.getOwnerById(this.user.id).subscribe({
+        next(data: Owner): any {
+          if (data.blocked) {
+            let btn = document.getElementById('delete-btn');
+            if (btn) {
+              btn.textContent = "Unblock";
+              btn.style.backgroundColor = "#e5e5e5";
+              btn.style.color = "#3c3c3c";
+            }
+          }
+        }
+      })
+    }
   }
 
   block(id: number) {

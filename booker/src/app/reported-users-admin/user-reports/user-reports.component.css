@@ -28,7 +28,7 @@ mat-card-content {
 }
 
 .user-image{
-  width: 90%;
+  width: 80%;
 }
 
 .user-name-surname,
@@ -44,6 +44,7 @@ mat-card-content {
 
 .right{
   padding-left: 10px;
+  width: 50%;
 }
 
 .comments-area{
@@ -60,11 +61,12 @@ app-reporting-card {
 .delete {
   background-color: #3c3c3c;
   color: #e5e5e5;
-  font-size: 13px;
+  font-size: 15px;
   border: 1px solid #3c3c3c;
   border-radius: 10px;
   width: fit-content;
-  padding: 7px 10px;
+  padding: 7px 40px;
+  margin-top: 15px;
 }
 
 .delete:hover {
