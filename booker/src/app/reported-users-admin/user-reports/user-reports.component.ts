@@ -7,6 +7,15 @@ import {UserReport} from "../../user/model/UserReport";
 import {ReportedUsersManagementService} from "../reported-users-management.service";
 import {Guest} from "../../user/guest-view/model/guest.model";
 import {Owner} from "../../user/owner-view/model/owner.model";
+import {ReservationService} from "../../reservations/reservation.service";
+import {Reservation} from "../../reservations/model/Reservation";
+import {of} from "rxjs";
+import {Notification} from "../../notifications/model/Notification";
+import {format} from "date-fns";
+import {NotificationType} from "../../enums/notification-type";
+import {NotificationService} from "../../notifications/notification.service";
+import {AccommodationViewDto} from "../../accommodation/accommodation/model/accommodation-view";
+import {AccommodationService} from "../../accommodation/accommodation.service";
 
 @Component({
   selector: 'app-user-reports',
@@ -26,9 +35,13 @@ export class UserReportsComponent implements OnInit {
   @ViewChild('deleteBtn') deleteBtn: ElementRef | undefined;
 
 
+
   constructor(private service: ReportedUsersManagementService,
               private userService: UserService,
-              private renderer: Renderer2) {
+              private renderer: Renderer2,
+              private reservationService: ReservationService,
+              private notificationService: NotificationService,
+              private accommodationService: AccommodationService) {
     this.user = {
       "id": 0,
       "name": "",
@@ -86,6 +99,19 @@ export class UserReportsComponent implements OnInit {
     }
   }
 
+  sendMessageUsingRest(acc: AccommodationViewDto) {
+    let message: Notification = {
+      userId: acc.owner_id,
+      time: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
+      content: "Reservation for accommodation " + acc.title + " got cancelled!",
+      type: NotificationType.RESERVATION_CANCELLATION
+    };
+
+    this.notificationService.postRest(message).subscribe(res => {
+      console.log(res);
+    })
+  }
+
   block(id: number) {
     this.service.blockUser(this.user.id, !this.blocked).subscribe({
       next: (data: void) => {
@@ -94,9 +120,39 @@ export class UserReportsComponent implements OnInit {
         } else {
           alert("User " + this.user.name + " " + this.user.surname + " with id " + this.user.id + " is blocked!");
         }
-        location.reload();
+        //location.reload();
+        if (this.user.role == UserType.GUEST){
+          this.userService.getGuestById(this.user.id).subscribe({
+            next: (data: Guest) => {
+              if (data.blocked) {
+                console.log("blokirani gost");
+                this.reservationService.getAllFutureApprovedForGuest(data.id).subscribe({
+                  next: (result: Reservation[]) => {
+                    console.log("lista rez");
+                    if (result.length != 0) {
+                      console.log(result);
+                      // za svaku rezervaciju od odgovarajucih, poslati obavestenje domacinu smestaja o otkazivanju
+                      result.forEach((r: Reservation) => {
+
+                        this.accommodationService.getAccommodation(r.accommodationId).subscribe({
+                          next: (acc: AccommodationViewDto)=>{
+                            console.log("send mess");
+                            this.sendMessageUsingRest(acc);
+                          }
+                        })
+                      });
+                    }
+                  }
+                })
+              }
+            }
+          })
+        }
       }
     })
+
+    // ako je gost blokiran, treba mu otkazati sve rezervacije koje su odobrene
+
 
   }
 
