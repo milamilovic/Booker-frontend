@@ -27,4 +27,8 @@ export class ReservationService {
       })
     );
   }
+
+  getAllFutureApprovedForGuest(guestId: number) : Observable<Reservation[]>{
+    return this.http.get<Reservation[]>(environment.apiHost + 'api/reservations/guest/' + guestId + '/future/approved');
+  }
 }

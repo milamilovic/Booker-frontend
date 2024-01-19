@@ -41,7 +41,6 @@ export class OwnerRatingsCardComponent implements OnInit{
       "cancellationNotificationEnabled": false,
       "ratingNotificationEnabled": false,
       "accNotificationEnabled": false
-
     }
   }
 

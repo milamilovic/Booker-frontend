@@ -34,6 +34,7 @@ import {
 import {
   AccommodationCommentsAndRatingsComponent
 } from "./comments-and-ratings/accommodation-comments-and-ratings/accommodation-comments-and-ratings.component";
+import {ReportedUsersComponent} from "./reported-users-admin/reported-users/reported-users.component";
 
 
 const routes: Routes = [
@@ -64,7 +65,8 @@ const routes: Routes = [
   {path: 'owner/guests', component: GuestProfilesComponent},
   {path: 'notifications', component: NotificationsComponent},
   {path: 'comments_and_ratings/owner', component: OwnerCommentsAndRatingsComponent},
-  {path: 'comments_and_ratings/accommodation', component: AccommodationCommentsAndRatingsComponent}
+  {path: 'comments_and_ratings/accommodation', component: AccommodationCommentsAndRatingsComponent},
+  {path: 'reported', component: ReportedUsersComponent}
 ];
 
 @NgModule({
