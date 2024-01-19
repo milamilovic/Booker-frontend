@@ -113,6 +113,34 @@ export class UserReportsComponent implements OnInit {
   }
 
   block(id: number) {
+    // ako se blokira gost, treba mu otkazati sve rezervacije koje su odobrene
+    if (this.user.role == UserType.GUEST){
+      this.userService.getGuestById(this.user.id).subscribe({
+        next: (data: Guest) => {
+          if (!this.blocked) {
+            console.log("blokirani gost");
+            this.reservationService.getAllFutureApprovedForGuest(data.id).subscribe({
+              next: (result: Reservation[]) => {
+                console.log("lista rez");
+                if (result.length != 0) {
+                  console.log(result);
+                  // za svaku rezervaciju od odgovarajucih, poslati obavestenje domacinu smestaja o otkazivanju
+                  result.forEach((r: Reservation) => {
+
+                    this.accommodationService.getAccommodation(r.accommodationId).subscribe({
+                      next: (acc: AccommodationViewDto)=>{
+                        console.log("send mess");
+                        this.sendMessageUsingRest(acc);
+                      }
+                    })
+                  });
+                }
+              }
+            })
+          }
+        }
+      })
+    }
     this.service.blockUser(this.user.id, !this.blocked).subscribe({
       next: (data: void) => {
         if(this.blocked){
@@ -121,37 +149,10 @@ export class UserReportsComponent implements OnInit {
           alert("User " + this.user.name + " " + this.user.surname + " with id " + this.user.id + " is blocked!");
         }
         //location.reload();
-        if (this.user.role == UserType.GUEST){
-          this.userService.getGuestById(this.user.id).subscribe({
-            next: (data: Guest) => {
-              if (data.blocked) {
-                console.log("blokirani gost");
-                this.reservationService.getAllFutureApprovedForGuest(data.id).subscribe({
-                  next: (result: Reservation[]) => {
-                    console.log("lista rez");
-                    if (result.length != 0) {
-                      console.log(result);
-                      // za svaku rezervaciju od odgovarajucih, poslati obavestenje domacinu smestaja o otkazivanju
-                      result.forEach((r: Reservation) => {
 
-                        this.accommodationService.getAccommodation(r.accommodationId).subscribe({
-                          next: (acc: AccommodationViewDto)=>{
-                            console.log("send mess");
-                            this.sendMessageUsingRest(acc);
-                          }
-                        })
-                      });
-                    }
-                  }
-                })
-              }
-            }
-          })
-        }
       }
     })
 
-    // ako je gost blokiran, treba mu otkazati sve rezervacije koje su odobrene
 
 
   }
