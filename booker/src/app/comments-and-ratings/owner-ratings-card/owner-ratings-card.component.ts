@@ -36,7 +36,12 @@ export class OwnerRatingsCardComponent implements OnInit{
       },
       "reported": false,
       "blocked": false,
-      "deleted": false
+      "deleted": false,
+      "requestNotificationEnabled": false,
+      "cancellationNotificationEnabled": false,
+      "ratingNotificationEnabled": false,
+      "accNotificationEnabled": false
+
     }
   }
 
