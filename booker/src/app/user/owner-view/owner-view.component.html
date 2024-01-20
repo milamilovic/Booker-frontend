@@ -3,8 +3,8 @@
     <div class="half-container">
       <div class="picture-section">
         <img [src]="updateUser.profilePicture?.path" alt="profile-pic" class="profile-pic" />
-        <button class="change-pic-button" (click)="fileInput.click()">upload</button>
-        <input #fileInput type="file" style="display: none;" (change)="onFileSelected($event)" />
+        <!--<button class="change-pic-button" (click)="fileInput.click()">upload</button>-->
+        <input type="file"  accept="image/*" multiple (change)="handleFileInput($event)" />
       </div>
       <div class="role-container">
         <img class="user-role-icon" src="../../../assets/images/user_role.png">

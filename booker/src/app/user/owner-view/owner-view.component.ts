@@ -180,4 +180,24 @@ export class OwnerViewComponent implements OnInit{
     this.averageRating = totalRatings / numberOfComments;
   }
 
+  handleFileInput(event: any) {
+    const files = event.target.files;
+    if (files.length != 1 || files.length === 0) {
+      return;
+    }
+
+    console.log(files);
+
+    this.service.uploadFile(this.loggedIn, files).subscribe(
+      (response:any) => {
+        console.log('New profile picture uploaded successfully', response);
+        //location.reload();
+      },
+      (error) => {
+        console.log(error);
+        //location.reload();
+      }
+    );
+  }
+
 }

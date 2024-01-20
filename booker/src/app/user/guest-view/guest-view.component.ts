@@ -108,4 +108,40 @@ export class GuestViewComponent implements OnInit{
       dialogOverlayById.style.display = "none";
     }
   }
+
+  handleFileInput(event: any) {
+    const files = event.target.files;
+    if (files.length != 1 || files.length === 0) {
+      return;
+    }
+
+    console.log(files);
+
+    this.service.uploadFile(this.loggedIn, files).subscribe({
+      next: (data: string) => {
+        console.log('New profile picture uploaded successfully', data);
+        this.service.getGuestById(this.loggedIn).subscribe({
+          next: (result: Guest) => {
+            this.guest = result;
+          },
+          error: (err: any) => {
+            console.log(err);
+          }
+        })
+      },
+      error: (_) => {
+        console.log('New profile picture uploaded successfully');
+        this.service.getGuestById(this.loggedIn).subscribe({
+          next: (result: Guest) => {
+            this.guest = result;
+          },
+          error: (err: any) => {
+            console.log(err);
+          }
+        })
+      }
+      }
+    );
+    event.target.value = null;
+  }
 }
