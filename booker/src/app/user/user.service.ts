@@ -232,5 +232,13 @@ export class UserService {
   getGuestsForOwner(ownerId: number) {
     return this.http.get<Guest[]>(environment.apiHost + 'api/owners/' + ownerId + '/guests');
   }
+
+  uploadFile(id:number, files: File[]) : Observable<string> {
+    const data : FormData = new FormData();
+    for (let file of files){
+      data.append("images", file);
+    }
+    return this.http.post<string>(environment.apiHost + 'api/users/' + id + '/upload_image', data);
+  }
 }
 
