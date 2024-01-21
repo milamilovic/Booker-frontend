@@ -20,6 +20,7 @@ interface DisplayMessage {
   styleUrls: ['./update-availability.component.css']
 })
 export class UpdateAvailabilityComponent implements OnInit{
+  todayDate:Date = new Date();
   formGroupAvailability = new FormGroup({
     startDate: new FormControl(''),
     endDate: new FormControl('')

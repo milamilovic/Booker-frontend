@@ -53,7 +53,7 @@
       </div>
 
       <div id="buttons">
-        <button type="submit" mat-raised-button id="btnRegister">Register</button>
+        <button [disabled]="!form.valid" type="submit" mat-raised-button id="btnRegister">Register</button>
         <button type="reset" mat-raised-button id="btnCancel" routerLink="/">Cancel</button>
       </div>
     </form>

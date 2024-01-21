@@ -9,7 +9,7 @@
           <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['reservations/owner']">Reservations</button></li>
           <li class="menu-item" *ngIf="loginRole!='admins'"><button type="button" (click)="toggleMenu()" [routerLink]="['notifications']">Notifications</button></li>
           <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['accommodations/owner']">My accommodations</button></li>
-          <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['owner/guests']">My guests</button> </li>
+          <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="[':ownerId/guests']">My guests</button></li>
           <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['requests/owner']">Reservation requests</button></li>
           <li class="menu-item" *ngIf="loginRole==='guests'"><button type="button" (click)="toggleMenu()" [routerLink]="['requests/guest']">Reservation requests</button></li>
           <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()" [routerLink]="['approve']">Approve accommodations</button></li>
