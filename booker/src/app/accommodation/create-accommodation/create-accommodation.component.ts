@@ -21,6 +21,7 @@ import {HttpClient} from "@angular/common/http";
 
 })
 export class CreateAccommodationComponent implements OnInit{
+  todayDate:Date = new Date();
   urls = new Array<string>();
   photos = new Array<Image>();
   amenityNames: string[] = [];
@@ -31,7 +32,7 @@ export class CreateAccommodationComponent implements OnInit{
       name: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       shortDescription: new FormControl('', [Validators.required]),
-      accommodation_type: new FormControl("Studio", [Validators.required])
+      accommodation_type: new FormControl(AccommodationType.STUDIO, [Validators.required])
   })
 
   formGroupLocation = new FormGroup({
@@ -56,10 +57,10 @@ export class CreateAccommodationComponent implements OnInit{
   })
 
   formGroupPrice = new FormGroup({
-    priceStartDate: new FormControl(),
-    priceEndDate: new FormControl(),
+    priceStartDate: new FormControl('', [Validators.required]),
+    priceEndDate: new FormControl('', Validators.required),
     amount: new FormControl(100.0, [Validators.required]),
-    price_type: new FormControl('PER_GUEST', [Validators.required])
+    price_type: new FormControl(PriceType.PER_GUEST, [Validators.required])
   })
 
   formGroupAmenities = new FormGroup({
@@ -111,8 +112,8 @@ export class CreateAccommodationComponent implements OnInit{
   submitForm() {
     const price: Price = {
       cost: this.formGroupPrice.value.amount!,
-      fromDate: this.formGroupPrice.value.priceStartDate,
-      toDate: this.formGroupPrice.value.priceEndDate,
+      fromDate: this.formGroupPrice.value.priceStartDate!,
+      toDate: this.formGroupPrice.value.priceEndDate!,
       type: (this.formGroupPrice.value.price_type === "PER_ACCOMMODATION") ? PriceType.PER_ACCOMMODATION : PriceType.PER_GUEST,
     };
 
@@ -132,13 +133,13 @@ export class CreateAccommodationComponent implements OnInit{
     console.log('FormGroup Location:', this.formGroupLocation.value);
     console.log('Address', address.street, address.city, address.latitude, address.longitude)
     let accType = AccommodationType.STUDIO;
-    if(this.formGroupNameDescType.value.accommodation_type === "Studio"){
+    if(this.formGroupNameDescType.value.accommodation_type === "STUDIO"){
       accType = AccommodationType.STUDIO;
-    }else if(this.formGroupNameDescType.value.accommodation_type === "Room"){
+    }else if(this.formGroupNameDescType.value.accommodation_type === "ROOM"){
       accType = AccommodationType.ROOM;
-    } else if(this.formGroupNameDescType.value.accommodation_type === "Hotel") {
+    } else if(this.formGroupNameDescType.value.accommodation_type === "HOTEL") {
       accType = AccommodationType.HOTEL;
-    } else if(this.formGroupNameDescType.value.accommodation_type === "Villa") {
+    } else if(this.formGroupNameDescType.value.accommodation_type === "VILLA") {
       accType = AccommodationType.VILLA;
     }
 
@@ -237,6 +238,13 @@ export class CreateAccommodationComponent implements OnInit{
     this.formGroupLocation.value.lat = eventData.lat;
     this.formGroupLocation.value.lng = eventData.lng;
 
+  }
+
+  areFormGroupsValid(): boolean {
+    console.log("NameDescType: " + this.formGroupNameDescType.valid);
+    console.log("Price: " + this.formGroupPrice.valid);
+    console.log("MinMax: " + this.formGroupMinMaxCapacity.valid);
+    return (this.formGroupNameDescType.valid && this.formGroupAvailability.valid && this.formGroupPrice.valid && this.formGroupMinMaxCapacity.valid);
   }
 
 

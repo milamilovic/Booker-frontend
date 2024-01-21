@@ -35,6 +35,7 @@ import {
   AccommodationCommentsAndRatingsComponent
 } from "./comments-and-ratings/accommodation-comments-and-ratings/accommodation-comments-and-ratings.component";
 import {ReportedUsersComponent} from "./reported-users-admin/reported-users/reported-users.component";
+import {GuestTableComponent} from "./user/guest-table/guest-table.component";
 
 
 const routes: Routes = [
@@ -62,7 +63,7 @@ const routes: Routes = [
   {path: 'report/date', component: DateIntervalReportComponent},
   {path: 'reservations/guest', component: GuestReservationsComponent},
   {path: 'reservations/owner', component: OwnerReservationsComponent},
-  {path: 'owner/guests', component: GuestProfilesComponent},
+  {path: ':ownerId/guests', component: GuestTableComponent},
   {path: 'notifications', component: NotificationsComponent},
   {path: 'comments_and_ratings/owner', component: OwnerCommentsAndRatingsComponent},
   {path: 'comments_and_ratings/accommodation', component: AccommodationCommentsAndRatingsComponent},

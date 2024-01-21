@@ -19,6 +19,7 @@ import { ApproveAccommodationCardComponent } from './approve-accommodation-card/
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { FavouriteCardComponent } from './favourite-card/favourite-card.component';
 import { FavouriteAccommodationsComponent } from './favourite-accommodations/favourite-accommodations.component';
+import {MatIconModule} from "@angular/material/icon";
 
 
 
@@ -35,20 +36,21 @@ import { FavouriteAccommodationsComponent } from './favourite-accommodations/fav
     FavouriteCardComponent,
     FavouriteAccommodationsComponent
   ],
-  imports: [
-    CommonModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    MatCardModule,
-    RouterLink,
-    MatInputModule,
-    MatDatepickerModule,
-    AccommodationComponent,
-    FormsModule,
-    ReactiveFormsModule,
-    MapModule,
-    MatSlideToggleModule
-  ],
+    imports: [
+        CommonModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        MatCardModule,
+        RouterLink,
+        MatInputModule,
+        MatDatepickerModule,
+        AccommodationComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        MapModule,
+        MatSlideToggleModule,
+        MatIconModule
+    ],
   exports: [
     AccommodationComponent
   ]

@@ -68,8 +68,24 @@
 
     <div class="description-box">
       <b class="title">Comments:</b><br><br><br>
-      <div class="rating-container">
-        <p><b>Rating: </b></p><p class="rating">4.8</p><p>/5.0</p>
+      <div class="rating_container">
+        <p><b>Rating: </b></p><p class="rating">{{averageRating | number:'1.2-2'}}</p><p>/5.0</p>
+      </div>
+      <div *ngFor="let comment of accommodationComments" class="comment">
+        <img class="profile" src="{{comment.guestProfilePicture.path}}">
+        <div class="right_part">
+          <p class="commenter_name">{{comment.guestName + " " + comment.guestSurname}}</p>
+          <button class="delete-comment" (click)="reportComment(comment)"><mat-icon class="delete-icon">report</mat-icon></button>
+          <p class="comment-date">{{comment.date}}</p>
+          <br><br>
+          <p class="comment_text">{{comment.content}}</p>
+          <div class="rating-helper">
+            <div class="rating-wrapper">
+              <p class="comment-rate">{{comment.rating | number:'1.1-1'}} / 5.0</p>
+              <img class="comment-star" src="../../../assets/images/icons8-star-26.png">
+            </div>
+          </div>
+        </div>
       </div>
       <div class="comment">
         <img class="profile" src="../../../assets/images/profile_image.jpg">

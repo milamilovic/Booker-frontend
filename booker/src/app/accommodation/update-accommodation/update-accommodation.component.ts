@@ -8,6 +8,8 @@ import {Image} from "../accommodation/model/Image";
 import {UpdateAccommodationViewDTO} from "../dto/UpdateAccommodationViewDTO";
 import {UpdateAddressDTO} from "../dto/UpdateAddressDTO";
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+import {AccommodationCommentDTO} from "../accommodation/model/AccommodationCommentDTO";
+import {AccommodationCommentService} from "../accommodation-comment.service";
 
 @Component({
   selector: 'app-update-accommodation',
@@ -15,6 +17,13 @@ import {MatSlideToggleChange} from "@angular/material/slide-toggle";
   styleUrls: ['./update-accommodation.component.css']
 })
 export class UpdateAccommodationComponent implements OnInit{
+  selectedRating: number = 0;
+  stars = Array(5).fill(0);
+  hoverIndex: number = 0;
+  averageRating: number = 0;
+  accommodationComments: AccommodationCommentDTO[] = [];
+  loggedIn: number = Number(localStorage.getItem('loggedId'));
+  accommodationId: number = Number(localStorage.getItem('accommodationId'));
   accommodation!: AccommodationViewDto;
   updateAcc: UpdateAccommodationViewDTO = {
     _id: 0,
@@ -30,7 +39,8 @@ export class UpdateAccommodationComponent implements OnInit{
   constructor(private route: ActivatedRoute,
               private router: Router,
               private service: AccommodationService,
-              private amenityService: AmenityService){}
+              private amenityService: AmenityService,
+              private accommodationCommentService: AccommodationCommentService){}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -38,6 +48,7 @@ export class UpdateAccommodationComponent implements OnInit{
       this.service.getAccommodation(this.id).subscribe({
         next: (data: AccommodationViewDto) => {
           this.accommodation = data;
+          this.loadAccommodationComments();
           this.updateAcc = {
             _id: this.id,
             title: data.title,
@@ -138,5 +149,56 @@ export class UpdateAccommodationComponent implements OnInit{
     // @ts-ignore
     console.log('toggle ', $event.checked)
     this.updateAcc.manual_accepting = $event.checked;
+  }
+
+  rate(rating: number): void {
+    this.selectedRating = rating;
+  }
+
+  hover(index: number): void {
+    this.hoverIndex = index;
+  }
+
+  reset(): void {
+    this.hoverIndex = 0;
+  }
+
+  loadAccommodationComments(): void {
+    this.accommodationCommentService.findAllNotDeletedForAccommodation(this.accommodationId).subscribe(
+      (comments: AccommodationCommentDTO[]) => {
+        console.log(comments);
+        this.accommodationComments = comments;
+        this.calculateAccommodationRate();
+        console.log("Accommodation comments loaded successfully: ", comments);
+      },
+      (error) => {
+        console.log("Error in loading accommodation comments: ", error);
+      }
+    )
+  }
+
+  reportComment(comment: AccommodationCommentDTO) {
+    this.accommodationCommentService.report(comment.id).subscribe(
+      (response) => {
+        console.log("Comment: ", comment);
+        console.log("Comment ID: ", comment.id);
+        console.log("Accommodation comment successfully deleted!", response);
+        this.loadAccommodationComments();
+      },
+      (error) => {
+        console.log("Comment: ", comment);
+        console.log("Comment ID: ", comment.id);
+        console.log("Error in deleting accommodation comment!", error);
+      }
+    )
+  }
+
+  calculateAccommodationRate() {
+    let totalRatings: number = 0;
+    let numberOfComments: number = this.accommodationComments.length;
+    for (const comment of this.accommodationComments) {
+      totalRatings += comment.rating;
+    }
+    this.averageRating = totalRatings / numberOfComments;
   }
 }

@@ -28,4 +28,8 @@ export class AccommodationCommentService {
   remove(id: number) {
     return this.apiService.put(environment.apiHost + `api/accommodation_comments/remove/${id}`, id);
   }
+
+  report(id: number) {
+    return this.apiService.put(environment.apiHost + `api/accommodation_comments/report/${id}`, id);
+  }
 }

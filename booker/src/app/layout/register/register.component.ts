@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserType} from "../../enums/user-type.enum";
 import {UserService} from "../../user/user.service";
 import {User} from "../../user/model/user.model";
 import {ProfilePicture} from "../../user/model/ProfilePicture";
 import {catchError, map, of, Subject, takeUntil} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
+import {CreateUserDTO} from "../../user/dto/CreateUserDTO";
 
 interface DisplayMessage {
   msgType: string;
@@ -30,12 +31,12 @@ export class RegisterComponent implements OnInit {
     surname: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     address: new FormControl('', Validators.required),
-    phone: new FormControl('', Validators.required),
+    phone: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     confirm_password: new FormControl('', Validators.required),
-    role: new FormControl(null, Validators.required)
+    role: new FormControl(UserType.GUEST, [Validators.required])
     //profilePicture: new FormControl(null, Validators.required)
-  });
+  }, {validators: this.passwordMatchValidator});
 
   constructor(private userService: UserService,
               private router: Router,
@@ -51,17 +52,6 @@ export class RegisterComponent implements OnInit {
       });
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    this.form = this.formBuilder.group({
-      name: ['', Validators.compose([Validators.required])],
-      surname: ['', Validators.compose([Validators.required])],
-      email: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64), Validators.email])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(32)])],
-      confirm_password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(32)])],
-      address: ['', Validators.compose([Validators.required])],
-      phone: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])],
-      role: [null, Validators.compose([Validators.required])]
-      //profilePicture: [null, Validators.compose([Validators.required])]
-    });
   }
 
   ngOnDestroy() {
@@ -101,6 +91,17 @@ export class RegisterComponent implements OnInit {
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
+  private passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const password = control.get('password');
+    const confirm_password = control.get('confirm_password');
+
+    if (password && confirm_password && password.value !== confirm_password.value) {
+      return { 'passwordMismatch': true };
+    }
+
+    return null;
+  }
+
   // register() {
   //   if (this.form.valid) {
   //     console.log("Register successful")
@@ -116,6 +117,15 @@ export class RegisterComponent implements OnInit {
 
     this.notification;
     this.submitted = true;
+    const createUser: CreateUserDTO = {
+      name: this.form.value.name!,
+      surname: this.form.value.surname!,
+      email: this.form.value.email!,
+      address: this.form.value.address!,
+      phone: this.form.value.phone!,
+      password: this.form.value.password!,
+      role: (this.form.value.role === "GUEST") ? UserType.GUEST : UserType.OWNER,
+    }
 
     // this.userService.login(this.form.value)
     //   .subscribe(data => {
@@ -130,7 +140,7 @@ export class RegisterComponent implements OnInit {
     //     });
 
 
-    this.userService.signup(this.form.value)
+    this.userService.signup(createUser)
       .pipe(
         map(data => {
           console.log(data);
@@ -153,6 +163,5 @@ export class RegisterComponent implements OnInit {
         //this.userService.getMyInfo().subscribe();
         this.router.navigate([this.returnUrl]);
       });
-
   }
 }

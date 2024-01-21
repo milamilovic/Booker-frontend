@@ -12,7 +12,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 })
 export class ReportUserComponent implements OnInit{
   report_user_form = new FormGroup({
-    reason: new FormControl('', [Validators.required])
+    reason: new FormControl('')
   })
 
   constructor(private reportUserService: ReportUserService,
