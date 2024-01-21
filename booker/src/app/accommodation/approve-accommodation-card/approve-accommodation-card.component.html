@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-content [routerLink]="['/accommodation', accommodation.id]">
+  <mat-card-content>
     <div class="part">
       <img class="image" src="/{{accommodation.image.path_front}}/">
     </div>
@@ -15,10 +15,6 @@
       <div class="right-part-bottom">
         <div class="buttons">
           <button class="btn" (click)="approve()">APPROVE</button>
-        </div>
-        <div class="prices">
-          <p class="full-price"><b>{{accommodation.totalPrice + "$"}}</b></p>
-          <p class="unit-price">{{accommodation.pricePerDay + "$/"}}{{type}}</p>
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@ import {ReservationStatus} from "../../enums/reservation-status-enum";
 import {Notification} from "../../notifications/model/Notification";
 import {NotificationType} from "../../enums/notification-type";
 import {NotificationService} from "../../notifications/notification.service";
+import {ReservationRequestStatus} from "../../enums/reservation-request-status.enum";
 
 @Component({
   selector: 'app-guest-reservation-card',
@@ -101,12 +102,12 @@ export class GuestReservationCardComponent implements OnInit{
         next: (response: boolean) => {
           if (response) {
             alert("Reservation is cancelled!");
+            this.reservation.status = ReservationStatus.CANCELED;
             this.sendMessageUsingRest();
           } else {
             alert("You can not cancel reservation because deadline for cancellation expired." +
               "\nUnfortunately you must pay for it.");
           }
-          location.reload();
         },
         error: (_) => {
           console.log("Greska!")

@@ -21,6 +21,7 @@ export class AdminViewComponent implements OnInit{
   confirmPassword: string = '';
   @ViewChild('fileInput') fileInput!: ElementRef;
   loggedIn: number = 0;
+  path = '../../assets/images/apartment_image.jpg'
 
   constructor(private service: UserService) { }
 
@@ -29,6 +30,9 @@ export class AdminViewComponent implements OnInit{
     this.service.getAdmin(this.loggedIn).subscribe({
       next: (result: Admin) => {
         this.admin = result;
+        if(this.admin.profilePicture){
+          this.path = this.admin.profilePicture.path;
+        }
         this.updateUser = {
           _id: this.loggedIn,
           name: result.name,
@@ -100,14 +104,37 @@ export class AdminViewComponent implements OnInit{
 
     console.log(files);
 
-    this.service.uploadFile(this.loggedIn, files).subscribe(
-      (response:any) => {
-        console.log('New profile picture uploaded successfully', response);
-        location.reload();
+    this.service.uploadFile(this.loggedIn, files).subscribe({
+      next: (data: string) => {
+        console.log('New profile picture uploaded successfully', data);
+        this.service.getAdmin(this.loggedIn).subscribe({
+          next: (result: Admin) => {
+            this.admin = result;
+            if(this.admin.profilePicture){
+              this.path = this.admin.profilePicture.path;
+            }
+          },
+          error: (err: any) => {
+            console.log(err);
+          }
+        })
       },
-      (error) => {
-        location.reload();
+      error: (_) =>{
+        console.log('New profile picture uploaded successfully');
+        this.service.getAdmin(this.loggedIn).subscribe({
+          next: (result: Admin) => {
+            this.admin = result;
+            if(this.admin.profilePicture){
+              this.path = this.admin.profilePicture.path;
+            }
+          },
+          error: (err: any) => {
+            console.log(err);
+          }
+        })
       }
+    }
     );
+
   }
 }

@@ -32,6 +32,7 @@ export class OwnerViewComponent implements OnInit{
   ownerComments: OwnerCommentDTO[] = [];
   isReportClicked = false;
   averageRating: number = 0;
+  path1 = '../../assets/images/apartment_image.jpg'
 
   constructor(private service: UserService,
               private ownerCommentService: OwnerCommentService,
@@ -42,6 +43,9 @@ export class OwnerViewComponent implements OnInit{
       this.service.getOwnerById(this.loggedIn).subscribe({
           next: (result: Owner) => {
               this.owner = result;
+              if(this.owner.profilePicture){
+                this.path1 = this.owner.profilePicture.path;
+              }
               this.updateUser = {
                   _id: this.loggedIn,
                   name: result.name,
@@ -139,20 +143,6 @@ export class OwnerViewComponent implements OnInit{
     this.snackBar.openSnackBar(message, action);
   }
 
-  // reportComment(comment: OwnerCommentDTO) {
-  //   this.ownerCommentService.reportComment(comment.id).subscribe(
-  //     (response) => {
-  //       console.log("Owner comment successfully reported!", response);
-  //       this.isReportClicked = !this.isReportClicked;
-  //       this.openSnackBar("Owner comment successfully reported!", "CLOSE")
-  //     },
-  //     (error) => {
-  //       console.log("Error in reporting owner comment!", error);
-  //       this.openSnackBar("Error in reporting owner comment!", "CLOSE")
-  //     }
-  //   );
-  // }
-
   reportComment(comment: OwnerCommentDTO) {
     this.ownerCommentService.reportComment(comment.id).subscribe(
       (response) => {
@@ -191,13 +181,34 @@ export class OwnerViewComponent implements OnInit{
     this.service.uploadFile(this.loggedIn, files).subscribe(
       (response:any) => {
         console.log('New profile picture uploaded successfully', response);
-        //location.reload();
+        this.service.getOwnerById(this.loggedIn).subscribe({
+          next: (result: Owner) => {
+            this.owner = result;
+            if(result.profilePicture && this.owner.profilePicture){
+              this.path1 = this.owner.profilePicture.path;
+            }
+          },
+          error: (err: any) => {
+            console.log(err);
+          }
+        })
       },
       (error) => {
         console.log(error);
-        //location.reload();
+        this.service.getOwnerById(this.loggedIn).subscribe({
+          next: (result: Owner) => {
+            this.owner = result;
+            if(result.profilePicture && this.owner.profilePicture){
+              this.path1 = this.owner.profilePicture.path;
+            }
+          },
+          error: (err: any) => {
+            console.log(err);
+          }
+        })
       }
     );
+
   }
 
 }

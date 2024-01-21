@@ -27,4 +27,17 @@ export class FavouriteAccommodationsComponent {
       }
     })
   }
+
+  handleEvent(event: string) {
+    alert("Removed from favourites!")
+    let loggedIn = Number(localStorage.getItem("loggedId"));
+    this.service.getFavourites(loggedIn).subscribe({
+      next: (data: FavouriteAccommodation[]) => {
+        this.accommodations = data;
+      },
+      error: (_) => {
+        console.log("Greska!")
+      }
+    })
+  }
 }

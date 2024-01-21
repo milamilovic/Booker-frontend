@@ -4,7 +4,7 @@
     <div class="placeholder">
       <p class="title"><b>Favourite accommodations</b></p>
       <div *ngFor="let accommodation of accommodations" class="card_div">
-        <app-favourite-card [accommodation]="accommodation"></app-favourite-card>
+        <app-favourite-card (refreshFavourites)="handleEvent($event)" [accommodation]="accommodation"></app-favourite-card>
       </div>
     </div>
   </div>

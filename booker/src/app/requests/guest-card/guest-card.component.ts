@@ -4,6 +4,7 @@ import {RequestService} from "../request.service";
 import {AccommodationViewDto} from "../../accommodation/accommodation/model/accommodation-view";
 import {AccommodationService} from "../../accommodation/accommodation.service";
 import {AccommodationRating} from "../../accommodation/accommodation/model/AccommodationRating";
+import {ReservationRequestStatus} from "../../enums/reservation-request-status.enum";
 
 @Component({
   selector: 'app-guest-card',
@@ -68,7 +69,8 @@ export class GuestCardComponent implements OnInit{
       this.service.cancelRequest(this.request).subscribe({
         next: (data: null) => {
           alert("reservation is cancelled!")
-          location.reload();
+          //location.reload();
+          this.request.status = ReservationRequestStatus.DENIED;
         },
         error: (_) => {
           console.log("Greska!")
