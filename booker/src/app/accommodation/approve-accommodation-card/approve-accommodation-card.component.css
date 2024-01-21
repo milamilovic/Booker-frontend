@@ -6,8 +6,8 @@ mat-card-content {
 mat-card {
   background-color: #e5e5e598;
   color: #3c3c3c;
-  margin: 0 50px;
   border-radius: 20px;
+  margin: 40px 30px;
 }
 
 mat-card-content {

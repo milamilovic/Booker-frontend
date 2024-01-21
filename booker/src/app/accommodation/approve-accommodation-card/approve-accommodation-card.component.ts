@@ -2,9 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AccommodationListingDto} from "../accommodation/model/accommodation-listing.model";
 import {Router} from "@angular/router";
 import {AccommodationService} from "../accommodation.service";
-import {PriceType} from "../../enums/price-type.enum";
-import {AccommodationRating} from "../accommodation/model/AccommodationRating";
-
 @Component({
   selector: 'app-approve-accommodation-card',
   templateUrl: './approve-accommodation-card.component.html',
@@ -14,9 +11,7 @@ export class ApproveAccommodationCardComponent  implements OnInit{
 
   @Input()
   accommodation: AccommodationListingDto;
-
-  @Output()
-  clicked: EventEmitter<AccommodationListingDto> = new EventEmitter<AccommodationListingDto>();
+  @Output() refreshList = new EventEmitter<AccommodationListingDto>();
 
   type: string = "";
   rating: string = "";
@@ -38,7 +33,11 @@ export class ApproveAccommodationCardComponent  implements OnInit{
   }
 
   approve(): void {
-    this.service.approveAccommodation(this.accommodation.id).subscribe({next: (data:String)=>{}})
+    this.service.approveAccommodation(this.accommodation.id).subscribe({
+      next: (data: String) => {
+      }
+    })
+    this.refreshList.emit(this.accommodation);
   }
 
   ngOnInit(): void {
@@ -75,3 +74,6 @@ export class ApproveAccommodationCardComponent  implements OnInit{
   }
 
 }
+import {PriceType} from "../../enums/price-type.enum";
+
+import {AccommodationRating} from "../accommodation/model/AccommodationRating";

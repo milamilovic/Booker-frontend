@@ -5,7 +5,7 @@
         <h2>All accommodation</h2>
       </div>
       <div *ngFor="let accommodation of accommodations" class="card_div">
-        <app-approve-accommodation-card (clicked)="onAccommodationClick($event)" [accommodation]="accommodation"></app-approve-accommodation-card>
+        <app-approve-accommodation-card (refreshList)="handleEvent($event)" [accommodation]="accommodation"></app-approve-accommodation-card>
       </div>
     </div>
   </div>

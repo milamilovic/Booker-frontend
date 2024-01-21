@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AccommodationListingDto} from "../accommodation/model/accommodation-listing.model";
 import {FavouriteAccommodation} from "../accommodation/model/favourite-accommodation";
 import {AccommodationService} from "../accommodation.service";
@@ -13,6 +13,7 @@ import {AccommodationRating} from "../accommodation/model/AccommodationRating";
 export class FavouriteCardComponent {
   @Input()
   accommodation: FavouriteAccommodation;
+  @Output() refreshFavourites = new EventEmitter<string>();
 
   rating: string = "";
 
@@ -99,5 +100,6 @@ export class FavouriteCardComponent {
         }
       });
     }
+    this.refreshFavourites.emit(' ');
   }
 }

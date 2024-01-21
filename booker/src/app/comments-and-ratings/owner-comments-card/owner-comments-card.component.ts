@@ -57,9 +57,16 @@ export class OwnerCommentsCardComponent implements OnInit{
 
   delete(id:number){
     this.service.deleteComment(id).subscribe({
-      next(data){
+      next: (data)=>{
         alert("Deleted comment!");
-        location.reload();
+        this.service.getAllCommentsForOwner(this.owner.id).subscribe({
+          next: (data : OwnerCommentDTO[]) => {
+            this.comments = data;
+          },
+          error: (_)=> {
+            console.log("Error with owner comments!");
+          }
+        });
       },
       error(_){
         console.log("Error with comment deletion!");
@@ -69,9 +76,16 @@ export class OwnerCommentsCardComponent implements OnInit{
 
   approve(id:number){
     this.service.approveOwnerComment(id).subscribe({
-      next(data){
+      next:(data) =>{
         alert("Approved comment!");
-        location.reload();
+        this.service.getAllCommentsForOwner(this.owner.id).subscribe({
+          next: (data : OwnerCommentDTO[]) => {
+            this.comments = data;
+          },
+          error: (_)=> {
+            console.log("Error with owner comments!");
+          }
+        });
       },
       error(_){
         console.log("Error with comment approval!");

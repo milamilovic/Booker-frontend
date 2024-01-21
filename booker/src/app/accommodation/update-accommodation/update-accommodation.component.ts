@@ -109,19 +109,47 @@ export class UpdateAccommodationComponent implements OnInit{
   }
 
   cancel(){
-    location.reload();
+    this.service.getAccommodation(this.id).subscribe({
+      next: (data: AccommodationViewDto) => {
+        this.accommodation = data;
+      }
+    })
   }
 
   saveChanges(){
-    this.service.saveUpdatedAcc(this.updateAcc).subscribe({next:(all:String)=>{location.reload();}});
-    this.service.saveUpdatedAddr(this.id, this.updateAddress).subscribe({next:(all:String)=>{location.reload();}});
+    this.service.saveUpdatedAcc(this.updateAcc).subscribe({next:(all:String)=>{
+        this.service.getAccommodation(this.id).subscribe({
+          next: (data: AccommodationViewDto) => {
+            this.accommodation = data;
+          }
+        });
+    }});
+    this.service.saveUpdatedAddr(this.id, this.updateAddress).subscribe({next:(all:String)=>{
+        this.service.getAccommodation(this.id).subscribe({
+          next: (data: AccommodationViewDto) => {
+            this.accommodation = data;
+          }
+        });
+    }});
     this.amenitiesForAcc = [...this.amenitiesForAcc];
-    this.service.saveUpdateAmenities(this.id, this.amenitiesForAcc).subscribe({next:(all:String)=>{location.reload();}});
+    this.service.saveUpdateAmenities(this.id, this.amenitiesForAcc).subscribe({next:(all:String)=>{
+        this.service.getAccommodation(this.id).subscribe({
+          next: (data: AccommodationViewDto) => {
+            this.accommodation = data;
+          }
+        });
+    }});
   }
 
   deleteImage(image : Image){
     console.log(image.id);
-    this.service.removeImage(this.id, image).subscribe({next:(all:void)=>{location.reload();}});
+    this.service.removeImage(this.id, image).subscribe({next:(all:void)=>{
+        this.service.getAccommodation(this.id).subscribe({
+          next: (data: AccommodationViewDto) => {
+            this.accommodation = data;
+          }
+        });
+    }});
 
   }
 
@@ -136,10 +164,18 @@ export class UpdateAccommodationComponent implements OnInit{
     this.service.uploadFile(this.id, files).subscribe(
       (response:any) => {
         console.log('Files uploaded successfully', response);
-        location.reload();
+        this.service.getAccommodation(this.id).subscribe({
+          next: (data: AccommodationViewDto) => {
+            this.accommodation = data;
+          }
+        });
       },
       (error) => {
-        location.reload();
+        this.service.getAccommodation(this.id).subscribe({
+          next: (data: AccommodationViewDto) => {
+            this.accommodation = data;
+          }
+        });
       }
     );
   }

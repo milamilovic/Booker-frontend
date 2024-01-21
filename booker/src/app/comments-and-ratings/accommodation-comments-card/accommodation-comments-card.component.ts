@@ -51,9 +51,18 @@ export class AccommodationCommentsCardComponent implements OnInit{
 
   delete(id:number){
     this.service.deleteAccommodationComment(id).subscribe({
-      next(data){
+      next: (data) => {
         alert("Deleted comment!");
-        location.reload();
+        if (this.accommodation && this.accommodation.id) {
+          this.service.getAllCommentsForAccommodation(this.accommodation.id).subscribe({
+            next: (data: AccommodationCommentDTO[]) => {
+              this.comments = data;
+            },
+            error: (_) => {
+              console.log("Error with accommodation comments!");
+            }
+          });
+        }
       },
       error(_){
         console.log("Error with comment deletion!");
@@ -63,9 +72,18 @@ export class AccommodationCommentsCardComponent implements OnInit{
 
   approve(id:number) {
     this.service.approveAccommodationComment(id).subscribe({
-      next(data) {
+      next:(data) =>{
         alert("Approved comment!");
-        location.reload();
+        if (this.accommodation && this.accommodation.id) {
+          this.service.getAllCommentsForAccommodation(this.accommodation.id).subscribe({
+            next: (data: AccommodationCommentDTO[]) => {
+              this.comments = data;
+            },
+            error: (_) => {
+              console.log("Error with accommodation comments!");
+            }
+          });
+        }
       },
       error(_) {
         console.log("Error with comment approval!");

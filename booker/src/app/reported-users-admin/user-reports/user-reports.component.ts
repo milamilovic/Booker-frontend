@@ -148,7 +148,36 @@ export class UserReportsComponent implements OnInit {
         } else {
           alert("User " + this.user.name + " " + this.user.surname + " with id " + this.user.id + " is blocked!");
         }
-        //location.reload();
+
+        // instead of location.reload()
+        this.service.getAllReportsForUser(this.user.id).subscribe({
+          next: (data: UserReport[]) => {
+            this.reports = data;
+            this.reportsNumber = data.length;
+
+          }
+        });
+        if (this.user.role == UserType.GUEST){
+          this.userService.getGuestById(this.user.id).subscribe({
+            next: (data: Guest) => {
+              this.blocked = data.blocked;
+              if (data.blocked) {
+                this.updateButtonStyle();
+              }
+            },
+
+          })
+        }
+        if (this.user.role == UserType.OWNER) {
+          this.userService.getOwnerById(this.user.id).subscribe({
+            next: (data: Owner) => {
+              this.blocked = data.blocked;
+              if (data.blocked) {
+                this.updateButtonStyle();
+              }
+            }
+          })
+        }
 
       }
     })

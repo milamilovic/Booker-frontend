@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AccommodationListingDto} from "../accommodation/model/accommodation-listing.model";
 import {AccommodationService} from "../accommodation.service";
+import {FavouriteAccommodation} from "../accommodation/model/favourite-accommodation";
 
 @Component({
   selector: 'app-approve-accommodation',
@@ -9,7 +10,6 @@ import {AccommodationService} from "../accommodation.service";
 })
 export class ApproveAccommodationComponent implements OnInit {
   accommodations: AccommodationListingDto[] = [];
-  clickedAcc: string = ''
 
   constructor(private service: AccommodationService) {}
 
@@ -21,7 +21,13 @@ export class ApproveAccommodationComponent implements OnInit {
     });
   }
 
-  onAccommodationClick(accommodation: AccommodationListingDto) {
-    this.clickedAcc = accommodation.title + " " + accommodation.id;
+  handleEvent(acc: AccommodationListingDto) {
+    alert("Approved " + acc.title +  " accommodation!")
+    this.service.getAllUnAccepted().subscribe({
+      next: (data: AccommodationListingDto[]) => {
+        this.accommodations = data
+      }
+    });
   }
+
 }

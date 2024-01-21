@@ -3,8 +3,6 @@ import {ReservationRequest} from "../../accommodation/accommodation/model/Reserv
 import {AccommodationViewDto} from "../../accommodation/accommodation/model/accommodation-view";
 import {RequestService} from "../request.service";
 import {Guest} from "../../user/guest-view/model/guest.model";
-import {UserType} from "../../enums/user-type.enum";
-import {AccommodationRating} from "../../accommodation/accommodation/model/AccommodationRating";
 import {AccommodationService} from "../../accommodation/accommodation.service";
 import {UserService} from "../../user/user.service";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -12,6 +10,7 @@ import {Notification} from "../../notifications/model/Notification";
 import {format} from "date-fns";
 import {NotificationType} from "../../enums/notification-type";
 import {NotificationService} from "../../notifications/notification.service";
+import {ReservationRequestStatus} from "../../enums/reservation-request-status.enum";
 
 @Component({
   selector: 'app-owner-card',
@@ -102,7 +101,7 @@ export class OwnerCardComponent {
             alert(data);
             this.sendMessageUsingRest();
           }
-          location.reload();
+          this.request.status = ReservationRequestStatus.ACCEPTED;
         },
         error: (error: HttpErrorResponse) => {
           if (error.error instanceof ErrorEvent) {
@@ -111,23 +110,10 @@ export class OwnerCardComponent {
             alert(error.error.text);
             this.sendMessageUsingRest();
           }
-          location.reload();
+          this.request.status = ReservationRequestStatus.ACCEPTED;
           console.log("Greška:", error);
         }
       });
-      /*this.service.acceptOrDeclineReservationRequest(this.request, true).subscribe(
-        response => {
-          if (response.body === "OK") {
-            alert("reservation request is approved!\nreservation created!");
-          } else {
-            alert(response.body);
-          }
-          location.reload();
-        },
-        error => {
-          console.log('Error: ', error);
-        }
-      );*/
     }
   }
 
@@ -145,7 +131,7 @@ export class OwnerCardComponent {
             alert(data);
             this.sendMessageUsingRest();
           }
-          location.reload();
+          this.request.status = ReservationRequestStatus.DENIED;
         },
         error: (_) => {
           console.log("Greska!")
