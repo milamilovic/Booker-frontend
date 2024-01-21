@@ -1,0 +1,33 @@
+.background {
+  background-image: url("../../../assets/images/pozadina.png");
+  height: 100vh;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content both horizontally and vertically */
+}
+
+.container {
+  width: fit-content;
+  height: fit-content;
+  border-radius: 30px;
+  background-color: rgba(144, 162, 136, 0.6);
+  text-align: center;
+  padding: 20px;
+}
+
+
+.logo {
+  width: 375px;
+  height: 105px;
+  left: 533px;
+  top: 288px;
+}
+
+h1 {
+  color: rgba(60, 60, 60, 0.8);
+}

@@ -1,0 +1,13 @@
+<mat-card>
+  <mat-card-content>
+    <div class="commenter-wrapper">
+      <img class="profile" src="{{guest.profilePicture?.path}}">
+      <p class="commenter-name">{{guest.name + " " + guest.surname}}</p>
+      <p class="comment-date">{{date}}</p>
+    </div>
+    <div class="rating-wrapper">
+      <p class="comment-text">{{rate.rate}}</p>
+      <img class="comment-star" src="../../../assets/images/icons8-star-26.png">
+    </div>
+  </mat-card-content>
+</mat-card>

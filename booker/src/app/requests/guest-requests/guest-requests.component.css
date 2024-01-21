@@ -1,0 +1,120 @@
+.background {
+  background-image: url("../../../assets/images/background_image.png");
+  background-size: contain;
+  background-position: center;
+  height: fit-content;
+  padding: 20px;
+  min-height: 480px;
+}
+.container {
+  border-radius: 20px;
+  padding: 15px;
+  height: fit-content;
+  background-color: #90A28880;
+}
+form {
+  border-radius: 20px;
+  padding: 1%;
+}
+#where_input{
+  width: 30%;
+  background-color: #e5e5e5;
+  border: #00000000;
+  margin-right: 3%;
+  border-radius: 5px;
+  min-height: 50px;
+}
+
+#search_date,
+#to_date {
+  width: 30%;
+  background-color: #e5e5e5;
+  border: #00000000;
+  margin-right: 3%;
+  border-radius: 5px;
+  min-height: 50px;
+}
+.search-button {
+  background-color: #3c3c3c;
+  color: #e5e5e5;
+  border-radius: 10px;
+  border: #00000000;
+  height: 50px;
+  width: 15%;
+}
+.amenities {
+  margin-left: 30px;
+  margin-top: 10px;
+}
+.filter-button {
+  margin-top: 8px;
+  margin-left: 10px;
+  background-color: #3c3c3c;
+  color: #e5e5e5;
+  border-radius: 10px;
+  border: #00000000;
+  height: 50px;
+  width: 15%;
+}
+.filters {
+  margin-top: 10px;
+  display: flex;
+  white-space: nowrap;
+}
+.right_part_price,
+.right_part_acc_type,
+.left_part_accommodations {
+  margin: 5px;
+  background-color: #e5e5e5;
+  border-radius: 8px;
+  color: #3c3c3c;
+  display: inline-block;
+  min-height: 50px;
+}
+.left_part_accommodations {
+  width: 63%;
+  margin-right: 30px;
+}
+.right_part_price,
+.right_part_acc_type {
+  margin: 5px;
+  background-color: #e5e5e5;
+  display: block;
+}
+.filter-text {
+  margin: 5px;
+  color: #3c3c3c;
+}
+
+#min_price, #max_price {
+  background-color: #FFFFFF80;
+  width: 45%;
+  min-height: 35px;
+  border-radius: 5px;
+  margin: 10px;
+  border-color: #00000000;
+}
+
+.placeholder {
+  height: fit-content;
+  border-radius: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+app-guest-card {
+  margin: 2px;
+  height: fit-content;
+}
+card_div {
+  height: fit-content;
+  max-height: min-content;
+  margin: 2px;
+}
+.filter_text {
+  display: inline;
+  font-size: 20px;
+  color: #3c3c3c;
+  margin-left: 10px;
+  margin-right: 120px;
+  width: fit-content;
+}

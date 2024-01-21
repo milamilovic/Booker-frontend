@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-content>
+    <div class="container">
+      <div class="left">
+        <img class="user-image" (click)="openAccommodation()" src="{{accommodation.image.path_front}}">
+        <p class="accommodation-name" (click)="openAccommodation()">{{accommodation.title}}</p>
+      </div>
+      <div class="right">
+        <div class="comments-area" *ngFor="let comment of comments">
+          <app-comment-card-accommodation [comment]="comment"></app-comment-card-accommodation>
+          <p class="reported" *ngIf="comment.reported">reported</p>
+          <button class="delete" *ngIf="comment.reported" (click)="delete(comment.id)">Delete</button>
+          <button class="approve" *ngIf="!comment.approved" (click)="approve(comment.id)">Approve</button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

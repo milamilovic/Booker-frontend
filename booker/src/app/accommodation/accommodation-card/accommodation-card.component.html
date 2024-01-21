@@ -1,0 +1,23 @@
+<mat-card>
+  <mat-card-content>
+    <div class="left_part">
+      <img class="image" src="/{{accommodation.image.path_front}}/"  [routerLink]="['/accommodation', accommodation.id]">
+      <div class="favourite_container"*ngIf="loggedRole==='guests'">
+        <img class="fav_icon" (click)="favouriteClick()" src="/{{favourite}}/">
+      </div>
+    </div>
+    <div class="right_part" [routerLink]="['/accommodation', accommodation.id]">
+      <div class="name_and_price">
+        <b class="acc_name">{{accommodation.title}}</b>
+        <div class="prices">
+          <p class="full_price"><b>{{accommodation.totalPrice + "$"}}</b></p>
+          <p class="unit_price">{{accommodation.pricePerDay + "$/"}}{{type}}</p>
+        </div>
+      </div>
+      <div class="right_part_bottom">
+        <p class="description">{{accommodation.description}}</p>
+        <p class="rating">{{rating}}</p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

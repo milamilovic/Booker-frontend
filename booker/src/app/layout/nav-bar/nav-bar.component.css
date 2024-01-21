@@ -1,0 +1,104 @@
+.log-in-button,
+.sign-up-button,
+.profile-button,
+.right-section-menu,
+.search-button {
+  float: right;
+  margin-right: 10px;
+  border-radius: 15px;
+  background-color: #90A288;
+  width: 10%;
+  height: 70%;
+  margin-top: 10px;
+  text-align: center;
+}
+.log-in,
+.sign-up,
+.profile,
+.menu-toggle,
+.vector-icon4 {
+  width: 100%;
+  height: 100%;
+  background-color: #FFFFFF00;
+  border: #00000000;
+  color: white;
+}
+.vector-icon4 {
+  margin-top: 10px;
+}
+.search-button {
+  top: 10%;
+  border-radius: 15px;
+  background-color: #90A288;
+  width: 5%;
+  height: 70%;
+}
+.big-logo-icon1 {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  width: 200px;
+  height: 50px;
+  object-fit: fill;
+}
+.vector-icon4 {
+  position: relative;
+  height: 60%;
+  width: 60%;
+  align-self: center;
+  overflow: hidden;
+}
+.property-1default {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: #90A28860;
+  width: 100%;
+  height: 80px;
+  overflow: hidden;
+  font-family: Roboto;
+}
+mat-toolbar {
+  background-color: #90A28860;
+  width: 100%;
+  height: 80px;
+}
+
+.right-menu{
+  position: fixed;
+  top: 0;
+  margin-left: 100px;
+  margin-top: 80px;
+  right: -550px;
+  width: 250px;
+  height: 100%;
+  background-color: #90A288;
+  transition: right 0.4s ease;
+  z-index: 9999;
+}
+
+.show-menu {
+  right: 0;
+}
+
+.close-menu{
+  right: -550px;
+}
+
+.menu-item{
+  width: 100%;
+  height: 50px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.menu-item button{
+  text-decoration: none;
+  display: block;
+  background-color: #90A288;
+  border: #00000000;
+  color: white;
+  font-family: Roboto;
+}

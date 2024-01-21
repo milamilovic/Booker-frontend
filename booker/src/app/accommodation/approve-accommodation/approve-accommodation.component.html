@@ -1,0 +1,12 @@
+<div class="background">
+  <div class="container">
+    <div class="placeholder">
+      <div class="h-background">
+        <h2>All accommodation</h2>
+      </div>
+      <div *ngFor="let accommodation of accommodations" class="card_div">
+        <app-approve-accommodation-card (refreshList)="handleEvent($event)" [accommodation]="accommodation"></app-approve-accommodation-card>
+      </div>
+    </div>
+  </div>
+</div>

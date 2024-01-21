@@ -1,0 +1,85 @@
+<div class="background">
+  <div class="container">
+    <form  #request="ngForm" (ngSubmit)="search(where_input, from_date, to_date, people_input)" *ngIf="!submitted" [formGroup]="form" >
+      <input type="text" id="where_input" name="where_input" placeholder="Where to?" #where_input [(ngModel)]="location" [value]="location" required formControlName="location">
+      <input type="date" id="from_date" name="from_date" placeholder="When?" #from_date [(ngModel)]="startDate" [value]="startDate" required formControlName="start">
+      <input type="date" id="to_date" name="to_date" placeholder="When?" #to_date [(ngModel)]="endDate" [value]="endDate" required formControlName="end">
+      <input type="number" id="people_input" name="people_input" placeholder="How many people?" #people_input [(ngModel)]="people" [value]="people" required formControlName="people">
+      <input type="submit" class="search-button" value="Search!"/>
+    </form>
+    <br>
+    <div class="placeholder">
+      <p class="popular_places"><b>Popular places: </b></p>
+      <div class="popular_places_holder">
+        <ul class="popular_list">
+          <li>
+            <div class="card">
+              <p class="name"><b>Lisbon</b></p>
+              <img class="image" src="../../../assets/images/lisbon_image.jpg">
+            </div>
+          </li>
+          <li>
+            <div class="card">
+              <p class="name"><b>Paris</b></p>
+              <img class="image" src="../../../assets/images/paris_image.jpg">
+            </div>
+          </li>
+          <li>
+            <div class="card">
+              <p class="name"><b>London</b></p>
+              <img class="image" src="../../../assets/images/london_image.jpg">
+            </div>
+          </li>
+          <li>
+            <div class="card">
+              <p class="name"><b>Madrid</b></p>
+              <img class="image" src="../../../assets/images/madrid_image.jpg">
+            </div>
+          </li>
+          <li>
+            <div class="card">
+              <p class="name"><b>Copenhagen</b></p>
+              <img class="image" src="../../../assets/images/copenhagen_image.jpg">
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <p class="accommodation_types"><b>Accommodation types: </b></p>
+      <div class="acc_types_holder">
+        <ul class="acc_types">
+          <li>
+            <div class="card">
+              <p class="name"><b>Hotel</b></p>
+              <img class="image" src="../../../assets/images/hotel_image.jpg">
+            </div>
+          </li>
+          <li>
+            <div class="card">
+              <p class="name"><b>Apartment</b></p>
+              <img class="image" src="../../../assets/images/apartment_image.jpg">
+            </div>
+          </li>
+          <li>
+            <div class="card">
+              <p class="name"><b>Villa</b></p>
+              <img class="image" src="../../../assets/images/villa_image.jpg">
+            </div>
+          </li>
+          <li>
+            <div class="card">
+              <p class="name"><b>Room</b></p>
+              <img class="image" src="../../../assets/images/room_image.jpg">
+            </div>
+          </li>
+          <li>
+            <div class="card">
+              <p class="name"><b>Resort</b></p>
+              <img class="image" src="../../../assets/images/resort_image.jpg">
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

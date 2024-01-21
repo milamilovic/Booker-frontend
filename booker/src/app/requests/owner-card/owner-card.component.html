@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-content>
+    <div class="left_part">
+      <img class="image" src="/{{accommodation.images[0].path_front}}/">
+    </div>
+    <div class="right_part">
+      <div class="name_and_price">
+        <b class="acc_name">{{accommodation.title}}</b>
+        <div class="prices">
+          <p class="full_price"><b>{{request.price + "$"}}</b></p>
+        </div>
+      </div>
+      <div class="right_part_bottom">
+        <div class="description">
+          <div class="dates">{{request.fromDate.toString() + "   -   " + request.toDate.toString()}}</div>
+          <div class="people">{{"people: " + request.numberOfGuests}}</div>
+          <div class="status">{{"status: " + request.status}}</div>
+        </div>
+        <div class="profile">
+          <i class="guest">{{guest.name}}</i>
+          <p class="guest">{{"Number of cancelled reservations: " + cancelled}}</p>
+        </div>
+        <div class="buttons">
+          <button (click)="approveRequest()" *ngIf="request.status.toString()==='WAITING'">Approve request</button>
+          <button (click)="denyRequest()" *ngIf="request.status.toString()==='WAITING'">Deny requests</button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

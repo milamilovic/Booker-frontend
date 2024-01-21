@@ -1,0 +1,22 @@
+.map-frame {
+  border: 2px solid black;
+  height: 300px;
+  width: 500px;
+}
+
+#map {
+  height: 300px;
+  width: 500px;
+}
+
+#non-clickable {
+  height: 300px;
+  width: 500px;
+  overflow: hidden;
+}
+
+mat-form-field {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}

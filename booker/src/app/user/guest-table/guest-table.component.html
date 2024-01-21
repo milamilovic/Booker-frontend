@@ -1,0 +1,22 @@
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Email</th>
+    <th>Address</th>
+    <th>Phone number</th>
+    <th>Report user</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let g of guests; let i = index" [ngClass]="{'first': i % 2 === 0, 'second': i % 2 !== 0}">
+    <td>{{ g.name }}</td>
+    <td>{{ g.surname }}</td>
+    <td>{{ g.email }}</td>
+    <td>{{ g.address }}</td>
+    <td>{{ g.phone }}</td>
+    <td><button mat-raised-button (click)="openPopup(g)">Report User<mat-icon>report</mat-icon></button></td>
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,115 @@
+mat-card {
+  background-color: #90A288;
+  color: #3c3c3c;
+  border-radius: 15px;
+}
+
+mat-card-content {
+  width: 100%;
+  display: flex;
+}
+
+.right_part {
+  display: inline-block;
+}
+
+.left_part {
+  width: 40%;
+  max-height: 250px;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.image {
+  width: 90%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.right_part {
+  width: 58%;
+  display: inline-block;
+}
+
+.name_and_price,
+.rating {
+  width: 95%;
+  height: fit-content;
+  display: inline-block;
+}
+
+.name_and_price {
+  justify-content: space-between;
+}
+
+.prices {
+  display: block;
+  float: right;
+  padding: 0;
+  margin: 0;
+}
+
+.full_price {
+  margin: 0;
+}
+
+.unit_price {
+  margin: 0;
+  font-size: 10px;
+}
+
+p .description{
+  display: inline-block;
+  height: 60%;
+}
+
+.right_part_bottom {
+  white-space: nowrap;
+}
+
+.rating {
+  width: 10%;
+  display: block;
+  float: right;
+  margin-right: 13%;
+  margin-bottom: 0;
+  font-size: 20px;
+}
+
+.right_part {
+  font-size: 25px;
+}
+
+.dates {
+  color: #e5e5e5;
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+.status {
+  color: #3c3c3c;
+  font-size: 17px;
+  margin-top: 20px;
+}
+
+.deadline{
+  color: #e5e5e5;
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+.profile {
+  border-radius: 20px;
+  width: 80%;
+  margin-left: 8%;
+  background-color: #e5e5e5;
+  padding: 5px;
+  height: fit-content;
+  margin-top: 20px;
+}
+
+.guest {
+  font-size: 15px;
+  margin-left: 20px;
+}

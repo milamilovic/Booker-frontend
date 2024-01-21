@@ -1,0 +1,125 @@
+<div class="background">
+
+  <div class="dialog1">
+    <div class="photo-box-wrapper">
+      <div  class="photo-box">
+        <div *ngFor="let image of accommodation.images">
+          <div class="img-and-icon">
+            <img class="acc-image" alt="" [src]="image.path_front" />
+            <button class="btn">
+              <img class="icon-image" src="assets/images/icons8-delete-24.png" alt="Delete" (click)="deleteImage(image)">
+            </button>
+          </div>
+        </div>
+      </div>
+      <input class="more-img" type="file" accept="image/*" multiple (change)="handleFileInput($event)">
+    </div>
+    <div class="description-box">
+      <div >
+        <input class="acc-title" type="text" [(ngModel)]="updateAcc.title" placeholder="title">
+      </div>
+      <br>
+      <br>
+      <textarea class="description" id="description-ta" placeholder="description"  (input)="autoSize($event)" [(ngModel)]="updateAcc.description"></textarea>
+    </div>
+
+    <div class="container">
+      <p class="title">Amenities: </p>
+      <br>
+      <br>
+      <div class="amenity-container">
+        <div *ngFor="let amenity of allAmenities">
+          <div class="amenity">
+            <input class="amenity-checkbox" type="checkbox" [checked]="isAvailable(amenity)" (change)="toggleAmenity($event, amenity)">
+            <img class="amenity-image" [src]="amenity.image_path">
+            <p class="amenity-name">{{amenity.name}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <p class="title">Way of accepting reservation requests: </p>
+      <br>
+      <br>
+      <div class="accepting-requests">
+        <p class="check_option">Automatic accepting</p>
+        <mat-slide-toggle name="manual_check" [checked]="updateAcc.manual_accepting" (change)="onToggle($event)"></mat-slide-toggle>
+        <p class="check_option">Manual accepting</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <p class="title">Address:</p><br>
+      <div class="map-box-wrapper">
+        <div class="half">
+          <input class="address-input" placeholder="city" type="text" [(ngModel)]="updateAddress.city">
+          <input class="address-input" placeholder="street & number" type="text" [(ngModel)]="updateAddress.street">
+          <input class="address-input" placeholder="longitude" type="text" [(ngModel)]="updateAddress.longitude">
+          <input class="address-input" placeholder="latitude" type="text" [(ngModel)]="updateAddress.latitude">
+        </div>
+        <app-map id="non-clickable"></app-map>
+      </div>
+    </div>
+
+    <div class="btn-section">
+      <button class="btn-more-update" (click)="updatePriceAndAvailability()">price & availability</button>
+    </div>
+
+    <div class="description-box">
+      <b class="title">Comments:</b><br><br><br>
+      <div class="rating_container">
+        <p><b>Rating: </b></p><p class="rating">{{averageRating | number:'1.2-2'}}</p><p>/5.0</p>
+      </div>
+      <div *ngFor="let comment of accommodationComments" class="comment">
+        <img class="profile" src="{{comment.guestProfilePicture.path}}">
+        <div class="right_part">
+          <p class="commenter_name">{{comment.guestName + " " + comment.guestSurname}}</p>
+          <button class="delete-comment" (click)="reportComment(comment)"><mat-icon class="delete-icon">report</mat-icon></button>
+          <p class="comment-date">{{comment.date}}</p>
+          <br><br>
+          <p class="comment_text">{{comment.content}}</p>
+          <div class="rating-helper">
+            <div class="rating-wrapper">
+              <p class="comment-rate">{{comment.rating | number:'1.1-1'}} / 5.0</p>
+              <img class="comment-star" src="../../../assets/images/icons8-star-26.png">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="comment">
+        <img class="profile" src="../../../assets/images/profile_image.jpg">
+        <div class="right-part">
+          <p class="commenter-name">Annie Smith</p>
+          <br><br>
+          <p class="comment-text">This is a very lovely apartment and I enjoyed my stay very much!</p>
+        </div>
+      </div>
+      <div class="comment">
+        <img class="profile" src="../../../assets/images/profile_image.jpg">
+        <div class="right-part">
+          <p class="commenter-name">Annie Smith</p>
+          <br><br>
+          <p class="comment-text">This is a very lovely apartment and I enjoyed my stay very much!</p>
+        </div>
+      </div>
+      <div class="comment">
+        <img class="profile" src="../../../assets/images/profile_image.jpg">
+        <div class="right-part">
+          <p class="commenter-name">Annie Smith</p>
+          <br><br>
+          <p class="comment-text">This is a very lovely apartment and I enjoyed my stay very much!</p>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div class="btn-section">
+      <button class="btn-done" (click)="cancel()">Discard changes</button>
+      <button class="btn-done" (click)="saveChanges()">Apply changes</button>
+    </div>
+
+  </div>
+  <br>
+</div>
+

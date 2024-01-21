@@ -1,0 +1,13 @@
+<div class="background">
+  <div class="container">
+    <div class="part">
+      <h2 class="title">All reported users</h2>
+      <div class="placeholder">
+        <p id="message">There are no reported users at the moment!</p>
+        <div class="card_div" *ngFor="let u of users">
+          <app-user-reports [user]="u"></app-user-reports>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

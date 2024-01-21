@@ -1,0 +1,115 @@
+.background {
+  background-image: url("../../../assets/images/background_image.png");
+  background-size: contain;
+  background-position: center;
+  height: fit-content;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.container {
+  border-radius: 20px;
+  padding: 15px;
+  height: fit-content;
+}
+form {
+  border-radius: 20px;
+  height: 7%;
+  padding: 1%;
+  background-color: #90A28880;
+}
+#where_input{
+  width: 30%;
+  background-color: #e5e5e5;
+  border: #00000000;
+  margin-right: 10px;
+  border-radius: 5px;
+  min-height: 50px;
+}
+#people_input {
+  width: 20%;
+  background-color: #e5e5e5;
+  border: #00000000;
+  margin-right: 10px;
+  border-radius: 5px;
+  min-height: 50px;
+}
+#from_date,
+#to_date {
+  width: 20%;
+  background-color: #e5e5e5;
+  border: #00000000;
+  margin-right: 10px;
+  border-radius: 5px;
+  min-height: 50px;
+}
+.search-button {
+  background-color: #3c3c3c;
+  color: #e5e5e5;
+  border-radius: 10px;
+  border: #00000000;
+  min-height: 50px;
+  width: 6%;
+}
+.filters {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  white-space: nowrap;
+}
+.right_part_price,
+.right_part_acc_type,
+.left_part_accommodations {
+  margin: 5px;
+  background-color: #e5e5e5;
+  border-radius: 8px;
+  color: #3c3c3c;
+  display: inline-block;
+  min-height: 50px;
+}
+.left_part_accommodations {
+  width: 46%;
+}
+.right_part{
+  width: 55%;
+}
+.right_part {
+  display: inline-block;
+  overflow: hidden;
+}
+.right_part_price,
+.right_part_acc_type {
+  margin: 5px;
+  background-color: #e5e5e5;
+  display: block;
+}
+.filter-text {
+  margin: 5px;
+  color: #3c3c3c;
+}
+
+#min_price, #max_price {
+  background-color: #FFFFFF80;
+  width: 45%;
+  min-height: 35px;
+  border-radius: 5px;
+  margin: 10px;
+  border-color: #00000000;
+}
+
+.placeholder {
+  height: fit-content;
+  background-color: #90A28880;
+  padding: 10px;
+  border-radius: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+app-accommodation-card {
+  margin: 2px;
+  height: fit-content;
+}
+card_div {
+  height: fit-content;
+  max-height: min-content;
+  margin: 2px;
+}

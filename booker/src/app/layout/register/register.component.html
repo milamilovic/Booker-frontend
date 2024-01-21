@@ -1,0 +1,64 @@
+<div class="background">
+  <div class="register-container">
+    <img src="../../../assets/images/big-logo.png" alt="logo" class="logo">
+    <p *ngIf="notification" [class]="notification.msgType">{{notification.msgBody}}</p>
+    <form #signupForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="!submitted" [formGroup]="form" class="row">
+      <div class="left-column">
+        <mat-form-field>
+          <mat-label>Enter your name</mat-label>
+          <input matInput required formControlName="name">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Enter your surname</mat-label>
+          <input matInput required formControlName="surname">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Enter your address</mat-label>
+          <input matInput required formControlName="address">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Enter your phone number</mat-label>
+          <input matInput required formControlName="phone">
+        </mat-form-field>
+      </div>
+      <div class="right-column">
+        <mat-form-field>
+          <mat-label>Enter your email</mat-label>
+          <input matInput placeholder="pat@example.com"  required formControlName="email">
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" required formControlName="password">
+          <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Confirm your password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" required formControlName="confirm_password">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Select</mat-label>
+          <mat-select formControlName="role">
+            <mat-option *ngFor="let userType of userTypesToDisplay" [value]="userType" >
+              {{ userType }}
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+      </div>
+
+      <div id="buttons">
+        <button [disabled]="!form.valid" type="submit" mat-raised-button id="btnRegister">Register</button>
+        <button type="reset" mat-raised-button id="btnCancel" routerLink="/">Cancel</button>
+      </div>
+    </form>
+    <div id="sign-up">
+      <span id="account">Already have an account?<button mat-button id="btnSignUp" [routerLink]="['/login']">Log in</button></span>
+    </div>
+  </div>
+</div>

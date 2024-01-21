@@ -1,0 +1,12 @@
+<div class="background">
+  <div class="container">
+    <h2 class="title">My reservations</h2>
+    <br>
+    <div class="placeholder">
+      <div class="card_div" *ngFor="let res of reservations">
+        <app-owner-reservation-card [reservation]="res"></app-owner-reservation-card>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,30 @@
+.background {
+  background-image: url("../../../assets/images/background_image.png");
+  background-size: contain;
+  background-repeat: repeat;
+  margin: 0;
+  height: fit-content;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+.container {
+  border-radius: 20px;
+  padding: 35px;
+  width: 60%;
+  height: fit-content;
+  background-color: #90A28880;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title{
+  color: #3c3c3c;
+  padding: 15px;
+}
+
+app-guest-table {
+  width: 100%;
+}

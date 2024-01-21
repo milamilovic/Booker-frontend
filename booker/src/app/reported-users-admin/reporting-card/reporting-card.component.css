@@ -1,0 +1,52 @@
+mat-card {
+  background-color: #e5e5e5;
+  color: #3c3c3c;
+  border-radius: 15px;
+  padding: 0;
+}
+
+mat-card-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.commenter-wrapper{
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.profile {
+  height: 30px;
+  width: 30px;
+  border-radius: 40px;
+  object-fit: cover;
+  margin: 10px;
+}
+
+.commenter-name {
+  flex-grow: 1;
+  font-size: 15px;
+  font-family: 'Roboto';
+  color: #3c3c3c;
+  font-weight: bold;
+}
+
+.comment-date{
+  margin: 5px;
+  font-size: 12px;
+  font-family: 'Roboto';
+  color: #3c3c3c;
+  padding-left: 60px;
+}
+
+.comment-text {
+  font-size: 13px;
+  word-wrap: break-word;
+  margin: 5px 5px 10px 5px;
+  font-family: 'Roboto';
+  color: #3c3c3c;
+  font-weight: lighter;
+}

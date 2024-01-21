@@ -1,0 +1,42 @@
+<mat-toolbar>
+  <div>
+    <div class="property-1default">
+      <img [routerLink]="['/home']" class="big-logo-icon1" alt="" src="../../assets/images/booker-high-resolution-logo-transparent.png" />
+      <div class="right-section-menu" *ngIf="loginUserId!=0">
+        <button class="menu-toggle" (click)="toggleMenu()">Menu</button>
+        <ul class="right-menu" [ngClass]="{'show-menu': isMenuOpen}" id="menu">
+          <li class="menu-item" *ngIf="loginRole==='guests'"><button type="button" (click)="toggleMenu()" [routerLink]="['reservations/guest']">Reservations</button></li>
+          <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['reservations/owner']">Reservations</button></li>
+          <li class="menu-item" *ngIf="loginRole!='admins'"><button type="button" (click)="toggleMenu()" [routerLink]="['notifications']">Notifications</button></li>
+          <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['accommodations/owner']">My accommodations</button></li>
+          <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="[':ownerId/guests']">My guests</button></li>
+          <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['requests/owner']">Reservation requests</button></li>
+          <li class="menu-item" *ngIf="loginRole==='guests'"><button type="button" (click)="toggleMenu()" [routerLink]="['requests/guest']">Reservation requests</button></li>
+          <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()" [routerLink]="['approve']">Approve accommodations</button></li>
+          <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()" [routerLink]="['reported']">Reported users</button></li>
+          <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()" [routerLink]="['comments_and_ratings/owner']">Owner comments and ratings</button></li>
+          <li class="menu-item" *ngIf="loginRole==='admins'"><button type="button" (click)="toggleMenu()" [routerLink]="['comments_and_ratings/accommodation']">Accommodation comments and ratings</button></li>
+          <li class="menu-item" *ngIf="loginRole==='guests'"><button type="button" (click)="toggleMenu()" [routerLink]="['favourites']">Favorite accommodations</button></li>
+          <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['create_accommodation']">Create accommodation</button> </li>
+          <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['report/date']">Date interval report</button> </li>
+          <li class="menu-item" *ngIf="loginRole==='owners'"><button type="button" (click)="toggleMenu()" [routerLink]="['report/accommodation']">Accommodation report</button> </li>
+          <li class="menu-item"><button type="button" (click)="logout()" >Log out</button></li>
+        </ul>
+      </div>
+      <div class="profile-button" *ngIf="loginUserId!=0">
+        <button class="profile" id="profile-id"  [routerLink]="[loginRole]" [queryParams]="{ id: loginUserId }">My profile</button>
+      </div>
+      <div class="log-in-button" *ngIf="loginUserId==0">
+        <button class="log-in" [routerLink]="['login']">Log in</button>
+      </div>
+      <div class="sign-up-button" *ngIf="loginUserId==0">
+        <button class="sign-up" [routerLink]="['signup']">Sign up</button>
+      </div>
+      <div [routerLink]="['/home']" class="search-button">
+        <img class="vector-icon4" alt="" src="../../assets/images/search-icon.png" />
+      </div>
+    </div>
+  </div>
+</mat-toolbar>
+
+
