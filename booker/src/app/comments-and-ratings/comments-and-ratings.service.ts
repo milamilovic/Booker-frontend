@@ -47,4 +47,12 @@ export class CommentsAndRatingsService {
   deleteAccommodationRating(ratingId:number) {
     return this.http.put<Observable<void>>(environment.apiHost + "api/accommodation_ratings/delete/" + ratingId, {});
   }
+
+  approveAccommodationComment(commentId:number) {
+    return this.http.put<Observable<void>>(environment.apiHost + `api/accommodation_comments/approve/${commentId}`, {});
+  }
+
+  approveOwnerComment(commentId:number) {
+    return this.http.put<Observable<void>>(environment.apiHost + `api/owner_comments/approve/${commentId}`, {});
+  }
 }

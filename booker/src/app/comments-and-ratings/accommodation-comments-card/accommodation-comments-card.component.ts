@@ -61,6 +61,18 @@ export class AccommodationCommentsCardComponent implements OnInit{
     })
   }
 
+  approve(id:number) {
+    this.service.approveAccommodationComment(id).subscribe({
+      next(data) {
+        alert("Approved comment!");
+        location.reload();
+      },
+      error(_) {
+        console.log("Error with comment approval!");
+      }
+    })
+  }
+
   openAccommodation() {
     if(this.accommodation && this.accommodation.id) {
       this.router.navigate(['accommodation/', this.accommodation.id]);

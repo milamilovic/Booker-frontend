@@ -67,6 +67,18 @@ export class OwnerCommentsCardComponent implements OnInit{
     })
   }
 
+  approve(id:number){
+    this.service.approveOwnerComment(id).subscribe({
+      next(data){
+        alert("Approved comment!");
+        location.reload();
+      },
+      error(_){
+        console.log("Error with comment approval!");
+      }
+    })
+  }
+
   openOwnerProfile(id: number) {
     console.log("owner id: " + id);
     this.router.navigate(['/owner/', id]);

@@ -61,7 +61,7 @@ app-comment-card {
   padding: 0 10px 0 20px;
 }
 
-.delete {
+.delete, .approve {
   background-color: #3c3c3c;
   color: #e5e5e5;
   font-size: 13px;
@@ -71,7 +71,7 @@ app-comment-card {
   padding: 7px 10px;
 }
 
-.delete:hover {
+.delete:hover, .approve:hover {
   background-color: #e5e5e5;
   color: #3c3c3c;
   transition: 300ms;

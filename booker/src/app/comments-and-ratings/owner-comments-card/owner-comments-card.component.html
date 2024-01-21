@@ -11,6 +11,7 @@
           <app-comment-card [comment]="comment"></app-comment-card>
           <p class="reported" *ngIf="comment.reported">reported</p>
           <button class="delete" *ngIf="comment.reported" (click)="delete(comment.id)">Delete</button>
+          <button class="approve" *ngIf="!comment.approved" (click)="approve(comment.id)">Approve</button>
         </div>
       </div>
     </div>
