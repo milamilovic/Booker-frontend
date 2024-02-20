@@ -1,5 +1,5 @@
-# Booker-backend
-Project for subject ISS
+# Booker-frontend
+Project for subject IKS
 
 ## Description
 The frontend for the Booker web application is an intuitive and user-friendly interface designed to enhance the user experience. Developed in Angular, it provides a seamless and responsive environment for users to interact with the application. The frontend's design was meticulously crafted in Figma, ensuring a visually appealing and modern aesthetic that aligns with the application's brand identity. Additionally, the frontend contains thorough tests and validations, guaranteeing the reliability and functionality of its features. With these features, the frontend serves as the gateway for users to access and utilize Booker's booking functionalities with ease and efficiency.
@@ -80,6 +80,7 @@ Follow the steps below to get the Booker App up and running on your local machin
 #### Viewing reports and downloading them in pdf
 ![Booker - Google Chrome 2_20_2024 7_52_57 PM](https://github.com/milamilovic/Booker-frontend/assets/104532211/7ac1ea84-22a3-4307-a358-12c3c41cd68d)
 ![Booker - Google Chrome 2_20_2024 7_53_06 PM](https://github.com/milamilovic/Booker-frontend/assets/104532211/c9861ae6-f074-456a-aaf6-5d127fdea259)
+![date-interval-report (12) pdf - Google Chrome 2_20_2024 7_53_16 PM](https://github.com/milamilovic/Booker-frontend/assets/104532211/d704d03d-9670-47ac-8b72-1ca8acbad5ab)
 
 ### Admin
 #### Accepting accommodations
